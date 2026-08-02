@@ -130,6 +130,8 @@ alert("Config copied successfully!");
   }
 async function loadPlaylist(){
 
+try{
+
 const response = await fetch("playlist.json?t="+Date.now());
 
 const playlist = await response.json();
@@ -149,6 +151,14 @@ option.textContent=song.name;
 select.appendChild(option);
 
 });
+
+}catch(error){
+
+alert("Playlist failed to load!");
+
+console.log(error);
+
+}
 
 }
 
