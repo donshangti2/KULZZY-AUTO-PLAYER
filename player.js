@@ -1,47 +1,56 @@
 const audio = document.getElementById("liveAudio");
 const playBtn = document.getElementById("playBtn");
 
-let started = false;
+let currentFile = "";
 
-// Read current.txt from GitHub
+// Load the current audio
 async function loadAudio() {
     try {
         const response = await fetch(
-            "https://raw.githubusercontent.com/donshangti2/KULZZY-AUTO-PLAYER/main/current.txt?t=" + Date.now()
+            "https://raw.githubusercontent.com/donshangti2/KULZZY-AUTO-PLAYER/main/current.txt?" + Date.now()
         );
 
-        const filename = (await response.text()).trim();
+        currentFile = (await response.text()).trim();
 
         audio.src =
             "https://raw.githubusercontent.com/donshangti2/KULZZY-AUTO-PLAYER/main/" +
-            encodeURIComponent(filename) +
-            "?t=" +
+            encodeURIComponent(currentFile) +
+            "?" +
             Date.now();
 
-        audio.load();
+        console.log("Loaded:", currentFile);
 
-    } catch (err) {
-        console.log("Error loading audio:", err);
+    } catch (e) {
+        console.error(e);
     }
 }
 
-// Load the current audio
 loadAudio();
 
-// Play / Pause button
 playBtn.onclick = async function () {
+
     if (audio.paused) {
+
         try {
+
             await audio.play();
-            started = true;
+
             playBtn.innerHTML = "❚❚";
+
         } catch (err) {
-            alert("Unable to play audio.");
+
+            alert(err.message);
+
         }
+
     } else {
+
         audio.pause();
+
         playBtn.innerHTML = "▶";
+
     }
+
 };
 
 audio.onended = function () {
