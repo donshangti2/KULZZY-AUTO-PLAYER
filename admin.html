@@ -110,6 +110,19 @@ document.getElementById("output").value=
 JSON.stringify(config,null,2);
 
 }
+  function copyConfig(){
+
+const text =
+document.getElementById("output");
+
+text.select();
+text.setSelectionRange(0,99999);
+
+navigator.clipboard.writeText(text.value);
+
+alert("Config copied successfully!");
+
+  }
 
 </script>
 
