@@ -54,10 +54,24 @@ text-align:center;
 
 <h2>🎙 Kulzzy Radio Admin</h2>
 
-<input
-id="audio"
-placeholder="audio/LIVE_ON_AIR_BDS_96KBPS-compressed.mp3">
+<label><b>Select Audio</b></label>
 
+<select id="audio" style="
+width:100%;
+padding:12px;
+margin:10px 0;
+font-size:18px;
+">
+
+<option value="audio/LIVE_ON_AIR_BDS_96KBPS-compressed.mp3">
+LIVE ON AIR
+</option>
+
+<option value="audio/RADIO_HYPE_BEAT.mp3">
+RADIO HYPE BEAT
+</option>
+
+</select>
 <input
 id="now"
 placeholder="Now Playing">
