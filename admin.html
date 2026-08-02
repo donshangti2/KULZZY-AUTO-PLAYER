@@ -53,7 +53,18 @@ text-align:center;
 <body>
 
 <h2>🎙 Kulzzy Radio Admin</h2>
+<label><b>GitHub Token</b></label>
 
+<input
+id="token"
+type="password"
+placeholder="Paste your GitHub Personal Access Token">
+
+<button onclick="saveToken()">
+🔐 Save Token
+</button>
+
+<br><br>
 <label><b>Select Audio</b></label>
 
 <select id="audio" style="
