@@ -96,7 +96,21 @@ Generate Config
 </button>
 
 <script>
+// Load saved token
+document.getElementById("token").value =
+localStorage.getItem("githubToken") || "";
 
+// Save token
+function saveToken(){
+
+const token =
+document.getElementById("token").value;
+
+localStorage.setItem("githubToken", token);
+
+alert("Token saved on this phone.");
+
+  }
 function generate(){
 
 const config={
