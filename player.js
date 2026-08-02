@@ -24,32 +24,42 @@ async function loadConfig() {
             currentAudio = config.currentAudio;
 
             const wasPlaying = !audio.paused;
+async function loadConfig() {
+    try {
+        const response = await fetch(
+            "https://raw.githubusercontent.com/donshangti2/KULZZY-AUTO-PLAYER/main/config.json?t=" + Date.now()
+        );
+
+        const config = await response.json();
+
+        if (config.currentAudio !== currentAudio) {
+
+            currentAudio = config.currentAudio;
+
+            const wasPlaying = !audio.paused;
 
             audio.src =
-"https://donshangti2.github.io/KULZZY-AUTO-PLAYER/" +
-encodeURIComponent(currentAudio) +
-"?t=" + Date.now();
+            "https://donshangti2.github.io/KULZZY-AUTO-PLAYER/" +
+            encodeURIComponent(currentAudio) +
+            "?t=" + Date.now();
 
             audio.load();
 
             if (wasPlaying) {
-                audio.play().catch(console.error);
-                playBtn.innerHTML = "❚❚";
+                await audio.play().catch(console.error);
             }
         }
 
-        // Check again after the configured number of seconds
-        clearTimeout(window.playerRefreshTimer);
-        window.playerRefreshTimer = setTimeout(loadConfig, config.refresh * 1000);
+        setTimeout(loadConfig, config.refresh * 1000);
 
-    } catch (err) {
-        console.error("Config error:", err);
+    } catch (e) {
 
-        // Retry after 5 seconds if something goes wrong
-        clearTimeout(window.playerRefreshTimer);
-        window.playerRefreshTimer = setTimeout(loadConfig, 5000);
+        console.log(e);
+
+        setTimeout(loadConfig, 5000);
+
     }
-}
+        }
 
 // Initial load
 loadConfig();
