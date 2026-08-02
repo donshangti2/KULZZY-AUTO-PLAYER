@@ -26,9 +26,9 @@ async function loadConfig() {
             const wasPlaying = !audio.paused;
 
             audio.src =
-                "https://raw.githubusercontent.com/donshangti2/KULZZY-AUTO-PLAYER/main/" +
-                encodeURIComponent(currentAudio) +
-                "?t=" + Date.now();
+"https://donshangti2.github.io/KULZZY-AUTO-PLAYER/" +
+encodeURIComponent(currentAudio) +
+"?t=" + Date.now();
 
             audio.load();
 
