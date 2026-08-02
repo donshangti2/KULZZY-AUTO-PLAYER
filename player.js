@@ -1,49 +1,45 @@
 const audio = document.getElementById("liveAudio");
 const playBtn = document.getElementById("playBtn");
 const title = document.querySelector(".title");
+const nowPlaying = document.querySelector(".nowPlaying");
 
 let currentAudio = "";
+let refreshTime = 5;
 
 async function loadConfig() {
     try {
-        const response = await fetch(
-            "https://raw.githubusercontent.com/donshangti2/KULZZY-AUTO-PLAYER/main/config.json?t=" + Date.now()
-        );
-
+        const response = await fetch("config.json?t=" + Date.now());
         const config = await response.json();
 
         title.textContent = config.title;
-        audio.volume = config.volume;
+        refreshTime = config.refresh || 5;
+        audio.volume = config.volume ?? 1;
 
         if (config.currentAudio !== currentAudio) {
-
             currentAudio = config.currentAudio;
+
+            nowPlaying.textContent =
+                "Now Playing: " + currentAudio.replace("audio/", "");
 
             const wasPlaying = !audio.paused;
 
-            audio.src =
-                "https://donshangti2.github.io/KULZZY-AUTO-PLAYER/" +
-                encodeURIComponent(currentAudio) +
-                "?t=" + Date.now();
-
+            audio.src = currentAudio + "?t=" + Date.now();
             audio.load();
 
             if (wasPlaying) {
                 await audio.play();
+                playBtn.innerHTML = "❚❚";
             }
         }
 
-        setTimeout(loadConfig, config.refresh * 1000);
-
     } catch (err) {
         console.error(err);
-        setTimeout(loadConfig, 5000);
     }
+
+    setTimeout(loadConfig, refreshTime * 1000);
 }
 
-loadConfig();
-
-playBtn.onclick = async function () {
+playBtn.onclick = async () => {
 
     if (audio.paused) {
 
@@ -66,3 +62,12 @@ playBtn.onclick = async function () {
 audio.onended = function () {
     playBtn.innerHTML = "▶";
 };
+
+audio.onerror = function () {
+    console.log("Audio error... retrying...");
+    setTimeout(() => {
+        audio.load();
+    }, 3000);
+};
+
+loadConfig();
