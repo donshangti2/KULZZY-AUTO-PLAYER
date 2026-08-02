@@ -18,8 +18,8 @@ async function loadConfig() {
         if (config.currentAudio !== currentAudio) {
             currentAudio = config.currentAudio;
 
-            nowPlaying.textContent =
-                "Now Playing: " + currentAudio.replace("audio/", "");
+            nowPlaying.innerHTML =
+    "🎵 NOW PLAYING<br><strong>" + config.nowPlaying + "</strong>";
 
             const wasPlaying = !audio.paused;
 
