@@ -128,7 +128,31 @@ navigator.clipboard.writeText(text.value);
 alert("Config copied successfully!");
 
   }
+async function loadPlaylist(){
 
+const response = await fetch("playlist.json?t="+Date.now());
+
+const playlist = await response.json();
+
+const select = document.getElementById("audio");
+
+select.innerHTML="";
+
+playlist.forEach(song=>{
+
+const option=document.createElement("option");
+
+option.value=song.file;
+
+option.textContent=song.name;
+
+select.appendChild(option);
+
+});
+
+}
+
+loadPlaylist();
 </script>
 
 </body>
