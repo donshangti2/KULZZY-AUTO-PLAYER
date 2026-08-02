@@ -20,14 +20,10 @@ async function loadConfig() {
 
             const fileName = currentAudio.replace("audio/", "");
 
+const fileName = currentAudio.replace("audio/", "");
+
 nowPlaying.textContent =
     "🎵 NOW PLAYING\n" + fileName.replace(".mp3", "");
-audio.onloadeddata = function () {
-    nowPlaying.innerHTML =
-        "🎵 NOW PLAYING<br><b>" +
-        fileName.replace(".mp3", "") +
-        "</b>";
-};
             const wasPlaying = !audio.paused;
 
             audio.src = currentAudio + "?t=" + Date.now();
