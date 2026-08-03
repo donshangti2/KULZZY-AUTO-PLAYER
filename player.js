@@ -76,7 +76,23 @@ playlist = config.playlist || [];
     };
 
 }
+if (playlistMode && playlist.length > 0) {
 
+    if (audio.paused || currentAudio === "") {
+
+        currentIndex = 0;
+
+        currentAudio = playlist[currentIndex];
+
+        audio.src = currentAudio + "?t=" + Date.now();
+
+        audio.load();
+
+        audio.play();
+
+    }
+
+}
         setTimeout(loadConfig, 1000);
 
     } catch (e) {
