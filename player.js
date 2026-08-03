@@ -4,7 +4,9 @@ const title = document.querySelector(".title");
 const nowPlaying = document.querySelector(".nowPlaying");
 
 let currentAudio = "";
-
+let playlist = [];
+let currentIndex = 0;
+let playlistMode = false;
 async function loadConfig() {
 
     try {
