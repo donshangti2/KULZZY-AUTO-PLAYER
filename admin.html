@@ -190,6 +190,7 @@ const content =
 btoa(
 JSON.stringify(config,null,2)
 );
+try{
 const save = await fetch(
 "https://api.github.com/repos/donshangti2/KULZZY-AUTO-PLAYER/contents/config.json",
 {
@@ -215,6 +216,12 @@ alert("Config saved successfully!");
 alert("Failed to save config.");
 
 }
+
+}catch(error){
+
+alert(error.message);
+
+console.log(error);
 
 }
 async function loadPlaylist(){
