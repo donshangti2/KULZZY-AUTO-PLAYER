@@ -41,13 +41,13 @@ async function loadConfig() {
 
         }
 
-        setTimeout(loadConfig, config.refresh * 1000);
+        setTimeout(loadConfig, 1000);
 
     } catch (e) {
 
         console.log(e);
 
-        setTimeout(loadConfig, 5000);
+        setTimeout(loadConfig, 1000);
 
     }
 
