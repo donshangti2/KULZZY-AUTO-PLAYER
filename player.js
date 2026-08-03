@@ -26,20 +26,35 @@ async function loadConfig() {
 
         if (config.currentAudio !== currentAudio) {
 
-            const wasPlaying = !audio.paused;
+    const wasPlaying = !audio.paused;
 
-            currentAudio = config.currentAudio;
+    if (wasPlaying) {
 
-            audio.src =
-                currentAudio + "?t=" + Date.now();
+        audio.style.opacity = "0.5";
 
-            audio.load();
+    }
 
-            if (wasPlaying) {
-                await audio.play();
-            }
+    currentAudio = config.currentAudio;
+
+    audio.src = currentAudio + "?t=" + Date.now();
+
+    audio.load();
+
+    audio.oncanplay = async () => {
+
+        audio.volume = config.volume;
+
+        if (wasPlaying) {
+
+            await audio.play();
 
         }
+
+        audio.style.opacity = "1";
+
+    };
+
+}
 
         setTimeout(loadConfig, 1000);
 
