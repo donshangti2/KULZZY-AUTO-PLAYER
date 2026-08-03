@@ -1,8 +1,8 @@
 {
   "version": 1,
   "currentAudio": "audio/LIVE_ON_AIR_BDS_96KBPS-compressed.mp3",
-  "nowPlaying": "LIVE ON AIR",
-  "title": "🔴 LIVE ON AIR",
+  "nowPlaying": "",
+  "title": "LIVE ON AIR",
   "status": "LIVE",
   "background": "",
   "volume": 1,
