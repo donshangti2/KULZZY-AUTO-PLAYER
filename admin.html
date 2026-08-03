@@ -186,7 +186,10 @@ volume:1,
 refresh:5
 
 }; 
-console.log(data);
+const content =
+btoa(
+JSON.stringify(config,null,2)
+);
 alert("Connected to GitHub successfully.");
 }    
 async function loadPlaylist(){
