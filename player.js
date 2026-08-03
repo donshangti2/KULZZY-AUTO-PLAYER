@@ -29,15 +29,31 @@ playlist = config.playlist || [];
 
         audio.volume = config.volume;
 
-        if (config.currentAudio !== currentAudio) {
+        if (!playlistMode) {
 
-    const wasPlaying = !audio.paused;
+    if (config.currentAudio !== currentAudio) {
 
-    if (wasPlaying) {
+        const wasPlaying = !audio.paused;
 
-        audio.style.opacity = "0.5";
+        currentAudio = config.currentAudio;
+
+        audio.src = currentAudio + "?t=" + Date.now();
+
+        audio.load();
+
+        audio.oncanplay = async () => {
+
+            audio.volume = config.volume;
+
+            if (wasPlaying) {
+                await audio.play();
+            }
+
+        };
 
     }
+
+}
 
     currentAudio = config.currentAudio;
 
