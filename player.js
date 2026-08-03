@@ -16,6 +16,9 @@ async function loadConfig() {
         );
 
         const config = await response.json();
+        playlistMode = config.playlistMode || false;
+
+playlist = config.playlist || [];
 
         title.textContent = config.title;
 
