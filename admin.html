@@ -190,8 +190,31 @@ const content =
 btoa(
 JSON.stringify(config,null,2)
 );
-alert("Connected to GitHub successfully.");
-}    
+const save = await fetch(
+"https://api.github.com/repos/donshangti2/KULZZY-AUTO-PLAYER/contents/config.json",
+{
+method:"PUT",
+headers:{
+Authorization:"Bearer "+token,
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+message:"Update config",
+content:content,
+sha:data.sha
+})
+}
+);
+
+if(save.ok){
+
+alert("Config saved successfully!");
+
+}else{
+
+alert("Failed to save config.");
+
+  }
 async function loadPlaylist(){
 
 try{
