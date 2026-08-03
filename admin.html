@@ -154,7 +154,17 @@ alert("Config copied successfully!");
   }
   async function saveToGitHub(){
 
-alert("Save button connected successfully.");
+const token = localStorage.getItem("githubToken");
+
+if(!token){
+
+alert("Please save your GitHub token first.");
+
+return;
+
+}
+
+alert("GitHub token found successfully.");
 
   }
 async function loadPlaylist(){
