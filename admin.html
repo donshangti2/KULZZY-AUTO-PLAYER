@@ -151,21 +151,21 @@ navigator.clipboard.writeText(text.value);
 
 alert("Config copied successfully!");
   }
-async function saveToGitHub(){
-
+  async function saveToGitHub(){
+    
 const token = localStorage.getItem("githubToken");
 
-if(!token){
-
-alert("Please save your GitHub token first.");
-
-return;
-
+const response = await fetch(
+"https://api.github.com/repos/donshangti2/KULZZY-AUTO-PLAYER/contents/config.json",
+{
+headers:{
+Authorization:"Bearer "+token
 }
+});
 
-alert("GitHub token found successfully.");
-
-}
+const data = await response.json();
+alert("Connected to GitHub successfully.");
+}    
 async function loadPlaylist(){
 
 try{
