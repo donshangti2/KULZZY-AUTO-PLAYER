@@ -132,3 +132,26 @@ playBtn.onclick = async () => {
     }
 
 };
+audio.onended = async () => {
+
+    if (!playlistMode) return;
+
+    if (playlist.length === 0) return;
+
+    currentIndex++;
+
+    if (currentIndex >= playlist.length){
+
+        currentIndex = 0;
+
+    }
+
+    currentAudio = playlist[currentIndex];
+
+    audio.src = currentAudio + "?t=" + Date.now();
+
+    audio.load();
+
+    await audio.play();
+
+};
