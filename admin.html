@@ -164,6 +164,28 @@ Authorization:"Bearer "+token
 });
 
 const data = await response.json();
+const config = {
+
+version:1,
+
+currentAudio:
+document.getElementById("audio").value,
+
+nowPlaying:
+document.getElementById("now").value,
+
+title:
+document.getElementById("title").value,
+
+status:"LIVE",
+
+background:"",
+
+volume:1,
+
+refresh:5
+
+}; 
 console.log(data);
 alert("Connected to GitHub successfully.");
 }    
