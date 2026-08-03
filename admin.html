@@ -151,9 +151,16 @@ navigator.clipboard.writeText(text.value);
 
 alert("Config copied successfully!");
   }
-  async function saveToGitHub(){
-    
+async function saveToGitHub(){
+
+try{
+
 const token = localStorage.getItem("githubToken");
+
+if(!token){
+alert("Please save your GitHub token first.");
+return;
+}
 
 const response = await fetch(
 "https://api.github.com/repos/donshangti2/KULZZY-AUTO-PLAYER/contents/config.json",
@@ -164,18 +171,16 @@ Authorization:"Bearer "+token
 });
 
 const data = await response.json();
-const config = {
+
+const config={
 
 version:1,
 
-currentAudio:
-document.getElementById("audio").value,
+currentAudio:document.getElementById("audio").value,
 
-nowPlaying:
-document.getElementById("now").value,
+nowPlaying:document.getElementById("now").value,
 
-title:
-document.getElementById("title").value,
+title:document.getElementById("title").value,
 
 status:"LIVE",
 
@@ -185,13 +190,11 @@ volume:1,
 
 refresh:5
 
-}; 
-const content =
-btoa(
-JSON.stringify(config,null,2)
-);
-try{
-const save = await fetch(
+};
+
+const content=btoa(JSON.stringify(config,null,2));
+
+const save=await fetch(
 "https://api.github.com/repos/donshangti2/KULZZY-AUTO-PLAYER/contents/config.json",
 {
 method:"PUT",
@@ -213,7 +216,8 @@ alert("Config saved successfully!");
 
 }else{
 
-alert("Failed to save config.");
+const err=await save.json();
+alert(JSON.stringify(err));
 
 }
 
@@ -221,7 +225,7 @@ alert("Failed to save config.");
 
 alert(error.message);
 
-console.log(error);
+}
 
 }
 async function loadPlaylist(){
