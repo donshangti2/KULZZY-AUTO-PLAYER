@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kulzzy Live Studio</title>
 
+<style>
+body{
+background:#111;
+color:#fff;
+font-family:Arial;
+padding:20px;
+text-align:center;
+}
+
+button{
+width:100%;
+padding:18px;
+font-size:24px;
+margin:15px 0;
+background:#d60000;
+color:#fff;
+border:none;
+border-radius:10px;
+}
+
+#audio{
+width:100%;
+margin-top:20px;
+}
+</style>
+
+</head>
+<body>
+
+<h2>🎙 Kulzzy Live Studio</h2>
+
+<button id="startBtn">
+🎤 START LIVE
+</button>
+
+<button id="stopBtn">
+⛔ STOP LIVE
+</button>
+
+<audio id="audio" controls autoplay></audio>
+
+<script src="live.js"></script>
+
+</body>
+  </html>
