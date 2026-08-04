@@ -211,6 +211,12 @@ background:"",
 
 volume:1,
 
+playlistMode:
+document.getElementById("mode").value==="playlist",
+
+playlist:
+playlist.map(song=>song.file),
+
 refresh:5
 
 };
