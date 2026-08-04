@@ -6,7 +6,7 @@
   "status": "LIVE",
   "background": "",
   "volume": 1,
-  "playlistMode": true,
+  "playlistMode": false,
   "playlist": [
     "audio/LIVE_ON_AIR_BDS_96KBPS-compressed.mp3",
     "audio/RADIO_HYPE_BEAT.mp3"
