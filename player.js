@@ -3,144 +3,69 @@ const playBtn = document.getElementById("playBtn");
 const title = document.querySelector(".title");
 const nowPlaying = document.querySelector(".nowPlaying");
 
-let currentAudio = "";
 let playlist = [];
 let currentIndex = 0;
+let currentAudio = "";
 let playlistMode = false;
+
 async function loadConfig() {
 
     try {
 
-        const response = await fetch(
-            "config.json?t=" + Date.now()
-        );
-
+        const response = await fetch("config.json?t=" + Date.now());
         const config = await response.json();
-        playlistMode = config.playlistMode || false;
-
-playlist = config.playlist || [];
 
         title.textContent = config.title;
-
         nowPlaying.innerHTML =
-            "🎵 NOW PLAYING<br><b>" +
-            config.nowPlaying +
-            "</b>";
+            "🎵 NOW PLAYING<br><b>" + config.nowPlaying + "</b>";
 
-        audio.volume = config.volume;
+        audio.volume = config.volume || 1;
 
-        if (!playlistMode) {
+        playlistMode = config.playlistMode || false;
+        playlist = config.playlist || [];
 
-    if (config.currentAudio !== currentAudio) {
+        if (playlistMode) {
 
-        const wasPlaying = !audio.paused;
+            if (playlist.length > 0 && currentAudio === "") {
 
-        currentAudio = config.currentAudio;
+                currentIndex = 0;
+                currentAudio = playlist[currentIndex];
 
-        audio.src = currentAudio + "?t=" + Date.now();
+                audio.src = currentAudio + "?t=" + Date.now();
+                audio.load();
 
-        audio.load();
-
-        audio.oncanplay = async () => {
-
-            audio.volume = config.volume;
-
-            if (wasPlaying) {
-                await audio.play();
             }
 
-        };
+        } else {
 
-    }
+            if (config.currentAudio !== currentAudio) {
 
-}
+                currentAudio = config.currentAudio;
 
-    currentAudio = config.currentAudio;
+                audio.src = currentAudio + "?t=" + Date.now();
+                audio.load();
 
-    audio.src = currentAudio + "?t=" + Date.now();
-
-    audio.load();
-
-    audio.oncanplay = async () => {
-
-        audio.volume = config.volume;
-
-        if (wasPlaying) {
-
-            await audio.play();
+            }
 
         }
-
-        audio.style.opacity = "1";
-
-    };
-
-}
-if (playlistMode && playlist.length > 0) {
-
-    if (audio.paused || currentAudio === "") {
-
-        currentIndex = 0;
-
-        currentAudio = playlist[currentIndex];
-
-        audio.src = currentAudio + "?t=" + Date.now();
-
-        audio.load();
-
-        audio.play();
-
-    }
-
-}
-        setTimeout(loadConfig, 1000);
 
     } catch (e) {
 
         console.log(e);
 
-        setTimeout(loadConfig, 1000);
-
     }
+
+    setTimeout(loadConfig, 1000);
 
 }
 
-loadConfig();
-
-playBtn.onclick = async () => {
-
-    if (audio.paused) {
-
-        try {
-
-            await audio.play();
-
-            playBtn.innerHTML = "❚❚";
-
-        } catch {
-
-            alert("Unable to play audio.");
-
-        }
-
-    } else {
-
-        audio.pause();
-
-        playBtn.innerHTML = "▶";
-
-    }
-
-};
-audio.onended = async () => {
+audio.onended = function () {
 
     if (!playlistMode) return;
 
-    if (playlist.length === 0) return;
-
     currentIndex++;
 
-    if (currentIndex >= playlist.length){
+    if (currentIndex >= playlist.length) {
 
         currentIndex = 0;
 
@@ -150,8 +75,32 @@ audio.onended = async () => {
 
     audio.src = currentAudio + "?t=" + Date.now();
 
-    audio.load();
-
-    await audio.play();
+    audio.play();
 
 };
+
+playBtn.onclick = async function () {
+
+    if (audio.paused) {
+
+        try {
+
+            await audio.play();
+            playBtn.innerHTML = "❚❚";
+
+        } catch (e) {
+
+            alert(e.message);
+
+        }
+
+    } else {
+
+        audio.pause();
+        playBtn.innerHTML = "▶";
+
+    }
+
+};
+
+loadConfig();
