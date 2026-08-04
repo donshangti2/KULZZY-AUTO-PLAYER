@@ -125,7 +125,9 @@ alert("Token saved on this phone.");
 
   }
 function generate(){
+const playlistResponse = await fetch("playlist.json?t="+Date.now());
 
+const playlist = await playlistResponse.json();
 const config={
 
 version:1,
@@ -148,7 +150,7 @@ volume:1,
 playlistMode:
 document.getElementById("mode").value === "playlist",
 
-playlist:[],
+playlist:playlist.map(song=>song.file),
 
 refresh:5
 
