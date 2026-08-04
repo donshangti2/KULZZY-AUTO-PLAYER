@@ -124,7 +124,7 @@ localStorage.setItem("githubToken", token);
 alert("Token saved on this phone.");
 
   }
-function generate(){
+async function generate(){
 const playlistResponse = await fetch("playlist.json?t="+Date.now());
 
 const playlist = await playlistResponse.json();
@@ -191,7 +191,9 @@ Authorization:"Bearer "+token
 }
 });
 
-const data = await response.json();
+const playlistResponse = await fetch("playlist.json?t="+Date.now());
+
+const playlist = await playlistResponse.json();
 
 const config={
 
