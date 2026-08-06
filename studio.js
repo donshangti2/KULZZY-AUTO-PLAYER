@@ -132,3 +132,31 @@ cart.play();
 };
 
 });
+document.addEventListener("keydown",(e)=>{
+
+const key=e.key.toLowerCase();
+
+const shortcuts={
+
+"1":"cart1",
+"2":"cart2",
+"3":"cart3",
+"4":"cart4",
+"5":"cart5",
+"6":"cart6",
+"7":"cart7",
+"8":"cart8",
+"9":"cart9",
+"q":"cart10",
+"w":"cart11",
+"e":"cart12"
+
+};
+
+if(shortcuts[key]){
+
+document.getElementById(shortcuts[key]).click();
+
+}
+
+});
