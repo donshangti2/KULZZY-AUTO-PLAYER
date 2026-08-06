@@ -78,3 +78,25 @@ document.getElementById("updateNowPlaying").onclick = () => {
     alert("Now Playing Updated!");
 
 };
+const cart = new Audio();
+
+document.getElementById("jingle1").onclick = () => {
+
+    cart.src = "jingles/birthday.mp3";
+    cart.play();
+
+};
+
+document.getElementById("jingle2").onclick = () => {
+
+    cart.src = "jingles/business.mp3";
+    cart.play();
+
+};
+
+document.getElementById("jingle3").onclick = () => {
+
+    cart.src = "jingles/stationid.mp3";
+    cart.play();
+
+};
