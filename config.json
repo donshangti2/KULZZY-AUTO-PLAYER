@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "currentAudio": "audio/LIVE_ON_AIR_BDS_96KBPS-compressed.mp3",
-  "nowPlaying": "STAY TUNED IN ",
+  "currentAudio": "audio/RADIO_HYPE_BEAT.mp3",
+  "nowPlaying": "",
   "title": "LIVE ON AIR",
   "status": "LIVE",
   "background": "",
   "volume": 1,
-  "playlistMode": false,
+  "playlistMode": true,
   "playlist": [
     "audio/LIVE_ON_AIR_BDS_96KBPS-compressed.mp3",
     "audio/RADIO_HYPE_BEAT.mp3"
