@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Kulzzy Radio Studio</title>
+
+<style>
+
+body{
+margin:0;
+background:#111;
+font-family:Arial;
+color:white;
+padding:20px;
+}
+
+h1{
+text-align:center;
+}
+
+.card{
+background:#1b1b1b;
+padding:20px;
+border-radius:12px;
+margin-bottom:20px;
+}
+
+button{
+width:100%;
+padding:18px;
+margin:10px 0;
+font-size:22px;
+border:none;
+border-radius:10px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.live{
+background:#d60000;
+color:#fff;
+}
+
+.stop{
+background:#444;
+color:#fff;
+}
+
+.playlist{
+background:#FFD700;
+color:#000;
+}
+
+.chat{
+background:#0066ff;
+color:#fff;
+}
+
+.calls{
+background:#00aa55;
+color:#fff;
+}
+
+.status{
+font-size:24px;
+text-align:center;
+margin:20px 0;
+font-weight:bold;
+color:#FFD700;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🎙 Kulzzy Radio Studio</h1>
+
+<div class="status" id="status">
+
+🟢 OFF AIR
+
+</div>
+
+<div class="card">
+
+<button class="live" id="goLive">
+🔴 GO LIVE
+</button>
+
+<button class="stop" id="stopLive">
+⛔ END LIVE
+</button>
+
+<button class="playlist" id="playlist">
+🎵 PLAYLIST MODE
+</button>
+
+<button class="chat">
+💬 LIVE CHAT
+</button>
+
+<button class="calls">
+📞 CALL REQUESTS
+</button>
+
+</div>
+
+<script src="studio.js"></script>
+
+</body>
+  </html>
