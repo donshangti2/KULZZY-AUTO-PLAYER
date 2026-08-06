@@ -190,10 +190,6 @@ headers:{
 Authorization:"Bearer "+token
 }
 });
-const data = await response.json();
-const playlistResponse = await fetch("playlist.json?t="+Date.now());
-
-const playlist = await playlistResponse.json();
 
 const config={
 
@@ -214,8 +210,7 @@ volume:1,
 playlistMode:
 document.getElementById("mode").value==="playlist",
 
-playlist:
-playlist.map(song=>song.file),
+playlist: [],
 
 refresh:5
 
