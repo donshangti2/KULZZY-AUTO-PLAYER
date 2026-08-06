@@ -15,8 +15,13 @@ async function loadConfig() {
         const response = await fetch("config.json?t=" + Date.now());
         const config = await response.json();
         title.textContent = config.title;
-        nowPlaying.innerHTML =
-            "🎵 NOW PLAYING<br><b>" + config.nowPlaying + "</b>";
+        const studioText =
+localStorage.getItem("kulzzyNowPlaying");
+
+nowPlaying.innerHTML =
+"🎵 NOW PLAYING<br><b>" +
+(studioText || config.nowPlaying) +
+"</b>";
 
         audio.volume = config.volume || 1;
 
