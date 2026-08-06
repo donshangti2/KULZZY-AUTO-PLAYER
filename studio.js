@@ -100,3 +100,35 @@ document.getElementById("jingle3").onclick = () => {
     cart.play();
 
 };
+const cart = new Audio();
+
+const carts = {
+cart1:"jingles/birthday.mp3",
+cart2:"jingles/business.mp3",
+cart3:"jingles/stationid.mp3",
+cart4:"jingles/news.mp3",
+cart5:"jingles/breaking.mp3",
+cart6:"jingles/sports.mp3",
+cart7:"jingles/gospel.mp3",
+cart8:"jingles/djdrop.mp3",
+cart9:"jingles/advertbed.mp3",
+cart10:"jingles/phonering.mp3",
+cart11:"jingles/applause.mp3",
+cart12:"jingles/airhorn.mp3"
+};
+
+Object.keys(carts).forEach(id=>{
+
+document.getElementById(id).onclick=()=>{
+
+cart.pause();
+
+cart.currentTime=0;
+
+cart.src=carts[id];
+
+cart.play();
+
+};
+
+});
