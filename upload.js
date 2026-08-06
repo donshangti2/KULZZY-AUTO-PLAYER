@@ -1,1 +1,3 @@
-alert("upload.js loaded successfully");
+document.getElementById("uploadBtn").onclick = function () {
+    alert("Button is working!");
+};
