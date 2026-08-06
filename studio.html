@@ -107,7 +107,71 @@ color:#FFD700;
 <button class="calls">
 📞 CALL REQUESTS
 </button>
+<hr>
 
+<h2>🎵 JINGLE CARTS</h2>
+
+<button id="jingle1">
+▶ Birthday Intro
+</button>
+
+<button id="jingle2">
+▶ Business Intro
+</button>
+
+<button id="jingle3">
+▶ Station ID
+</button>
+
+<hr>
+
+<h2>🎚 AUDIO MIXER</h2>
+
+<label>🎙 Mic Volume</label>
+
+<input
+type="range"
+id="micVolume"
+min="0"
+max="100"
+value="100">
+
+<label>🎵 Music Volume</label>
+
+<input
+type="range"
+id="musicVolume"
+min="0"
+max="100"
+value="100">
+
+<hr>
+
+<h2>📊 STUDIO STATUS</h2>
+
+<p id="listeners">
+👥 Listeners: 0
+</p>
+
+<p id="chatCount">
+💬 Chat Messages: 0
+</p>
+
+<p id="callCount">
+📞 Calls Waiting: 0
+</p>
+
+<hr>
+
+<h2>🎵 NOW PLAYING</h2>
+
+<input
+id="studioNowPlaying"
+placeholder="Enter current program or song">
+
+<button id="updateNowPlaying">
+💾 Update Now Playing
+  </button>
 </div>
 
 <script src="studio.js"></script>
