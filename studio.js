@@ -59,3 +59,22 @@ window.onload = () => {
     }
 
 };
+
+document.getElementById("updateNowPlaying").onclick = () => {
+
+    const text =
+    document.getElementById("studioNowPlaying").value;
+
+    if(text.trim()==""){
+
+        alert("Enter Now Playing text.");
+
+        return;
+
+    }
+
+    localStorage.setItem("kulzzyNowPlaying",text);
+
+    alert("Now Playing Updated!");
+
+};
