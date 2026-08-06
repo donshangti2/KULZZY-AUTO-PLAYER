@@ -261,23 +261,29 @@ async function loadPlaylist(){
 
 try{
 
-const response = await fetch("playlist.json?t="+Date.now());
+const response = await fetch(
+"https://api.github.com/repos/donshangti2/KULZZY-AUTO-PLAYER/contents/audio"
+);
 
-const playlist = await response.json();
+const files = await response.json();
 
 const select = document.getElementById("audio");
 
-select.innerHTML="";
+select.innerHTML = "";
 
-playlist.forEach(song=>{
+files.forEach(file=>{
 
-const option=document.createElement("option");
+if(file.name.toLowerCase().endsWith(".mp3")){
 
-option.value=song.file;
+const option = document.createElement("option");
 
-option.textContent=song.name;
+option.value = "audio/" + file.name;
+
+option.textContent = file.name.replace(".mp3","");
 
 select.appendChild(option);
+
+}
 
 });
 
@@ -289,13 +295,7 @@ console.log(error);
 
 }
 
-}
-
-try{
-loadPlaylist();
-}catch(e){
-alert(e.message);
-}
+  }
 </script>
 
 </body>
