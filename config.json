@@ -6,6 +6,6 @@
   "status": "LIVE",
   "background": "",
   "volume": 1,
-  "playlistMode": false,
+  "playlistMode": true,
   "refresh": 5
 }
