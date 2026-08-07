@@ -3,107 +3,101 @@ const playBtn = document.getElementById("playBtn");
 const title = document.querySelector(".title");
 const nowPlaying = document.querySelector(".nowPlaying");
 
-let playlist = [];
-let currentIndex = 0;
 let currentAudio = "";
-let playlistMode = false;
 
-async function loadConfig() {
+async function loadConfig(){
 
-    try {
+try{
 
-        const response = await fetch("config.json?t=" + Date.now());
-        const config = await response.json();
-        title.textContent = config.title;
-        const studioText =
-localStorage.getItem("kulzzyNowPlaying");
+const response=await fetch(
+"config.json?t="+Date.now()
+);
 
-nowPlaying.innerHTML =
-"🎵 NOW PLAYING<br><b>" +
-(studioText || config.nowPlaying) +
+const config=await response.json();
+
+title.textContent=config.title;
+
+nowPlaying.innerHTML=
+"🎵 NOW PLAYING<br><b>"+
+config.nowPlaying+
 "</b>";
 
-        audio.volume = config.volume || 1;
+audio.volume=config.volume||1;
 
-        playlistMode = config.playlistMode || false;
-        playlist = config.playlist || [];
+if(config.currentAudio!==currentAudio){
 
-        if (playlistMode) {
+currentAudio=config.currentAudio;
 
-            if (playlist.length > 0 && currentAudio === "") {
+const wasPlaying=!audio.paused;
 
-                currentIndex = 0;
-                currentAudio = playlist[currentIndex];
+audio.src=currentAudio+"?t="+Date.now();
 
-                audio.src = currentAudio + "?t=" + Date.now();
-                audio.load();
+audio.load();
 
-            }
+if(wasPlaying){
 
-        } else {
-
-            if (config.currentAudio !== currentAudio) {
-
-                currentAudio = config.currentAudio;
-
-                audio.src = currentAudio + "?t=" + Date.now();
-                audio.load();
-
-            }
-
-        }
-
-    } catch (e) {
-
-        console.log(e);
-
-    }
-
-    setTimeout(loadConfig, 1000);
+await audio.play();
 
 }
 
-audio.onended = function () {
+}
 
-    if (!playlistMode) return;
+}catch(error){
 
-    currentIndex++;
+console.log(error);
 
-    if (currentIndex >= playlist.length) {
+}
 
-        currentIndex = 0;
+setTimeout(loadConfig,1000);
 
-    }
+}
+audio.onended=function(){
 
-    currentAudio = playlist[currentIndex];
-
-    audio.src = currentAudio + "?t=" + Date.now();
-
-    audio.play();
+playBtn.innerHTML="▶";
 
 };
 
-playBtn.onclick = async function () {
+playBtn.onclick=async function(){
 
-    if (audio.paused) {
+if(audio.paused){
 
-        try {
+try{
 
-            await audio.play();
-            playBtn.innerHTML = "❚❚";
+await audio.play();
 
-        } catch (e) {
+playBtn.innerHTML="❚❚";
 
-            alert(e.message);
+}catch(error){
 
-        }
+alert(error.message);
 
-    } else {
+}
 
-        audio.pause();
-        playBtn.innerHTML = "▶";
+}else{
 
-    }
+audio.pause();
+
+playBtn.innerHTML="▶";
+
+}
+
+};
+
+audio.onplay=function(){
+
+playBtn.innerHTML="❚❚";
+
+};
+
+audio.onpause=function(){
+
+playBtn.innerHTML="▶";
+
+};
+
+audio.onerror=function(){
+
+console.log("Audio failed to load.");
 
 };
 
