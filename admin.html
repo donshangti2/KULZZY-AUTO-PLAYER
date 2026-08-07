@@ -187,6 +187,95 @@ alert(error.message);
 }
 
 }
+  // Save config.json to GitHub
+async function saveToGitHub(){
+
+try{
+
+const token=localStorage.getItem("githubToken");
+
+if(!token){
+alert("Please save your GitHub Token first.");
+return;
+}
+
+const getConfig=await fetch(
+"https://api.github.com/repos/donshangti2/KULZZY-AUTO-PLAYER/contents/config.json",
+{
+headers:{
+Authorization:"Bearer "+token
+}
+}
+);
+
+const configFile=await getConfig.json();
+
+const config={
+
+version:1,
+
+currentAudio:document.getElementById("audio").value,
+
+nowPlaying:document.getElementById("now").value,
+
+title:document.getElementById("title").value,
+
+status:"LIVE",
+
+background:"",
+
+volume:1,
+
+playlistMode:
+document.getElementById("mode").value==="playlist",
+
+refresh:5
+
+};
+
+document.getElementById("output").value=
+JSON.stringify(config,null,2);
+
+const content=btoa(JSON.stringify(config,null,2));
+
+const save=await fetch(
+"https://api.github.com/repos/donshangti2/KULZZY-AUTO-PLAYER/contents/config.json",
+{
+method:"PUT",
+headers:{
+Authorization:"Bearer "+token,
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+message:"Update config",
+content:content,
+sha:configFile.sha
+})
+}
+);
+
+if(save.ok){
+
+alert("✅ Config Saved Successfully");
+
+}else{
+
+const err=await save.json();
+
+alert(err.message);
+
+}
+
+}catch(error){
+
+alert(error.message);
+
+}
+
+}
+
+// Automatically load MP3 list
+loadAudio();
 </script>
 
 </body>
