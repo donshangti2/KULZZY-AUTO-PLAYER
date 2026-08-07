@@ -34,9 +34,9 @@ audio.src=currentAudio+"?t="+Date.now();
 
 audio.load();
 
-if(wasPlaying){
-
 await audio.play();
+
+playBtn.innerHTML="❚❚";
 
 }
 
@@ -48,7 +48,7 @@ console.log(error);
 
 }
 
-setTimeout(loadConfig,1000);
+setTimeout(loadConfig,200);
 
 }
 audio.onended=function(){
