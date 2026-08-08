@@ -1,49 +1,140 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Kulzzy Admin</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Kulzzy Radio Admin</title>
 
 <style>
 
-body{
-background:#111;
-color:#fff;
-font-family:Arial;
-padding:20px;
+* {
+    box-sizing: border-box;
 }
 
-input{
-width:100%;
-padding:12px;
-margin:10px 0;
-font-size:18px;
-box-sizing:border-box;
+body {
+    margin: 0;
+    padding: 20px;
+    background: #020d1a;
+    color: white;
+    font-family: Arial, sans-serif;
 }
 
-button{
-width:100%;
-padding:15px;
-font-size:22px;
-background:#d60000;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;
+.container {
+    max-width: 650px;
+    margin: auto;
 }
 
-textarea{
-width:100%;
-height:250px;
-margin-top:20px;
-font-size:15px;
+h1 {
+    text-align: center;
+    color: #ffd000;
+    margin-bottom: 5px;
 }
 
-h2{
-text-align:center;
+.subtitle {
+    text-align: center;
+    color: #aeb9c5;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: #03182c;
+    border: 1px solid #294158;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 7px;
+    color: #ffd000;
+    font-weight: bold;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #506174;
+    background: #071d31;
+    color: white;
+    font-size: 15px;
+}
+
+button {
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 12px;
+}
+
+.liveButton {
+    background: #ed1c24;
+    color: white;
+}
+
+.audioButton {
+    background: #ffd000;
+    color: #00101d;
+}
+
+.saveButton {
+    background: #16c784;
+    color: white;
+}
+
+.statusBox {
+    padding: 15px;
+    border-radius: 10px;
+    background: #071d31;
+    border: 1px solid #394d61;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.liveStatus {
+    color: #ff3333;
+    font-weight: bold;
+}
+
+.audioStatus {
+    color: #ffd000;
+    font-weight: bold;
+}
+
+.small {
+    color: #8e9baa;
+    font-size: 12px;
+    line-height: 1.5;
+    margin-top: 15px;
+}
+
+#message {
+    text-align: center;
+    padding: 12px;
+    margin-top: 15px;
+    border-radius: 8px;
+    display: none;
+}
+
+.success {
+    background: #073d27;
+    color: #4cffad;
+}
+
+.error {
+    background: #4a1010;
+    color: #ff7777;
 }
 
 </style>
@@ -52,232 +143,554 @@ text-align:center;
 
 <body>
 
-<h2>🎙 Kulzzy Radio Admin</h2>
-<label><b>GitHub Token</b></label>
+<div class="container">
+
+<h1>🎙️ KULZZY RADIO</h1>
+
+<div class="subtitle">
+ADMIN CONTROL PANEL
+</div>
+
+
+<div class="card">
+
+<div class="statusBox">
+
+CURRENT MODE
+
+<div id="currentMode">
+Checking...
+</div>
+
+</div>
+
+
+<label>GitHub Personal Access Token</label>
 
 <input
-id="token"
 type="password"
-placeholder="Paste your GitHub Personal Access Token">
+id="githubToken"
+placeholder="Paste your GitHub token here">
 
-<button onclick="saveToken()">
-🔐 Save Token
-</button>
 
-<br><br>
-<label><b>Player Mode</b></label>
-
-<select id="mode" style="
-width:100%;
-padding:12px;
-margin:10px 0;
-font-size:18px;
-">
-
-<option value="live">🎙 LIVE MODE</option>
-
-<option value="playlist">🎵 PLAYLIST MODE</option>
-
-</select>
-<label><b>Select Audio</b></label>
-
-<select id="audio" style="
-width:100%;
-padding:12px;
-margin:10px 0;
-font-size:18px;
-">
-</select>
-<input
-id="now"
-placeholder="Now Playing">
+<label>GitHub Username</label>
 
 <input
-id="title"
-placeholder="LIVE Title"
-value="LIVE ON AIR">
+type="text"
+id="githubUser"
+value="donshangti2">
 
-<button onclick="saveToGitHub()">
-💾 Save
+
+<label>Repository</label>
+
+<input
+type="text"
+id="githubRepo"
+value="KULZZY-AUTO-PLAYER">
+
+
+<label>Branch</label>
+
+<input
+type="text"
+id="githubBranch"
+value="main">
+
+
+<button
+class="liveButton"
+onclick="goLive()">
+
+🔴 GO LIVE ON CASTER.FM
+
 </button>
-<textarea id="output"></textarea>
 
-<br><br>
 
-<button onclick="copyConfig()">
-📋 Copy Config
+<button
+class="audioButton"
+onclick="showAudioMode()">
+
+🎵 PLAY AUTOMATIC AUDIO
+
 </button>
+
+</div>
+
+
+<div class="card" id="audioSettings">
+
+<label>Select Audio</label>
+
+<select id="audioFile">
+
+<option value="audio/ON_AIR_BIRTHDAY_SONG_BASS_ONLY.mp3">
+Birthday Song
+</option>
+
+<option value="audio/ON_AIR_BUSINESS_O'CLOCK .mp3">
+Business O'Clock
+</option>
+
+<option value="audio/RADIO_MONTHLY_SONG.mp3">
+Radio Monthly Song
+</option>
+
+</select>
+
+
+<label>Now Playing</label>
+
+<input
+type="text"
+id="nowPlaying"
+value="Kulzzy Radio Network">
+
+
+<label>Player Title</label>
+
+<input
+type="text"
+id="radioTitle"
+value="KULZZY RADIO NETWORK">
+
+
+<button
+class="saveButton"
+onclick="saveAudio()">
+
+💾 SAVE & PLAY AUDIO
+
+</button>
+
+</div>
+
+
+<div id="message"></div>
+
+
+<div class="card">
+
+<div class="small">
+
+<strong>How to use:</strong><br><br>
+
+🔴 When you start broadcasting on Caster.fm:
+press <strong>GO LIVE ON CASTER.FM</strong>.<br><br>
+
+🎵 When you stop your live broadcast:
+select your audio and press <strong>SAVE & PLAY AUDIO</strong>.<br><br>
+
+The website will read the new configuration automatically.
+
+</div>
+
+</div>
+
+</div>
+
 
 <script>
-// Load saved GitHub token
-document.getElementById("token").value =
-localStorage.getItem("githubToken") || "";
 
-// Save GitHub token
-function saveToken(){
+const CONFIG_PATH = "config.json";
 
-const token=document.getElementById("token").value;
 
-localStorage.setItem("githubToken",token);
+function getSettings() {
 
-alert("✅ GitHub Token Saved");
+    return {
 
-}
+        token:
+            document.getElementById("githubToken").value.trim(),
 
-// Copy Config
-function copyConfig(){
+        user:
+            document.getElementById("githubUser").value.trim(),
 
-const text=document.getElementById("output");
+        repo:
+            document.getElementById("githubRepo").value.trim(),
 
-text.select();
+        branch:
+            document.getElementById("githubBranch").value.trim()
 
-document.execCommand("copy");
-
-alert("✅ Config Copied");
+    };
 
 }
 
-// Load all MP3 files from GitHub
-async function loadAudio(){
 
-try{
+async function getConfig(settings) {
 
-const token=localStorage.getItem("githubToken");
+    const url =
+        `https://api.github.com/repos/${settings.user}/${settings.repo}/contents/${CONFIG_PATH}?ref=${settings.branch}`;
 
-if(!token){
-alert("Please save your GitHub Token first.");
-return;
-}
+    const response = await fetch(url, {
 
-const response=await fetch(
-"https://api.github.com/repos/donshangti2/KULZZY-AUTO-PLAYER/contents/audio",
-{
-headers:{
-Authorization:"Bearer "+token
-}
-}
-);
+        headers: {
 
-const files=await response.json();
+            "Authorization":
+                `Bearer ${settings.token}`,
 
-const select=document.getElementById("audio");
+            "Accept":
+                "application/vnd.github+json"
 
-select.innerHTML="";
+        }
 
-files.forEach(file=>{
+    });
 
-if(file.name.toLowerCase().endsWith(".mp3")){
+    if (!response.ok) {
 
-const option=document.createElement("option");
+        throw new Error(
+            "Unable to read config.json"
+        );
 
-option.value="audio/"+file.name;
+    }
 
-option.textContent=file.name;
-
-select.appendChild(option);
+    return await response.json();
 
 }
 
-});
 
-}catch(error){
+async function updateConfig(newConfig, commitMessage) {
 
-alert(error.message);
+    const settings = getSettings();
+
+    if (!settings.token) {
+
+        showMessage(
+            "Please enter your GitHub Personal Access Token.",
+            true
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        showMessage(
+            "Publishing changes to GitHub..."
+        );
+
+
+        const existing =
+            await getConfig(settings);
+
+
+        const content =
+            btoa(
+                unescape(
+                    encodeURIComponent(
+                        JSON.stringify(
+                            newConfig,
+                            null,
+                            2
+                        )
+                    )
+                )
+            );
+
+
+        const url =
+            `https://api.github.com/repos/${settings.user}/${settings.repo}/contents/${CONFIG_PATH}`;
+
+
+        const response =
+            await fetch(url, {
+
+                method: "PUT",
+
+                headers: {
+
+                    "Authorization":
+                        `Bearer ${settings.token}`,
+
+                    "Accept":
+                        "application/vnd.github+json",
+
+                    "Content-Type":
+                        "application/json"
+
+                },
+
+                body: JSON.stringify({
+
+                    message: commitMessage,
+
+                    content: content,
+
+                    sha: existing.sha,
+
+                    branch: settings.branch
+
+                })
+
+            });
+
+
+        if (!response.ok) {
+
+            const error =
+                await response.text();
+
+            throw new Error(error);
+
+        }
+
+
+        showMessage(
+            "✅ Successfully published to GitHub."
+        );
+
+        loadCurrentMode();
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        showMessage(
+            "❌ Error: " + error.message,
+            true
+        );
+
+    }
 
 }
 
-}
-  // Save config.json to GitHub
-async function saveToGitHub(){
 
-try{
+async function goLive() {
 
-const token=localStorage.getItem("githubToken");
+    const settings = getSettings();
 
-if(!token){
-alert("Please save your GitHub Token first.");
-return;
-}
+    if (!settings.token) {
 
-const getConfig=await fetch(
-"https://api.github.com/repos/donshangti2/KULZZY-AUTO-PLAYER/contents/config.json",
-{
-headers:{
-Authorization:"Bearer "+token
-}
-}
-);
+        showMessage(
+            "Enter your GitHub token first.",
+            true
+        );
 
-const configFile=await getConfig.json();
+        return;
 
-const config={
+    }
 
-version:1,
 
-currentAudio:document.getElementById("audio").value,
+    try {
 
-nowPlaying:document.getElementById("now").value,
+        const existing =
+            await getConfig(settings);
 
-title:document.getElementById("title").value,
 
-status:"LIVE",
+        const config =
+            JSON.parse(
+                decodeURIComponent(
+                    escape(
+                        atob(
+                            existing.content
+                                .replace(/\n/g, "")
+                        )
+                    )
+                )
+            );
 
-background:"",
 
-volume:1,
+        config.version = 2;
 
-playlistMode:
-document.getElementById("mode").value==="playlist",
+        config.mode = "LIVE";
 
-refresh:5
+        config.status = "LIVE";
 
-};
+        config.title =
+            "KULZZY RADIO NETWORK";
 
-document.getElementById("output").value=
-JSON.stringify(config,null,2);
+        config.nowPlaying =
+            "LIVE ON AIR";
 
-const content=btoa(JSON.stringify(config,null,2));
 
-const save=await fetch(
-"https://api.github.com/repos/donshangti2/KULZZY-AUTO-PLAYER/contents/config.json",
-{
-method:"PUT",
-headers:{
-Authorization:"Bearer "+token,
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-message:"Update config",
-content:content,
-sha:configFile.sha
-})
-}
-);
+        await updateConfig(
 
-if(save.ok){
+            config,
 
-alert("✅ Config Saved Successfully");
+            "Switch Kulzzy Radio to LIVE"
 
-}else{
+        );
 
-const err=await save.json();
+    }
 
-alert(err.message);
+    catch (error) {
+
+        showMessage(
+            "❌ " + error.message,
+            true
+        );
+
+    }
 
 }
 
-}catch(error){
 
-alert(error.message);
+async function saveAudio() {
+
+    const settings = getSettings();
+
+    if (!settings.token) {
+
+        showMessage(
+            "Enter your GitHub token first.",
+            true
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const existing =
+            await getConfig(settings);
+
+
+        const config =
+            JSON.parse(
+                decodeURIComponent(
+                    escape(
+                        atob(
+                            existing.content
+                                .replace(/\n/g, "")
+                        )
+                    )
+                )
+            );
+
+
+        config.version = 2;
+
+        config.mode = "AUDIO";
+
+        config.status = "AUDIO";
+
+        config.currentAudio =
+            document.getElementById(
+                "audioFile"
+            ).value;
+
+        config.nowPlaying =
+            document.getElementById(
+                "nowPlaying"
+            ).value;
+
+        config.title =
+            document.getElementById(
+                "radioTitle"
+            ).value;
+
+
+        await updateConfig(
+
+            config,
+
+            "Switch Kulzzy Radio to automatic audio"
+
+        );
+
+    }
+
+    catch (error) {
+
+        showMessage(
+            "❌ " + error.message,
+            true
+        );
+
+    }
 
 }
 
+
+function showAudioMode() {
+
+    document.getElementById(
+        "audioSettings"
+    ).scrollIntoView({
+
+        behavior: "smooth"
+
+    });
+
 }
 
-// Automatically load MP3 list
-loadAudio();
+
+function showMessage(text, error = false) {
+
+    const box =
+        document.getElementById("message");
+
+    box.style.display = "block";
+
+    box.className =
+        error ? "error" : "success";
+
+    box.textContent = text;
+
+}
+
+
+async function loadCurrentMode() {
+
+    try {
+
+        const response =
+            await fetch(
+                "config.json?time=" +
+                Date.now()
+            );
+
+        const config =
+            await response.json();
+
+
+        const mode =
+            document.getElementById(
+                "currentMode"
+            );
+
+
+        if (config.mode === "LIVE") {
+
+            mode.className =
+                "liveStatus";
+
+            mode.textContent =
+                "🔴 LIVE ON CASTER.FM";
+
+        }
+
+        else {
+
+            mode.className =
+                "audioStatus";
+
+            mode.textContent =
+                "🎵 AUTOMATIC AUDIO";
+
+        }
+
+    }
+
+    catch {
+
+        document.getElementById(
+            "currentMode"
+        ).textContent =
+            "Unable to read configuration.";
+
+    }
+
+}
+
+
+loadCurrentMode();
+
 </script>
 
 </body>
-
-  </html>
+</html>
