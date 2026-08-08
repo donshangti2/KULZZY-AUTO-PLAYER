@@ -11,7 +11,12 @@ content="width=device-width, initial-scale=1.0">
 
 <style>
 
-html, body {
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -20,13 +25,16 @@ html, body {
     font-family: Arial, sans-serif;
 }
 
-/* Floating player */
+/* =====================================================
+   KULZZY RADIO FLOATING PLAYER
+===================================================== */
+
 #radioPlayer {
 
     position: fixed;
 
-    bottom: 0;
     left: 0;
+    bottom: 0;
 
     width: 100%;
 
@@ -36,11 +44,16 @@ html, body {
 
     border-top: 3px solid #ffd000;
 
-    box-shadow: 0 -5px 25px rgba(0,0,0,0.7);
+    box-shadow:
+        0 -5px 25px rgba(0,0,0,0.75);
 
 }
 
-/* Kulzzy header */
+
+/* =====================================================
+   KULZZY HEADER
+===================================================== */
+
 .kulzzyHeader {
 
     display: flex;
@@ -49,13 +62,18 @@ html, body {
 
     justify-content: space-between;
 
-    padding: 12px 15px;
+    width: 100%;
+
+    padding: 12px 16px;
 
     background: #03182c;
 
-    border-bottom: 1px solid #26384a;
+    border-bottom: 1px solid #344454;
 
 }
+
+
+/* Brand */
 
 .brand {
 
@@ -67,57 +85,87 @@ html, body {
 
 }
 
+
+/* Red LIVE light */
+
 .redDot {
 
-    width: 16px;
-    height: 16px;
+    width: 18px;
 
-    background: red;
+    height: 18px;
+
+    min-width: 18px;
+
+    background: #ff0000;
 
     border-radius: 50%;
 
-    box-shadow: 0 0 12px red;
+    box-shadow:
+        0 0 8px #ff0000,
+        0 0 18px rgba(255,0,0,.7);
 
 }
+
+
+/* Brand name */
 
 .brandName {
 
     color: #ffd000;
 
-    font-size: 18px;
+    font-size: 19px;
 
-    font-weight: bold;
+    font-weight: 800;
+
+    line-height: 1.1;
 
 }
+
+
+/* Slogan */
 
 .slogan {
 
-    color: #aeb9c5;
+    color: #b8c3cf;
 
     font-size: 12px;
 
-    margin-top: 3px;
+    margin-top: 4px;
 
 }
 
+
+/* LIVE badge */
+
 .liveBadge {
 
-    background: red;
+    display: flex;
 
-    color: white;
+    align-items: center;
 
-    padding: 8px 14px;
+    gap: 5px;
 
-    border-radius: 20px;
+    background: #ff1010;
+
+    color: #fff;
+
+    padding: 9px 15px;
+
+    border-radius: 22px;
 
     font-size: 12px;
 
     font-weight: bold;
 
+    box-shadow:
+        0 0 12px rgba(255,0,0,.5);
+
 }
 
 
-/* Caster.fm area */
+/* =====================================================
+   CASTER PLAYER
+===================================================== */
 
 .casterBox {
 
@@ -125,42 +173,56 @@ html, body {
 
     max-width: 700px;
 
-    margin: auto;
+    margin: 0 auto;
 
-    padding: 5px;
+    padding: 8px 8px 4px;
 
-    box-sizing: border-box;
+    background: #020d1a;
 
 }
 
 
 /*
-=========================================
-ORIGINAL CASTER.FM PLAYER
-DO NOT MODIFY THE EMBED
-=========================================
+IMPORTANT:
+
+Do NOT hide the Caster.fm player.
+Do NOT use display:none.
+Do NOT use opacity.
+Do NOT use overflow tricks to remove branding.
+
+The free Caster.fm player needs its original
+embedded interface to remain functional.
 */
 
 .cstrEmbed {
 
     width: 100%;
 
+    min-height: 150px;
+
 }
 
 
-/* Footer */
+/* =====================================================
+   FOOTER
+===================================================== */
 
 .footer {
 
+    width: 100%;
+
     text-align: center;
 
-    color: #777;
+    color: #778594;
 
     font-size: 10px;
 
-    padding: 5px;
+    padding: 5px 10px 7px;
+
+    background: #020d1a;
 
 }
+
 
 .footer span {
 
@@ -169,11 +231,66 @@ DO NOT MODIFY THE EMBED
 }
 
 
+/* =====================================================
+   MOBILE
+===================================================== */
+
 @media (max-width: 600px) {
+
+    .kulzzyHeader {
+
+        padding: 11px 14px;
+
+    }
 
     .brandName {
 
-        font-size: 16px;
+        font-size: 17px;
+
+    }
+
+    .slogan {
+
+        font-size: 11px;
+
+    }
+
+    .redDot {
+
+        width: 16px;
+
+        height: 16px;
+
+        min-width: 16px;
+
+    }
+
+    .liveBadge {
+
+        font-size: 11px;
+
+        padding: 8px 12px;
+
+    }
+
+    .casterBox {
+
+        padding: 6px 6px 3px;
+
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL PHONES
+===================================================== */
+
+@media (max-width: 380px) {
+
+    .brandName {
+
+        font-size: 15px;
 
     }
 
@@ -185,9 +302,9 @@ DO NOT MODIFY THE EMBED
 
     .liveBadge {
 
-        font-size: 11px;
+        padding: 7px 10px;
 
-        padding: 7px 12px;
+        font-size: 10px;
 
     }
 
@@ -201,6 +318,10 @@ DO NOT MODIFY THE EMBED
 <body>
 
 
+<!-- =====================================================
+     KULZZY RADIO FLOATING PLAYER
+===================================================== -->
+
 <div id="radioPlayer">
 
 
@@ -208,9 +329,12 @@ DO NOT MODIFY THE EMBED
 
     <div class="kulzzyHeader">
 
+
         <div class="brand">
 
+
             <div class="redDot"></div>
+
 
             <div>
 
@@ -224,6 +348,7 @@ DO NOT MODIFY THE EMBED
 
             </div>
 
+
         </div>
 
 
@@ -231,13 +356,19 @@ DO NOT MODIFY THE EMBED
             ● LIVE
         </div>
 
+
     </div>
 
 
-
-    <!-- CASTER.FM PLAYER -->
+    <!-- =================================================
+         ORIGINAL CASTER.FM PLAYER
+         
+         IMPORTANT:
+         Leave this embed intact.
+    ================================================== -->
 
     <div class="casterBox">
+
 
         <div
             data-type="newStreamPlayer"
@@ -247,6 +378,7 @@ DO NOT MODIFY THE EMBED
             data-channelId=""
             data-rendered="false"
             class="cstrEmbed">
+
 
             <a href="https://www.caster.fm">
                 Shoutcast Hosting
@@ -260,11 +392,14 @@ DO NOT MODIFY THE EMBED
                 Radio Server Hosting
             </a>
 
+
         </div>
+
 
     </div>
 
 
+    <!-- FOOTER -->
 
     <div class="footer">
 
@@ -278,7 +413,9 @@ DO NOT MODIFY THE EMBED
 </div>
 
 
-<!-- CASTER.FM SCRIPT -->
+<!-- =====================================================
+     CASTER.FM EMBED SCRIPT
+===================================================== -->
 
 <script
 src="https://cdn.cloud.caster.fm/widgets/embed.js">
