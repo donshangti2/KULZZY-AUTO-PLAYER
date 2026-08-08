@@ -5,14 +5,13 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0">
 
 <title>Kulzzy Radio Network</title>
 
 <style>
 
-html,
-body {
+html, body {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -21,44 +20,28 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* =====================================
-   KULZZY RADIO FLOATING PLAYER
-===================================== */
-
-#kulzzy-floating-player {
+/* Floating player */
+#radioPlayer {
 
     position: fixed;
 
-    left: 0;
     bottom: 0;
+    left: 0;
 
     width: 100%;
-
-    background: #000;
-
-    border-top: 3px solid #ffd000;
-
-    box-shadow:
-        0 -5px 25px rgba(0,0,0,0.7);
 
     z-index: 999999;
 
-    padding: 10px 0 8px;
+    background: #020d1a;
+
+    border-top: 3px solid #ffd000;
+
+    box-shadow: 0 -5px 25px rgba(0,0,0,0.7);
 
 }
 
-
-/* =====================================
-   KULZZY HEADER
-===================================== */
-
-.kulzzy-header {
-
-    width: 100%;
-
-    max-width: 700px;
-
-    margin: auto;
+/* Kulzzy header */
+.kulzzyHeader {
 
     display: flex;
 
@@ -66,14 +49,15 @@ body {
 
     justify-content: space-between;
 
-    padding: 8px 15px;
+    padding: 12px 15px;
 
-    box-sizing: border-box;
+    background: #03182c;
+
+    border-bottom: 1px solid #26384a;
 
 }
 
-
-.kulzzy-brand {
+.brand {
 
     display: flex;
 
@@ -83,36 +67,32 @@ body {
 
 }
 
+.redDot {
 
-.kulzzy-live-dot {
+    width: 16px;
+    height: 16px;
 
-    width: 17px;
-    height: 17px;
-
-    background: #ff0000;
+    background: red;
 
     border-radius: 50%;
 
-    box-shadow:
-        0 0 12px #ff0000;
+    box-shadow: 0 0 12px red;
 
 }
 
-
-.kulzzy-name {
+.brandName {
 
     color: #ffd000;
 
-    font-size: 19px;
+    font-size: 18px;
 
     font-weight: bold;
 
 }
 
+.slogan {
 
-.kulzzy-slogan {
-
-    color: #aaa;
+    color: #aeb9c5;
 
     font-size: 12px;
 
@@ -120,14 +100,13 @@ body {
 
 }
 
+.liveBadge {
 
-.kulzzy-live {
-
-    background: #ff0000;
+    background: red;
 
     color: white;
 
-    padding: 8px 15px;
+    padding: 8px 14px;
 
     border-radius: 20px;
 
@@ -135,17 +114,12 @@ body {
 
     font-weight: bold;
 
-    box-shadow:
-        0 0 12px rgba(255,0,0,.5);
-
 }
 
 
-/* =====================================
-   CASTER PLAYER AREA
-===================================== */
+/* Caster.fm area */
 
-.caster-container {
+.casterBox {
 
     width: 100%;
 
@@ -153,7 +127,7 @@ body {
 
     margin: auto;
 
-    padding: 0 10px;
+    padding: 5px;
 
     box-sizing: border-box;
 
@@ -161,9 +135,10 @@ body {
 
 
 /*
-   IMPORTANT:
-   THE CASTER.FM EMBED BELOW IS LEFT IN
-   ITS ORIGINAL FORM.
+=========================================
+ORIGINAL CASTER.FM PLAYER
+DO NOT MODIFY THE EMBED
+=========================================
 */
 
 .cstrEmbed {
@@ -173,11 +148,9 @@ body {
 }
 
 
-/* =====================================
-   FOOTER
-===================================== */
+/* Footer */
 
-.kulzzy-footer {
+.footer {
 
     text-align: center;
 
@@ -185,61 +158,36 @@ body {
 
     font-size: 10px;
 
-    padding-top: 5px;
+    padding: 5px;
 
 }
 
-
-.kulzzy-footer span {
+.footer span {
 
     color: #ffd000;
 
 }
 
 
-/* =====================================
-   MOBILE
-===================================== */
-
 @media (max-width: 600px) {
 
-    #kulzzy-floating-player {
-
-        padding-bottom: 5px;
-
-    }
-
-    .kulzzy-header {
-
-        padding: 7px 12px;
-
-    }
-
-    .kulzzy-name {
+    .brandName {
 
         font-size: 16px;
 
     }
 
-    .kulzzy-slogan {
+    .slogan {
 
         font-size: 10px;
 
     }
 
-    .kulzzy-live {
+    .liveBadge {
 
         font-size: 11px;
 
         padding: 7px 12px;
-
-    }
-
-    .kulzzy-live-dot {
-
-        width: 14px;
-
-        height: 14px;
 
     }
 
@@ -253,28 +201,24 @@ body {
 <body>
 
 
-<!-- =====================================
-     KULZZY RADIO FLOATING PLAYER
-===================================== -->
-
-<div id="kulzzy-floating-player">
+<div id="radioPlayer">
 
 
-    <!-- KULZZY RADIO HEADER -->
+    <!-- KULZZY HEADER -->
 
-    <div class="kulzzy-header">
+    <div class="kulzzyHeader">
 
-        <div class="kulzzy-brand">
+        <div class="brand">
 
-            <div class="kulzzy-live-dot"></div>
+            <div class="redDot"></div>
 
             <div>
 
-                <div class="kulzzy-name">
+                <div class="brandName">
                     KULZZY RADIO NETWORK
                 </div>
 
-                <div class="kulzzy-slogan">
+                <div class="slogan">
                     Celebrating Lives Everyday
                 </div>
 
@@ -283,7 +227,7 @@ body {
         </div>
 
 
-        <div class="kulzzy-live">
+        <div class="liveBadge">
             ● LIVE
         </div>
 
@@ -291,11 +235,9 @@ body {
 
 
 
-    <!-- =================================
-         ORIGINAL CASTER.FM PLAYER
-    ================================== -->
+    <!-- CASTER.FM PLAYER -->
 
-    <div class="caster-container">
+    <div class="casterBox">
 
         <div
             data-type="newStreamPlayer"
@@ -320,16 +262,11 @@ body {
 
         </div>
 
-
-        <script src="//cdn.cloud.caster.fm//widgets/embed.js"></script>
-
     </div>
 
 
 
-    <!-- KULZZY FOOTER -->
-
-    <div class="kulzzy-footer">
+    <div class="footer">
 
         KULZZY RADIO NETWORK
         •
@@ -339,6 +276,13 @@ body {
 
 
 </div>
+
+
+<!-- CASTER.FM SCRIPT -->
+
+<script
+src="https://cdn.cloud.caster.fm/widgets/embed.js">
+</script>
 
 
 </body>
