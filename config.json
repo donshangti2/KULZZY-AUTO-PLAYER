@@ -1,11 +1,15 @@
 {
-  "version": 1,
-  "currentAudio": "audio/LIVE_ON_AIR_BDS_96KBPS-compressed.mp3",
-  "nowPlaying": "",
-  "title": "LIVE ON AIR",
-  "status": "LIVE",
+  "version": 2,
+  "mode": "AUDIO",
+  "currentAudio": "audio/ON_AIR_BIRTHDAY_SONG_BASS_ONLY.mp3",
+  "nowPlaying": "Kulzzy Radio Network",
+  "title": "KULZZY RADIO NETWORK",
+  "status": "AUDIO",
   "background": "",
   "volume": 1,
-  "playlistMode": false,
-  "refresh": 5
+  "refresh": 5,
+  "caster": {
+    "publicToken": "8c96ae48-5e72-43d8-a87e-e90f623ac080",
+    "channelId": "a272a955-fc0c-4968-8280-2a2cb7e434ec"
+  }
 }
