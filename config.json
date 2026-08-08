@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "mode": "LIVE",
+  "mode": "AUDIO",
   "currentAudio": "audio/ON_AIR_BIRTHDAY_SONG_BASS_ONLY.mp3",
-  "nowPlaying": "LIVE ON AIR",
+  "nowPlaying": "Kulzzy Radio Network",
   "title": "KULZZY RADIO NETWORK",
-  "status": "LIVE",
+  "status": "AUDIO",
   "background": "",
   "volume": 1,
   "refresh": 5,
