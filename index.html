@@ -2,46 +2,93 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Kulzzy Radio Network</title>
 
-<link rel="stylesheet" href="style.css">
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    background: #111;
+    font-family: Arial, sans-serif;
+}
+
+.radio-box {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #000;
+    padding: 25px 15px;
+    box-sizing: border-box;
+    text-align: center;
+    border-top: 3px solid #e81e4d;
+}
+
+.radio-title {
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.radio-dot {
+    color: red;
+}
+
+.play-button {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: none;
+    background: red;
+    color: white;
+    font-size: 45px;
+    cursor: pointer;
+    margin: 10px auto;
+    display: block;
+}
+
+.status {
+    color: #ffd700;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.caster-player {
+    margin-top: 20px;
+}
+</style>
 
 </head>
+
 <body>
 
-<div id="player">
+<div class="radio-box">
 
-    <div class="overlay">
+    <div class="radio-title">
+        <span class="radio-dot">🔴</span>
+        LIVE ON AIR
+    </div>
 
-        <div class="title">
-            🔴 LIVE ON AIR
-        </div>
+    <div class="caster-player">
 
-        <div class="caster-player">
+        <div 
+            data-type="newStreamPlayer"
+            data-publicToken="8c96ae48-5e72-43d8-a87e-e90f623ac080"
+            data-theme="dark"
+            data-color="e81e4d"
+            data-channelId=""
+            data-rendered="false"
+            class="cstrEmbed">
 
-            <div
-                data-type="streamPlayer"
-                data-publicToken="8c96ae48-5e72-43d8-a87e-e90f623ac080"
-                data-theme="dark"
-                data-color="e81e4d"
-                data-channelId=""
-                data-rendered="false"
-                class="cstrEmbed">
-
-                <a href="https://www.caster.fm">
-                    Shoutcast Hosting
-                </a>
-
-                <a href="https://www.caster.fm">
-                    Stream Hosting
-                </a>
-
-                <a href="https://www.caster.fm">
-                    Radio Server Hosting
-                </a>
-
-            </div>
+            <a href="https://www.caster.fm">Shoutcast Hosting</a>
+            <a href="https://www.caster.fm">Stream Hosting</a>
+            <a href="https://www.caster.fm">Radio Server Hosting</a>
 
         </div>
 
