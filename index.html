@@ -3,201 +3,98 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Kulzzy Radio Network</title>
 
 <style>
-
-* {
-    box-sizing: border-box;
-}
-
 html, body {
     margin: 0;
     padding: 0;
+    width: 100%;
     min-height: 100%;
-    background: #020d1a;
+    background: #111;
     font-family: Arial, sans-serif;
 }
 
-/* FLOATING PLAYER */
-
-#radioPlayer {
+.radio-box {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    z-index: 999999;
-    background: #020d1a;
-    border-top: 3px solid #ffd000;
-    box-shadow: 0 -5px 25px rgba(0,0,0,0.7);
-}
-
-/* KULZZY HEADER */
-
-.kulzzyHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 15px;
-    background: #03182c;
-    border-bottom: 1px solid #26384a;
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.redDot {
-    width: 16px;
-    height: 16px;
-    background: #ff0000;
-    border-radius: 50%;
-    box-shadow: 0 0 12px #ff0000;
-    flex-shrink: 0;
-}
-
-.brandName {
-    color: #ffd000;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.slogan {
-    color: #aeb9c5;
-    font-size: 12px;
-    margin-top: 3px;
-}
-
-.liveBadge {
-    background: #ff0000;
-    color: white;
-    padding: 8px 14px;
-    border-radius: 20px;
-    font-size: 12px;
-    font-weight: bold;
-    box-shadow: 0 0 12px rgba(255,0,0,.5);
-}
-
-/* CASTER PLAYER */
-
-.casterBox {
-    width: 100%;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 5px;
-}
-
-/* DO NOT HIDE THE CASTER EMBED LINKS */
-
-.cstrEmbed {
-    width: 100%;
-}
-
-/* FOOTER */
-
-.footer {
+    background: #000;
+    padding: 25px 15px;
+    box-sizing: border-box;
     text-align: center;
-    color: #777;
-    font-size: 10px;
-    padding: 5px;
+    border-top: 3px solid #e81e4d;
 }
 
-.footer span {
-    color: #ffd000;
+.radio-title {
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
 }
 
-@media (max-width: 600px) {
-
-    .brandName {
-        font-size: 16px;
-    }
-
-    .slogan {
-        font-size: 10px;
-    }
-
-    .liveBadge {
-        font-size: 11px;
-        padding: 7px 12px;
-    }
-
+.radio-dot {
+    color: red;
 }
 
+.play-button {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: none;
+    background: red;
+    color: white;
+    font-size: 45px;
+    cursor: pointer;
+    margin: 10px auto;
+    display: block;
+}
+
+.status {
+    color: #ffd700;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.caster-player {
+    margin-top: 20px;
+}
 </style>
+
 </head>
 
 <body>
 
-<div id="radioPlayer">
+<div class="radio-box">
 
-    <div class="kulzzyHeader">
-
-        <div class="brand">
-
-            <div class="redDot"></div>
-
-            <div>
-
-                <div class="brandName">
-                    KULZZY RADIO NETWORK
-                </div>
-
-                <div class="slogan">
-                    Celebrating Lives Everyday
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="liveBadge">
-            ● LIVE
-        </div>
-
+    <div class="radio-title">
+        <span class="radio-dot">🔴</span>
+        LIVE ON AIR
     </div>
 
+    <div class="caster-player">
 
-    <!-- OFFICIAL CASTER.FM LIVE PLAYER -->
-
-    <div class="casterBox">
-
-        <div
-            data-type="streamPlayer"
+        <div 
+            data-type="newStreamPlayer"
             data-publicToken="8c96ae48-5e72-43d8-a87e-e90f623ac080"
-            data-theme="light"
+            data-theme="dark"
             data-color="e81e4d"
-            data-channelId="a272a955-fc0c-4968-8280-2a2cb7e434ec"
+            data-channelId=""
             data-rendered="false"
             class="cstrEmbed">
 
-            <a href="https://www.caster.fm">
-                Shoutcast Hosting
-            </a>
-
-            <a href="https://www.caster.fm">
-                Stream Hosting
-            </a>
-
-            <a href="https://www.caster.fm">
-                Radio Server Hosting
-            </a>
+            <a href="https://www.caster.fm">Shoutcast Hosting</a>
+            <a href="https://www.caster.fm">Stream Hosting</a>
+            <a href="https://www.caster.fm">Radio Server Hosting</a>
 
         </div>
 
     </div>
 
-
-    <div class="footer">
-        KULZZY RADIO NETWORK •
-        <span>Celebrating Lives Everyday</span>
-    </div>
-
 </div>
-
-
-<!-- CASTER.FM SCRIPT -->
 
 <script src="https://cdn.cloud.caster.fm/widgets/embed.js"></script>
 
