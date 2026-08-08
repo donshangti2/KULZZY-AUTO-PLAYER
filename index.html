@@ -3,10 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Kulzzy Radio Network</title>
 
 <style>
+
+* {
+    box-sizing: border-box;
+}
 
 html, body {
     margin: 0;
@@ -16,7 +19,7 @@ html, body {
     font-family: Arial, sans-serif;
 }
 
-/* FLOATING RADIO PLAYER */
+/* FLOATING PLAYER */
 
 #radioPlayer {
     position: fixed;
@@ -49,9 +52,10 @@ html, body {
 .redDot {
     width: 16px;
     height: 16px;
-    background: red;
+    background: #ff0000;
     border-radius: 50%;
-    box-shadow: 0 0 12px red;
+    box-shadow: 0 0 12px #ff0000;
+    flex-shrink: 0;
 }
 
 .brandName {
@@ -67,12 +71,13 @@ html, body {
 }
 
 .liveBadge {
-    background: red;
+    background: #ff0000;
     color: white;
     padding: 8px 14px;
     border-radius: 20px;
     font-size: 12px;
     font-weight: bold;
+    box-shadow: 0 0 12px rgba(255,0,0,.5);
 }
 
 /* CASTER PLAYER */
@@ -80,10 +85,11 @@ html, body {
 .casterBox {
     width: 100%;
     max-width: 700px;
-    margin: auto;
+    margin: 0 auto;
     padding: 5px;
-    box-sizing: border-box;
 }
+
+/* DO NOT HIDE THE CASTER EMBED LINKS */
 
 .cstrEmbed {
     width: 100%;
@@ -126,8 +132,6 @@ html, body {
 
 <div id="radioPlayer">
 
-    <!-- KULZZY RADIO HEADER -->
-
     <div class="kulzzyHeader">
 
         <div class="brand">
@@ -155,12 +159,12 @@ html, body {
     </div>
 
 
-    <!-- CASTER.FM PLAYER -->
+    <!-- OFFICIAL CASTER.FM LIVE PLAYER -->
 
     <div class="casterBox">
 
         <div
-            data-type="newStreamPlayer"
+            data-type="streamPlayer"
             data-publicToken="8c96ae48-5e72-43d8-a87e-e90f623ac080"
             data-theme="light"
             data-color="e81e4d"
@@ -186,11 +190,8 @@ html, body {
 
 
     <div class="footer">
-
-        KULZZY RADIO NETWORK
-        •
+        KULZZY RADIO NETWORK •
         <span>Celebrating Lives Everyday</span>
-
     </div>
 
 </div>
