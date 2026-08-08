@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
 
-<meta
-name="viewport"
-content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
 <title>Kulzzy Radio Network</title>
 
 <style>
 
+/* =====================================================
+   KULZZY RADIO NETWORK
+   PROFESSIONAL FLOATING PLAYER
+   ===================================================== */
+
 * {
     box-sizing: border-box;
 }
-
 
 html,
 body {
 
     margin: 0;
-
     padding: 0;
 
     width: 100%;
-
     min-height: 100%;
 
     background: #020d1a;
@@ -39,37 +39,34 @@ body {
 }
 
 
-/* =========================================
-   FLOATING RADIO PLAYER
-========================================= */
+/* =====================================================
+   MAIN PLAYER
+   ===================================================== */
 
 #radioPlayer {
 
-    position: fixed;
-
-    left: 0;
-
-    bottom: 0;
-
     width: 100%;
 
-    z-index: 999999;
+    background:
+        linear-gradient(
+            180deg,
+            #03182c 0%,
+            #020d1a 100%
+        );
 
-    background: #020d1a;
+    color: white;
 
     border-top:
-        3px solid #ffd000;
+        4px solid #ffd000;
 
-    box-shadow:
-        0 -5px 25px
-        rgba(0,0,0,0.75);
+    overflow: hidden;
 
 }
 
 
-/* =========================================
-   HEADER
-========================================= */
+/* =====================================================
+   KULZZY HEADER
+   ===================================================== */
 
 .kulzzyHeader {
 
@@ -77,16 +74,19 @@ body {
 
     align-items: center;
 
-    justify-content:
-        space-between;
+    justify-content: space-between;
+
+    width: 100%;
 
     padding:
-        12px 18px;
+        14px
+        18px;
 
     background: #03182c;
 
     border-bottom:
-        1px solid #294158;
+        1px solid
+        rgba(255,255,255,0.12);
 
 }
 
@@ -104,19 +104,18 @@ body {
 
 .redDot {
 
-    width: 18px;
+    width: 20px;
+    height: 20px;
 
-    height: 18px;
+    min-width: 20px;
 
-    min-width: 18px;
-
-    background: #ff0000;
+    background: #ff0015;
 
     border-radius: 50%;
 
     box-shadow:
-        0 0 15px
-        rgba(255,0,0,0.9);
+        0 0 10px #ff0015,
+        0 0 22px rgba(255,0,21,0.7);
 
 }
 
@@ -125,188 +124,293 @@ body {
 
     color: #ffd000;
 
-    font-size: 18px;
+    font-size: 20px;
 
-    font-weight: bold;
+    font-weight: 800;
+
+    letter-spacing:
+        0.3px;
 
 }
 
 
 .slogan {
 
-    color: #aeb9c5;
-
-    font-size: 12px;
-
     margin-top: 4px;
+
+    color: #b7c3ce;
+
+    font-size: 13px;
 
 }
 
 
 .liveBadge {
 
-    background: #ff1824;
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    background: #ff0015;
 
     color: white;
 
     padding:
-        9px 15px;
+        10px
+        15px;
 
-    border-radius: 22px;
+    border-radius: 25px;
 
-    font-size: 12px;
+    font-size: 13px;
 
     font-weight: bold;
 
     box-shadow:
         0 0 15px
-        rgba(255,0,0,0.5);
+        rgba(255,0,21,0.55);
 
 }
 
 
-/* =========================================
+/* =====================================================
    PLAYER CONTENT
-========================================= */
+   ===================================================== */
 
-#kulzzyPlayerContent {
+.playerContent {
 
     width: 100%;
-
-    max-width: 700px;
-
-    margin: auto;
-
-    padding:
-        10px 12px 8px;
-
-}
-
-
-/* =========================================
-   STATUS
-========================================= */
-
-.kulzzyStatus {
 
     text-align: center;
 
-    margin-bottom: 8px;
-
-    font-size: 14px;
-
-    font-weight: bold;
-
-}
-
-
-.kulzzyStatus.live {
-
-    color: #ff3030;
+    padding:
+        18px
+        15px
+        22px;
 
 }
 
 
-.kulzzyStatus.audio {
+/* =====================================================
+   STATUS
+   ===================================================== */
+
+.statusText {
 
     color: #ffd000;
 
-}
+    font-size: 15px;
 
+    font-weight: bold;
 
-/* =========================================
-   CASTER
-========================================= */
+    margin-bottom: 12px;
 
-.cstrEmbed {
-
-    width: 100%;
+    letter-spacing:
+        0.5px;
 
 }
 
 
-/* =========================================
-   AUDIO PLAYER
-========================================= */
+/* =====================================================
+   HUGE PLAY BUTTON
+   ===================================================== */
 
-.audioPlayer {
+#bigPlayButton {
 
     display: flex;
 
-    justify-content:
-        center;
+    align-items: center;
 
-    align-items:
-        center;
+    justify-content: center;
 
-    padding:
-        4px 0 8px;
+    width: 145px;
 
-}
+    height: 145px;
 
-
-.kulzzyPlayButton {
-
-    width: 62px;
-
-    height: 62px;
+    margin:
+        10px
+        auto
+        14px;
 
     border-radius: 50%;
 
     border:
-        3px solid #ffd000;
+        5px solid
+        #ffd000;
 
     background:
-        linear-gradient(
-            145deg,
-            #ff2020,
-            #a90000
+        radial-gradient(
+            circle at 35% 30%,
+            #ff5050,
+            #ed0015 45%,
+            #b90010 100%
         );
 
     color: white;
 
-    font-size: 25px;
+    font-size: 65px;
+
+    line-height: 1;
 
     cursor: pointer;
 
     box-shadow:
-        0 0 18px
-        rgba(255,0,0,0.65);
+        0 0 15px
+        rgba(255,0,0,0.8),
+
+        0 0 35px
+        rgba(255,0,0,0.45),
+
+        0 5px 15px
+        rgba(0,0,0,0.7);
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+
+    -webkit-tap-highlight-color:
+        transparent;
 
 }
 
 
-.kulzzyPlayButton:active {
+#bigPlayButton:active {
 
     transform:
-        scale(0.94);
+        scale(0.93);
+
+    box-shadow:
+        0 0 10px
+        rgba(255,0,0,0.8);
 
 }
 
 
-/* Hide native audio controls */
+#bigPlayButton.playing {
 
-.audioPlayer audio {
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #36ff75,
+            #00a83b 45%,
+            #006b28 100%
+        );
+
+    border-color:
+        #ffd000;
+
+    box-shadow:
+        0 0 18px
+        rgba(0,255,80,0.8),
+
+        0 0 40px
+        rgba(0,255,80,0.4);
+
+}
+
+
+/* =====================================================
+   BUTTON LABEL
+   ===================================================== */
+
+.buttonLabel {
+
+    color: #ffffff;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    margin-top: 5px;
+
+}
+
+
+/* =====================================================
+   NOW PLAYING
+   ===================================================== */
+
+.nowPlaying {
+
+    width: 95%;
+
+    max-width: 600px;
+
+    margin:
+        15px
+        auto
+        0;
+
+    padding:
+        10px
+        12px;
+
+    color: #c7d0d9;
+
+    background:
+        rgba(255,255,255,0.04);
+
+    border:
+        1px solid
+        rgba(255,208,0,0.3);
+
+    border-radius: 10px;
+
+    font-size: 13px;
+
+}
+
+
+/* =====================================================
+   AUDIO ELEMENT
+   ===================================================== */
+
+#audioPlayer {
 
     display: none;
 
 }
 
 
-/* =========================================
+/* =====================================================
+   CASTER LIVE PLAYER
+   ===================================================== */
+
+#casterLive {
+
+    width: 100%;
+
+    max-width: 700px;
+
+    margin:
+        10px
+        auto;
+
+}
+
+
+/* =====================================================
    FOOTER
-========================================= */
+   ===================================================== */
 
 .footer {
 
+    width: 100%;
+
+    padding:
+        8px
+        10px;
+
     text-align: center;
 
-    color: #778492;
+    color: #687989;
 
     font-size: 10px;
 
-    padding:
-        4px 10px 7px;
+    border-top:
+        1px solid
+        rgba(255,255,255,0.08);
 
 }
 
@@ -318,25 +422,106 @@ body {
 }
 
 
-/* =========================================
+/* =====================================================
    MOBILE
-========================================= */
+   ===================================================== */
 
-@media
-(max-width: 600px) {
-
+@media (max-width: 600px) {
 
     .kulzzyHeader {
 
         padding:
-            11px 15px;
+            13px
+            14px;
 
     }
 
 
     .brandName {
 
-        font-size: 16px;
+        font-size: 17px;
+
+    }
+
+
+    .slogan {
+
+        font-size: 11px;
+
+    }
+
+
+    .redDot {
+
+        width: 18px;
+        height: 18px;
+
+        min-width: 18px;
+
+    }
+
+
+    .liveBadge {
+
+        padding:
+            9px
+            12px;
+
+        font-size: 12px;
+
+    }
+
+
+    .playerContent {
+
+        padding:
+            14px
+            10px
+            18px;
+
+    }
+
+
+    /* VERY LARGE MOBILE BUTTON */
+
+    #bigPlayButton {
+
+        width: 155px;
+
+        height: 155px;
+
+        font-size: 70px;
+
+        border-width: 5px;
+
+    }
+
+
+    .buttonLabel {
+
+        font-size: 18px;
+
+    }
+
+
+    .statusText {
+
+        font-size: 14px;
+
+    }
+
+}
+
+
+/* =====================================================
+   SMALL PHONES
+   ===================================================== */
+
+@media (max-width: 380px) {
+
+    .brandName {
+
+        font-size: 15px;
 
     }
 
@@ -348,20 +533,13 @@ body {
     }
 
 
-    .liveBadge {
+    #bigPlayButton {
 
-        font-size: 11px;
+        width: 145px;
 
-        padding:
-            8px 12px;
+        height: 145px;
 
-    }
-
-
-    #kulzzyPlayerContent {
-
-        padding:
-            8px 10px;
+        font-size: 65px;
 
     }
 
@@ -378,44 +556,125 @@ body {
 <div id="radioPlayer">
 
 
-    <!-- KULZZY RADIO HEADER -->
+    <!-- =================================================
+         KULZZY HEADER
+         ================================================= -->
 
     <div class="kulzzyHeader">
 
-
         <div class="brand">
-
 
             <div class="redDot"></div>
 
-
             <div>
 
-
-                <div
-                id="kulzzyPlayerTitle"
-                class="brandName">
-
+                <div class="brandName">
                     KULZZY RADIO NETWORK
-
                 </div>
 
-
                 <div class="slogan">
-
                     Celebrating Lives Everyday
-
                 </div>
 
             </div>
-
 
         </div>
 
 
         <div class="liveBadge">
-
             ● LIVE
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         PLAYER
+         ================================================= -->
+
+    <div class="playerContent">
+
+
+        <div
+            id="statusText"
+            class="statusText">
+
+            🎵 AUTOMATIC AUDIO
+
+        </div>
+
+
+        <!-- HUGE PLAY BUTTON -->
+
+        <button
+            id="bigPlayButton"
+            type="button"
+            aria-label="Play Kulzzy Radio">
+
+            ▶
+
+        </button>
+
+
+        <div
+            id="buttonLabel"
+            class="buttonLabel">
+
+            TAP TO PLAY
+
+        </div>
+
+
+        <!-- NOW PLAYING -->
+
+        <div
+            id="nowPlaying"
+            class="nowPlaying">
+
+            Kulzzy Radio Network
+            •
+            Celebrating Lives Everyday
+
+        </div>
+
+
+        <!-- AUDIO -->
+
+        <audio
+            id="audioPlayer"
+            preload="none"
+            playsinline>
+        </audio>
+
+
+        <!-- CASTER LIVE PLAYER -->
+
+        <div
+            id="casterLive"
+            style="display:none;">
+
+            <div
+                data-type="newStreamPlayer"
+                data-publicToken="8c96ae48-5e72-43d8-a87e-e90f623ac080"
+                data-theme="dark"
+                data-color="e81e4d"
+                data-channelId="a272a955-fc0c-4968-8280-2a2cb7e434ec"
+                data-rendered="false"
+                class="cstrEmbed">
+
+                <a href="https://www.caster.fm">
+                    Shoutcast Hosting
+                </a>
+
+                <a href="https://www.caster.fm">
+                    Stream Hosting
+                </a>
+
+                <a href="https://www.caster.fm">
+                    Radio Server Hosting
+                </a>
+
+            </div>
 
         </div>
 
@@ -423,17 +682,9 @@ body {
     </div>
 
 
-    <!-- PLAYER -->
-
-    <div
-    id="kulzzyPlayerContent">
-
-        Loading Kulzzy Radio...
-
-    </div>
-
-
-    <!-- FOOTER -->
+    <!-- =================================================
+         FOOTER
+         ================================================= -->
 
     <div class="footer">
 
@@ -451,12 +702,403 @@ body {
 </div>
 
 
-<!-- PLAYER ENGINE -->
+<!-- =====================================================
+     CASTER.FM SCRIPT
+     ===================================================== -->
 
 <script
-src="player.js">
+src="https://cdn.cloud.caster.fm/widgets/embed.js">
 </script>
 
 
-</body> 
+<script>
+
+/* =====================================================
+   KULZZY RADIO PLAYER
+   ===================================================== */
+
+const CONFIG_URL =
+    "config.json";
+
+
+const audio =
+    document.getElementById(
+        "audioPlayer"
+    );
+
+
+const playButton =
+    document.getElementById(
+        "bigPlayButton"
+    );
+
+
+const buttonLabel =
+    document.getElementById(
+        "buttonLabel"
+    );
+
+
+const statusText =
+    document.getElementById(
+        "statusText"
+    );
+
+
+const nowPlaying =
+    document.getElementById(
+        "nowPlaying"
+    );
+
+
+const casterLive =
+    document.getElementById(
+        "casterLive"
+    );
+
+
+let currentAudio = "";
+
+let currentMode = "";
+
+
+
+/* =====================================================
+   LOAD CONFIG
+   ===================================================== */
+
+async function loadConfig() {
+
+    try {
+
+        const response =
+            await fetch(
+                CONFIG_URL +
+                "?t=" +
+                Date.now(),
+                {
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Config could not be loaded"
+            );
+
+        }
+
+
+        const config =
+            await response.json();
+
+
+        /* ---------------------------------------------
+           UPDATE NOW PLAYING
+           --------------------------------------------- */
+
+        if (
+            config.nowPlaying &&
+            config.nowPlaying.trim() !== ""
+        ) {
+
+            nowPlaying.textContent =
+                config.nowPlaying;
+
+        } else {
+
+            nowPlaying.textContent =
+                "Kulzzy Radio Network • Celebrating Lives Everyday";
+
+        }
+
+
+        /* ---------------------------------------------
+           LIVE MODE
+           --------------------------------------------- */
+
+        if (
+            String(config.status)
+                .toUpperCase() === "LIVE"
+        ) {
+
+            switchToLive();
+
+        }
+
+
+        /* ---------------------------------------------
+           AUTOMATIC AUDIO MODE
+           --------------------------------------------- */
+
+        else {
+
+            switchToAudio(
+                config.currentAudio
+            );
+
+        }
+
+
+    } catch (error) {
+
+        console.log(
+            "Kulzzy player:",
+            error
+        );
+
+        statusText.textContent =
+            "🎵 AUTOMATIC AUDIO";
+
+    }
+
+}
+
+
+/* =====================================================
+   SWITCH TO LIVE
+   ===================================================== */
+
+function switchToLive() {
+
+    if (
+        currentMode === "LIVE"
+    ) {
+
+        return;
+
+    }
+
+
+    currentMode = "LIVE";
+
+
+    /* Stop automatic audio */
+
+    audio.pause();
+
+
+    audio.removeAttribute(
+        "src"
+    );
+
+
+    audio.load();
+
+
+    /* Show Caster */
+
+    casterLive.style.display =
+        "block";
+
+
+    /* Hide big automatic button */
+
+    playButton.style.display =
+        "none";
+
+
+    buttonLabel.style.display =
+        "none";
+
+
+    statusText.textContent =
+        "🔴 LIVE ON AIR";
+
+
+}
+
+
+/* =====================================================
+   SWITCH TO AUTOMATIC AUDIO
+   ===================================================== */
+
+function switchToAudio(
+    audioFile
+) {
+
+    if (
+        !audioFile
+    ) {
+
+        return;
+
+    }
+
+
+    currentMode = "AUDIO";
+
+
+    casterLive.style.display =
+        "none";
+
+
+    playButton.style.display =
+        "flex";
+
+
+    buttonLabel.style.display =
+        "block";
+
+
+    statusText.textContent =
+        "🎵 AUTOMATIC AUDIO";
+
+
+    /* ---------------------------------------------
+       Only change source when necessary
+       --------------------------------------------- */
+
+    if (
+        currentAudio !== audioFile
+    ) {
+
+        currentAudio =
+            audioFile;
+
+        audio.src =
+            audioFile +
+            "?v=" +
+            Date.now();
+
+        audio.load();
+
+
+        /* Reset button */
+
+        playButton.classList.remove(
+            "playing"
+        );
+
+        playButton.textContent =
+            "▶";
+
+        buttonLabel.textContent =
+            "TAP TO PLAY";
+
+    }
+
+}
+
+
+/* =====================================================
+   PLAY BUTTON
+   ===================================================== */
+
+playButton.addEventListener(
+    "click",
+    async function() {
+
+        if (
+            currentMode !== "AUDIO"
+        ) {
+
+            return;
+
+        }
+
+
+        try {
+
+            if (
+                audio.paused
+            ) {
+
+                await audio.play();
+
+
+                playButton.classList.add(
+                    "playing"
+                );
+
+
+                playButton.textContent =
+                    "❚❚";
+
+
+                buttonLabel.textContent =
+                    "NOW PLAYING";
+
+
+            } else {
+
+                audio.pause();
+
+
+                playButton.classList.remove(
+                    "playing"
+                );
+
+
+                playButton.textContent =
+                    "▶";
+
+
+                buttonLabel.textContent =
+                    "TAP TO PLAY";
+
+            }
+
+
+        } catch (error) {
+
+            console.log(
+                "Audio play error:",
+                error
+            );
+
+            buttonLabel.textContent =
+                "TAP TO PLAY";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   WHEN AUDIO ENDS
+   ===================================================== */
+
+audio.addEventListener(
+    "ended",
+    function() {
+
+        playButton.classList.remove(
+            "playing"
+        );
+
+        playButton.textContent =
+            "▶";
+
+        buttonLabel.textContent =
+            "TAP TO PLAY";
+
+    }
+);
+
+
+/* =====================================================
+   START
+   ===================================================== */
+
+loadConfig();
+
+
+/* =====================================================
+   CHECK CONFIG EVERY 5 SECONDS
+   ===================================================== */
+
+setInterval(
+    loadConfig,
+    5000
+);
+
+</script>
+
+
+</body>
+
 </html>
