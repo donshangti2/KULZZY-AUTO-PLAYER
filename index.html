@@ -1,1104 +1,377 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!-- RADIO PLAYER + OUR LISTENERS -->
+<div class="radio-and-listeners">
 
-<meta charset="UTF-8">
+  <!-- RADIO PLAYER -->
+  <div class="radio-player-box">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+    <!-- Keep your existing radio player code INSIDE here -->
+    <div id="radioPlayer">
 
-<title>Kulzzy Radio Network</title>
+      <div class="kulzzyHeader">
+
+        <div class="brand">
+          <div class="redDot"></div>
+
+          <div>
+            <div class="brandName">
+              KULZZY RADIO NETWORK
+            </div>
+
+            <div class="slogan">
+              Celebrating Lives Everyday
+            </div>
+          </div>
+        </div>
+
+        <div class="liveBadge">
+          ● LIVE
+        </div>
+
+      </div>
+
+      <!-- BIG PLAY BUTTON -->
+      <div style="text-align:center;padding:20px;">
+
+        <div style="
+          color:#ffd000;
+          font-size:16px;
+          font-weight:bold;
+          margin-bottom:10px;
+        ">
+          🎵 AUTOMATIC AUDIO
+        </div>
+
+        <button id="playButton" style="
+          width:100px;
+          height:100px;
+          border-radius:50%;
+          border:4px solid #ffd000;
+          background:#ff0000;
+          color:white;
+          font-size:45px;
+          cursor:pointer;
+          box-shadow:0 0 25px rgba(255,0,0,.8);
+        ">
+          ▶
+        </button>
+
+      </div>
+
+      <div class="footer">
+        KULZZY RADIO NETWORK
+        •
+        <span>Celebrating Lives Everyday</span>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- OUR LISTENERS -->
+  <div id="ourListenersCounter">
+
+    <div class="listenersTitle">
+
+      <span class="beepDot"></span>
+
+      <span>OUR LISTENERS</span>
+
+    </div>
+
+    <div id="listenerCount">
+      0
+    </div>
+
+  </div>
+
+</div>
+
 
 <style>
 
-/* =====================================================
-   KULZZY RADIO NETWORK
-   PROFESSIONAL FLOATING PLAYER
-   ===================================================== */
+/* =====================================
+   RADIO + LISTENERS LAYOUT
+===================================== */
 
-* {
-    box-sizing: border-box;
-}
+.radio-and-listeners {
 
-html,
-body {
+  width:100%;
 
-    margin: 0;
-    padding: 0;
+  max-width:1100px;
 
-    width: 100%;
-    min-height: 100%;
+  margin:20px auto;
 
-    background: #020d1a;
+  display:flex;
 
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+  align-items:stretch;
 
-}
+  justify-content:center;
 
+  gap:15px;
 
-/* =====================================================
-   MAIN PLAYER
-   ===================================================== */
+  box-sizing:border-box;
 
-#radioPlayer {
-
-    width: 100%;
-
-    background:
-        linear-gradient(
-            180deg,
-            #03182c 0%,
-            #020d1a 100%
-        );
-
-    color: white;
-
-    border-top:
-        4px solid #ffd000;
-
-    overflow: hidden;
+  padding:0 10px;
 
 }
 
 
-/* =====================================================
-   KULZZY HEADER
-   ===================================================== */
+/* RADIO PLAYER */
 
-.kulzzyHeader {
+.radio-player-box {
 
-    display: flex;
+  flex:1;
 
-    align-items: center;
+  min-width:0;
 
-    justify-content: space-between;
+  background:#020d1a;
 
-    width: 100%;
+  border-top:3px solid #ffd000;
 
-    padding:
-        14px
-        18px;
-
-    background: #03182c;
-
-    border-bottom:
-        1px solid
-        rgba(255,255,255,0.12);
+  box-shadow:0 0 15px rgba(0,0,0,.5);
 
 }
 
 
-.brand {
+/* LISTENERS BOX */
 
-    display: flex;
+#ourListenersCounter {
 
-    align-items: center;
+  width:300px;
 
-    gap: 12px;
+  background:#ffd000;
 
-}
+  display:flex;
 
+  flex-direction:column;
 
-.redDot {
+  justify-content:center;
 
-    width: 20px;
-    height: 20px;
+  align-items:center;
 
-    min-width: 20px;
+  text-align:center;
 
-    background: #ff0015;
+  padding:20px 10px;
 
-    border-radius: 50%;
+  box-sizing:border-box;
 
-    box-shadow:
-        0 0 10px #ff0015,
-        0 0 22px rgba(255,0,21,0.7);
+  font-family:Arial,sans-serif;
 
-}
-
-
-.brandName {
-
-    color: #ffd000;
-
-    font-size: 20px;
-
-    font-weight: 800;
-
-    letter-spacing:
-        0.3px;
+  user-select:none;
 
 }
 
 
-.slogan {
+/* TITLE */
 
-    margin-top: 4px;
+.listenersTitle {
 
-    color: #b7c3ce;
+  font-size:28px;
 
-    font-size: 13px;
+  font-weight:bold;
 
-}
+  color:#000;
 
-
-.liveBadge {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 5px;
-
-    background: #ff0015;
-
-    color: white;
-
-    padding:
-        10px
-        15px;
-
-    border-radius: 25px;
-
-    font-size: 13px;
-
-    font-weight: bold;
-
-    box-shadow:
-        0 0 15px
-        rgba(255,0,21,0.55);
+  white-space:nowrap;
 
 }
 
 
-/* =====================================================
-   PLAYER CONTENT
-   ===================================================== */
+/* BLINKING RED DOT */
 
-.playerContent {
+.beepDot {
 
-    width: 100%;
+  display:inline-block;
 
-    text-align: center;
+  width:16px;
 
-    padding:
-        18px
-        15px
-        22px;
+  height:16px;
 
-}
+  background:red;
 
+  border-radius:50%;
 
-/* =====================================================
-   STATUS
-   ===================================================== */
+  margin-right:8px;
 
-.statusText {
+  animation:blink 1s infinite;
 
-    color: #ffd000;
-
-    font-size: 15px;
-
-    font-weight: bold;
-
-    margin-bottom: 12px;
-
-    letter-spacing:
-        0.5px;
+  vertical-align:middle;
 
 }
 
 
-/* =====================================================
-   HUGE PLAY BUTTON
-   ===================================================== */
+/* NUMBER */
 
-#bigPlayButton {
+#listenerCount {
 
-    display: flex;
+  font-size:70px;
 
-    align-items: center;
+  font-weight:bold;
 
-    justify-content: center;
+  color:red;
 
-    width: 145px;
+  margin-top:12px;
 
-    height: 145px;
-
-    margin:
-        10px
-        auto
-        14px;
-
-    border-radius: 50%;
-
-    border:
-        5px solid
-        #ffd000;
-
-    background:
-        radial-gradient(
-            circle at 35% 30%,
-            #ff5050,
-            #ed0015 45%,
-            #b90010 100%
-        );
-
-    color: white;
-
-    font-size: 65px;
-
-    line-height: 1;
-
-    cursor: pointer;
-
-    box-shadow:
-        0 0 15px
-        rgba(255,0,0,0.8),
-
-        0 0 35px
-        rgba(255,0,0,0.45),
-
-        0 5px 15px
-        rgba(0,0,0,0.7);
-
-    transition:
-        transform 0.15s ease,
-        box-shadow 0.15s ease;
-
-    -webkit-tap-highlight-color:
-        transparent;
+  line-height:1;
 
 }
 
 
-#bigPlayButton:active {
+/* BLINK */
 
-    transform:
-        scale(0.93);
+@keyframes blink {
 
-    box-shadow:
-        0 0 10px
-        rgba(255,0,0,0.8);
+  0%,100% {
 
-}
+    opacity:1;
 
+    transform:scale(1);
 
-#bigPlayButton.playing {
+    box-shadow:0 0 6px red;
 
-    background:
-        radial-gradient(
-            circle at 35% 30%,
-            #36ff75,
-            #00a83b 45%,
-            #006b28 100%
-        );
+  }
 
-    border-color:
-        #ffd000;
+  50% {
 
-    box-shadow:
-        0 0 18px
-        rgba(0,255,80,0.8),
+    opacity:.2;
 
-        0 0 40px
-        rgba(0,255,80,0.4);
+    transform:scale(1.3);
+
+    box-shadow:0 0 20px red;
+
+  }
 
 }
 
 
-/* =====================================================
-   BUTTON LABEL
-   ===================================================== */
+/* MOBILE */
 
-.buttonLabel {
+@media(max-width:600px) {
 
-    color: #ffffff;
+  .radio-and-listeners {
 
-    font-size: 17px;
+    gap:5px;
 
-    font-weight: bold;
+    padding:0 5px;
 
-    margin-top: 5px;
+  }
 
-}
+  .radio-player-box {
 
+    flex:1.5;
 
-/* =====================================================
-   NOW PLAYING
-   ===================================================== */
+  }
 
-.nowPlaying {
+  #ourListenersCounter {
 
-    width: 95%;
+    width:40%;
 
-    max-width: 600px;
+    padding:10px 3px;
 
-    margin:
-        15px
-        auto
-        0;
+  }
 
-    padding:
-        10px
-        12px;
+  .listenersTitle {
 
-    color: #c7d0d9;
+    font-size:13px;
 
-    background:
-        rgba(255,255,255,0.04);
+  }
 
-    border:
-        1px solid
-        rgba(255,208,0,0.3);
+  .beepDot {
 
-    border-radius: 10px;
+    width:8px;
 
-    font-size: 13px;
+    height:8px;
 
-}
+    margin-right:3px;
 
+  }
 
-/* =====================================================
-   AUDIO ELEMENT
-   ===================================================== */
+  #listenerCount {
 
-#audioPlayer {
+    font-size:40px;
 
-    display: none;
+    margin-top:8px;
+
+  }
 
 }
 
 
-/* =====================================================
-   CASTER LIVE PLAYER
-   ===================================================== */
+/* VERY SMALL PHONES */
 
-#casterLive {
+@media(max-width:380px) {
 
-    width: 100%;
+  .listenersTitle {
 
-    max-width: 700px;
+    font-size:11px;
 
-    margin:
-        10px
-        auto;
+  }
 
-}
+  #listenerCount {
 
+    font-size:32px;
 
-/* =====================================================
-   FOOTER
-   ===================================================== */
-
-.footer {
-
-    width: 100%;
-
-    padding:
-        8px
-        10px;
-
-    text-align: center;
-
-    color: #687989;
-
-    font-size: 10px;
-
-    border-top:
-        1px solid
-        rgba(255,255,255,0.08);
-
-}
-
-
-.footer span {
-
-    color: #ffd000;
-
-}
-
-
-/* =====================================================
-   MOBILE
-   ===================================================== */
-
-@media (max-width: 600px) {
-
-    .kulzzyHeader {
-
-        padding:
-            13px
-            14px;
-
-    }
-
-
-    .brandName {
-
-        font-size: 17px;
-
-    }
-
-
-    .slogan {
-
-        font-size: 11px;
-
-    }
-
-
-    .redDot {
-
-        width: 18px;
-        height: 18px;
-
-        min-width: 18px;
-
-    }
-
-
-    .liveBadge {
-
-        padding:
-            9px
-            12px;
-
-        font-size: 12px;
-
-    }
-
-
-    .playerContent {
-
-        padding:
-            14px
-            10px
-            18px;
-
-    }
-
-
-    /* VERY LARGE MOBILE BUTTON */
-
-    #bigPlayButton {
-
-        width: 155px;
-
-        height: 155px;
-
-        font-size: 70px;
-
-        border-width: 5px;
-
-    }
-
-
-    .buttonLabel {
-
-        font-size: 18px;
-
-    }
-
-
-    .statusText {
-
-        font-size: 14px;
-
-    }
-
-}
-
-
-/* =====================================================
-   SMALL PHONES
-   ===================================================== */
-
-@media (max-width: 380px) {
-
-    .brandName {
-
-        font-size: 15px;
-
-    }
-
-
-    .slogan {
-
-        font-size: 10px;
-
-    }
-
-
-    #bigPlayButton {
-
-        width: 145px;
-
-        height: 145px;
-
-        font-size: 65px;
-
-    }
+  }
 
 }
 
 </style>
 
-</head>
-
-
-<body>
-
-
-<div id="radioPlayer">
-
-
-    <!-- =================================================
-         KULZZY HEADER
-         ================================================= -->
-
-    <div class="kulzzyHeader">
-
-        <div class="brand">
-
-            <div class="redDot"></div>
-
-            <div>
-
-                <div class="brandName">
-                    KULZZY RADIO NETWORK
-                </div>
-
-                <div class="slogan">
-                    Celebrating Lives Everyday
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <div class="liveBadge">
-            ● LIVE
-        </div>
-
-    </div>
-
-
-    <!-- =================================================
-         PLAYER
-         ================================================= -->
-
-    <div class="playerContent">
-
-
-        <div
-            id="statusText"
-            class="statusText">
-
-            🎵 AUTOMATIC AUDIO
-
-        </div>
-
-
-        <!-- HUGE PLAY BUTTON -->
-
-        <button
-            id="bigPlayButton"
-            type="button"
-            aria-label="Play Kulzzy Radio">
-
-            ▶
-
-        </button>
-
-
-        <div
-            id="buttonLabel"
-            class="buttonLabel">
-
-            TAP TO PLAY
-
-        </div>
-
-
-        <!-- NOW PLAYING -->
-
-        <div
-            id="nowPlaying"
-            class="nowPlaying">
-
-            Kulzzy Radio Network
-            •
-            Celebrating Lives Everyday
-
-        </div>
-
-
-        <!-- AUDIO -->
-
-        <audio
-            id="audioPlayer"
-            preload="none"
-            playsinline>
-        </audio>
-
-
-        <!-- CASTER LIVE PLAYER -->
-
-        <div
-            id="casterLive"
-            style="display:none;">
-
-            <div
-                data-type="newStreamPlayer"
-                data-publicToken="8c96ae48-5e72-43d8-a87e-e90f623ac080"
-                data-theme="dark"
-                data-color="e81e4d"
-                data-channelId="a272a955-fc0c-4968-8280-2a2cb7e434ec"
-                data-rendered="false"
-                class="cstrEmbed">
-
-                <a href="https://www.caster.fm">
-                    Shoutcast Hosting
-                </a>
-
-                <a href="https://www.caster.fm">
-                    Stream Hosting
-                </a>
-
-                <a href="https://www.caster.fm">
-                    Radio Server Hosting
-                </a>
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-    <!-- =================================================
-         FOOTER
-         ================================================= -->
-
-    <div class="footer">
-
-        KULZZY RADIO NETWORK
-
-        •
-
-        <span>
-            Celebrating Lives Everyday
-        </span>
-
-    </div>
-
-
-</div>
-
-
-<!-- =====================================================
-     CASTER.FM SCRIPT
-     ===================================================== -->
-
-<script
-src="https://cdn.cloud.caster.fm/widgets/embed.js">
-</script>
-
 
 <script>
 
-/* =====================================================
-   KULZZY RADIO PLAYER
-   ===================================================== */
+/* =====================================
+   OUR LISTENERS COUNTER
+===================================== */
 
-const CONFIG_URL =
-    "config.json";
+(function(){
 
+  let count =
+    Math.floor(Math.random() * 9000) + 1000;
 
-const audio =
-    document.getElementById(
-        "audioPlayer"
-    );
+  const display =
+    document.getElementById("listenerCount");
 
-
-const playButton =
-    document.getElementById(
-        "bigPlayButton"
-    );
+  display.textContent =
+    count.toLocaleString();
 
 
-const buttonLabel =
-    document.getElementById(
-        "buttonLabel"
-    );
+  function updateCounter(){
+
+    const up =
+      Math.random() > 0.5;
+
+    const change =
+      (Math.floor(Math.random() * 8) + 1) * 10;
 
 
-const statusText =
-    document.getElementById(
-        "statusText"
-    );
+    if(up){
 
+      count += change;
 
-const nowPlaying =
-    document.getElementById(
-        "nowPlaying"
-    );
+    }else{
 
-
-const casterLive =
-    document.getElementById(
-        "casterLive"
-    );
-
-
-let currentAudio = "";
-
-let currentMode = "";
-
-
-
-/* =====================================================
-   LOAD CONFIG
-   ===================================================== */
-
-async function loadConfig() {
-
-    try {
-
-        const response =
-            await fetch(
-                CONFIG_URL +
-                "?t=" +
-                Date.now(),
-                {
-                    cache: "no-store"
-                }
-            );
-
-
-        if (!response.ok) {
-
-            throw new Error(
-                "Config could not be loaded"
-            );
-
-        }
-
-
-        const config =
-            await response.json();
-
-
-        /* ---------------------------------------------
-           UPDATE NOW PLAYING
-           --------------------------------------------- */
-
-        if (
-            config.nowPlaying &&
-            config.nowPlaying.trim() !== ""
-        ) {
-
-            nowPlaying.textContent =
-                config.nowPlaying;
-
-        } else {
-
-            nowPlaying.textContent =
-                "Kulzzy Radio Network • Celebrating Lives Everyday";
-
-        }
-
-
-        /* ---------------------------------------------
-           LIVE MODE
-           --------------------------------------------- */
-
-        if (
-            String(config.status)
-                .toUpperCase() === "LIVE"
-        ) {
-
-            switchToLive();
-
-        }
-
-
-        /* ---------------------------------------------
-           AUTOMATIC AUDIO MODE
-           --------------------------------------------- */
-
-        else {
-
-            switchToAudio(
-                config.currentAudio
-            );
-
-        }
-
-
-    } catch (error) {
-
-        console.log(
-            "Kulzzy player:",
-            error
-        );
-
-        statusText.textContent =
-            "🎵 AUTOMATIC AUDIO";
-
-    }
-
-}
-
-
-/* =====================================================
-   SWITCH TO LIVE
-   ===================================================== */
-
-function switchToLive() {
-
-    if (
-        currentMode === "LIVE"
-    ) {
-
-        return;
+      count -= change;
 
     }
 
 
-    currentMode = "LIVE";
+    if(count < 1000)
+      count = 1000;
 
+    if(count > 9999)
+      count = 9999;
 
-    /* Stop automatic audio */
 
-    audio.pause();
+    display.textContent =
+      count.toLocaleString();
 
+  }
 
-    audio.removeAttribute(
-        "src"
-    );
 
+  setInterval(updateCounter,4000);
 
-    audio.load();
-
-
-    /* Show Caster */
-
-    casterLive.style.display =
-        "block";
-
-
-    /* Hide big automatic button */
-
-    playButton.style.display =
-        "none";
-
-
-    buttonLabel.style.display =
-        "none";
-
-
-    statusText.textContent =
-        "🔴 LIVE ON AIR";
-
-
-}
-
-
-/* =====================================================
-   SWITCH TO AUTOMATIC AUDIO
-   ===================================================== */
-
-function switchToAudio(
-    audioFile
-) {
-
-    if (
-        !audioFile
-    ) {
-
-        return;
-
-    }
-
-
-    currentMode = "AUDIO";
-
-
-    casterLive.style.display =
-        "none";
-
-
-    playButton.style.display =
-        "flex";
-
-
-    buttonLabel.style.display =
-        "block";
-
-
-    statusText.textContent =
-        "🎵 AUTOMATIC AUDIO";
-
-
-    /* ---------------------------------------------
-       Only change source when necessary
-       --------------------------------------------- */
-
-    if (
-        currentAudio !== audioFile
-    ) {
-
-        currentAudio =
-            audioFile;
-
-        audio.src =
-            audioFile +
-            "?v=" +
-            Date.now();
-
-        audio.load();
-
-
-        /* Reset button */
-
-        playButton.classList.remove(
-            "playing"
-        );
-
-        playButton.textContent =
-            "▶";
-
-        buttonLabel.textContent =
-            "TAP TO PLAY";
-
-    }
-
-}
-
-
-/* =====================================================
-   PLAY BUTTON
-   ===================================================== */
-
-playButton.addEventListener(
-    "click",
-    async function() {
-
-        if (
-            currentMode !== "AUDIO"
-        ) {
-
-            return;
-
-        }
-
-
-        try {
-
-            if (
-                audio.paused
-            ) {
-
-                await audio.play();
-
-
-                playButton.classList.add(
-                    "playing"
-                );
-
-
-                playButton.textContent =
-                    "❚❚";
-
-
-                buttonLabel.textContent =
-                    "NOW PLAYING";
-
-
-            } else {
-
-                audio.pause();
-
-
-                playButton.classList.remove(
-                    "playing"
-                );
-
-
-                playButton.textContent =
-                    "▶";
-
-
-                buttonLabel.textContent =
-                    "TAP TO PLAY";
-
-            }
-
-
-        } catch (error) {
-
-            console.log(
-                "Audio play error:",
-                error
-            );
-
-            buttonLabel.textContent =
-                "TAP TO PLAY";
-
-        }
-
-    }
-);
-
-
-/* =====================================================
-   WHEN AUDIO ENDS
-   ===================================================== */
-
-audio.addEventListener(
-    "ended",
-    function() {
-
-        playButton.classList.remove(
-            "playing"
-        );
-
-        playButton.textContent =
-            "▶";
-
-        buttonLabel.textContent =
-            "TAP TO PLAY";
-
-    }
-);
-
-
-/* =====================================================
-   START
-   ===================================================== */
-
-loadConfig();
-
-
-/* =====================================================
-   CHECK CONFIG EVERY 5 SECONDS
-   ===================================================== */
-
-setInterval(
-    loadConfig,
-    5000
-);
+})();
 
 </script>
-
-
-</body>
-
-</html>
