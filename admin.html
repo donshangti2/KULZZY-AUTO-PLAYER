@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 
 <meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+      content="width=device-width, initial-scale=1.0">
 
 <title>Kulzzy Radio Admin</title>
 
@@ -16,125 +16,247 @@ content="width=device-width, initial-scale=1.0">
 }
 
 body {
+
     margin: 0;
     padding: 20px;
+
     background: #020d1a;
+
     color: white;
-    font-family: Arial, sans-serif;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
 }
 
 .container {
+
+    width: 100%;
+
     max-width: 650px;
+
     margin: auto;
+
+    background: #03182c;
+
+    padding: 25px;
+
+    border-radius: 15px;
+
+    border:
+        2px solid #ffd000;
+
+    box-shadow:
+        0 0 30px
+        rgba(0,0,0,0.5);
+
 }
 
 h1 {
+
     text-align: center;
+
     color: #ffd000;
-    margin-bottom: 5px;
+
+    margin-top: 0;
+
 }
 
 .subtitle {
-    text-align: center;
-    color: #aeb9c5;
-    margin-bottom: 25px;
-}
 
-.card {
-    background: #03182c;
-    border: 1px solid #294158;
-    border-radius: 15px;
-    padding: 20px;
-    margin-bottom: 20px;
+    text-align: center;
+
+    color: #aeb9c5;
+
+    margin-bottom: 25px;
+
 }
 
 label {
+
     display: block;
-    margin-top: 15px;
-    margin-bottom: 7px;
+
+    margin-top: 18px;
+
+    margin-bottom: 8px;
+
     color: #ffd000;
+
     font-weight: bold;
+
 }
 
 input,
 select {
+
     width: 100%;
+
     padding: 14px;
+
     border-radius: 8px;
-    border: 1px solid #506174;
-    background: #071d31;
+
+    border:
+        1px solid #44576b;
+
+    background: #020d1a;
+
     color: white;
-    font-size: 15px;
+
+    font-size: 16px;
+
 }
 
-button {
-    border: none;
+select option {
+
+    background: #020d1a;
+
+    color: white;
+
+}
+
+.modeButtons {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 10px;
+
+}
+
+.modeButton {
+
+    padding: 16px 8px;
+
     border-radius: 10px;
-    padding: 15px;
-    font-size: 16px;
+
+    border:
+        2px solid #44576b;
+
+    background: #020d1a;
+
+    color: white;
+
+    font-size: 15px;
+
     font-weight: bold;
+
     cursor: pointer;
-    width: 100%;
-    margin-top: 12px;
+
+}
+
+.modeButton.active {
+
+    border-color: #ffd000;
+
+    background: #17344d;
+
+    color: #ffd000;
+
 }
 
 .liveButton {
-    background: #ed1c24;
-    color: white;
-}
 
-.audioButton {
-    background: #ffd000;
-    color: #00101d;
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #ff0015;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
 }
 
 .saveButton {
-    background: #16c784;
-    color: white;
-}
 
-.statusBox {
-    padding: 15px;
+    width: 100%;
+
+    margin-top: 20px;
+
+    padding: 18px;
+
+    border: none;
+
     border-radius: 10px;
-    background: #071d31;
-    border: 1px solid #394d61;
-    text-align: center;
-    margin-bottom: 20px;
-}
 
-.liveStatus {
-    color: #ff3333;
+    background: #ffd000;
+
+    color: #020d1a;
+
+    font-size: 18px;
+
     font-weight: bold;
+
+    cursor: pointer;
+
 }
 
-.audioStatus {
-    color: #ffd000;
-    font-weight: bold;
-}
+.status {
 
-.small {
-    color: #8e9baa;
-    font-size: 12px;
-    line-height: 1.5;
-    margin-top: 15px;
-}
+    margin-top: 20px;
 
-#message {
-    text-align: center;
-    padding: 12px;
-    margin-top: 15px;
+    padding: 15px;
+
     border-radius: 8px;
-    display: none;
+
+    background: #020d1a;
+
+    color: #ffd000;
+
+    text-align: center;
+
+    word-break: break-word;
+
 }
 
-.success {
-    background: #073d27;
-    color: #4cffad;
+.note {
+
+    margin-top: 15px;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    background:
+        rgba(255,208,0,0.08);
+
+    color: #c7d0d9;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
 }
 
-.error {
-    background: #4a1010;
-    color: #ff7777;
+@media (max-width: 500px) {
+
+    .container {
+
+        padding: 18px;
+
+    }
+
+    .modeButtons {
+
+        grid-template-columns: 1fr;
+
+    }
+
 }
 
 </style>
@@ -145,144 +267,125 @@ button {
 
 <div class="container">
 
-<h1>🎙️ KULZZY RADIO</h1>
+<h1>
+🎛️ KULZZY RADIO ADMIN
+</h1>
 
 <div class="subtitle">
-ADMIN CONTROL PANEL
+Kulzzy Radio Network • Celebrating Lives Everyday
 </div>
 
 
-<div class="card">
+<!-- SONG -->
 
-<div class="statusBox">
+<label>
+🎵 SELECT AUDIO
+</label>
 
-CURRENT MODE
+<select id="audioSelect">
 
-<div id="currentMode">
-Checking...
-</div>
+    <option value="">
+        Select a song
+    </option>
 
-</div>
+    <option value="audio/ON_AIR_BIRTHDAY_SONG_BASS_ONLY.mp3">
+        ON AIR BIRTHDAY SONG
+    </option>
 
+    <option value="audio/ON_AIR_BUSINESS_O'CLOCK .mp3">
+        ON AIR BUSINESS O'CLOCK
+    </option>
 
-<label>GitHub Personal Access Token</label>
-
-<input
-type="password"
-id="githubToken"
-placeholder="Paste your GitHub token here">
-
-
-<label>GitHub Username</label>
-
-<input
-type="text"
-id="githubUser"
-value="donshangti2">
-
-
-<label>Repository</label>
-
-<input
-type="text"
-id="githubRepo"
-value="KULZZY-AUTO-PLAYER">
-
-
-<label>Branch</label>
-
-<input
-type="text"
-id="githubBranch"
-value="main">
-
-
-<button
-class="liveButton"
-onclick="goLive()">
-
-🔴 GO LIVE ON CASTER.FM
-
-</button>
-
-
-<button
-class="audioButton"
-onclick="showAudioMode()">
-
-🎵 PLAY AUTOMATIC AUDIO
-
-</button>
-
-</div>
-
-
-<div class="card" id="audioSettings">
-
-<label>Select Audio</label>
-
-<select id="audioFile">
-
-<option value="audio/ON_AIR_BIRTHDAY_SONG_BASS_ONLY.mp3">
-Birthday Song
-</option>
-
-<option value="audio/ON_AIR_BUSINESS_O'CLOCK .mp3">
-Business O'Clock
-</option>
-
-<option value="audio/RADIO_MONTHLY_SONG.mp3">
-Radio Monthly Song
-</option>
+    <option value="audio/RADIO_MONTHLY_SONG.mp3">
+        RADIO MONTHLY SONG
+    </option>
 
 </select>
 
 
-<label>Now Playing</label>
+<!-- NOW PLAYING -->
+
+<label>
+📻 NOW PLAYING
+</label>
 
 <input
-type="text"
-id="nowPlaying"
-value="Kulzzy Radio Network">
+    id="nowPlaying"
+    type="text"
+    placeholder="Example: Kulzzy Radio Birthday Show">
 
 
-<label>Player Title</label>
+<!-- PLAY MODE -->
 
-<input
-type="text"
-id="radioTitle"
-value="KULZZY RADIO NETWORK">
+<label>
+🔁 PLAY MODE
+</label>
 
+<div class="modeButtons">
+
+    <button
+        id="repeatButton"
+        class="modeButton active"
+        type="button">
+
+        🔁 REPEAT SONG
+
+    </button>
+
+    <button
+        id="onceButton"
+        class="modeButton"
+        type="button">
+
+        ▶️ PLAY ONCE
+
+    </button>
+
+</div>
+
+
+<div class="note">
+
+<strong>Repeat Song:</strong>
+The selected audio will continuously repeat until you change it.
+
+<br><br>
+
+<strong>Play Once:</strong>
+The selected audio will stop when it reaches the end.
+
+</div>
+
+
+<!-- SAVE AUDIO -->
 
 <button
-class="saveButton"
-onclick="saveAudio()">
+    id="saveButton"
+    class="saveButton"
+    type="button">
 
-💾 SAVE & PLAY AUDIO
+    💾 SAVE & PLAY AUDIO
 
 </button>
 
-</div>
+
+<!-- LIVE -->
+
+<button
+    id="liveButton"
+    class="liveButton"
+    type="button">
+
+    🔴 GO LIVE ON CASTER.FM
+
+</button>
 
 
-<div id="message"></div>
+<div
+    id="status"
+    class="status">
 
-
-<div class="card">
-
-<div class="small">
-
-<strong>How to use:</strong><br><br>
-
-🔴 When you start broadcasting on Caster.fm:
-press <strong>GO LIVE ON CASTER.FM</strong>.<br><br>
-
-🎵 When you stop your live broadcast:
-select your audio and press <strong>SAVE & PLAY AUDIO</strong>.<br><br>
-
-The website will read the new configuration automatically.
-
-</div>
+    Ready
 
 </div>
 
@@ -291,118 +394,245 @@ The website will read the new configuration automatically.
 
 <script>
 
-const CONFIG_PATH = "config.json";
+/* =====================================================
+   KULZZY RADIO ADMIN
+   ===================================================== */
+
+const GITHUB_USERNAME =
+    "donshangti2";
+
+const REPOSITORY =
+    "KULZZY-AUTO-PLAYER";
+
+const CONFIG_FILE =
+    "config.json";
 
 
-function getSettings() {
+/*
+   IMPORTANT:
+   Your GitHub Personal Access Token
+   is requested here.
 
-    return {
+   It is NOT saved into the website.
+*/
 
-        token:
-            document.getElementById("githubToken").value.trim(),
-
-        user:
-            document.getElementById("githubUser").value.trim(),
-
-        repo:
-            document.getElementById("githubRepo").value.trim(),
-
-        branch:
-            document.getElementById("githubBranch").value.trim()
-
-    };
-
-}
+let playMode =
+    "REPEAT";
 
 
-async function getConfig(settings) {
+/* =====================================================
+   ELEMENTS
+   ===================================================== */
 
-    const url =
-        `https://api.github.com/repos/${settings.user}/${settings.repo}/contents/${CONFIG_PATH}?ref=${settings.branch}`;
+const audioSelect =
+    document.getElementById(
+        "audioSelect"
+    );
 
-    const response = await fetch(url, {
+const nowPlaying =
+    document.getElementById(
+        "nowPlaying"
+    );
 
-        headers: {
+const repeatButton =
+    document.getElementById(
+        "repeatButton"
+    );
 
-            "Authorization":
-                `Bearer ${settings.token}`,
+const onceButton =
+    document.getElementById(
+        "onceButton"
+    );
 
-            "Accept":
-                "application/vnd.github+json"
+const saveButton =
+    document.getElementById(
+        "saveButton"
+    );
+
+const liveButton =
+    document.getElementById(
+        "liveButton"
+    );
+
+const status =
+    document.getElementById(
+        "status"
+    );
+
+
+/* =====================================================
+   PLAY MODE
+   ===================================================== */
+
+repeatButton.addEventListener(
+    "click",
+    function() {
+
+        playMode =
+            "REPEAT";
+
+        repeatButton.classList.add(
+            "active"
+        );
+
+        onceButton.classList.remove(
+            "active"
+        );
+
+    }
+);
+
+
+onceButton.addEventListener(
+    "click",
+    function() {
+
+        playMode =
+            "ONCE";
+
+        onceButton.classList.add(
+            "active"
+        );
+
+        repeatButton.classList.remove(
+            "active"
+        );
+
+    }
+);
+
+
+/* =====================================================
+   GET GITHUB TOKEN
+   ===================================================== */
+
+function getToken() {
+
+    let token =
+        localStorage.getItem(
+            "kulzzyGithubToken"
+        );
+
+    if (!token) {
+
+        token =
+            prompt(
+                "Enter your GitHub Personal Access Token:"
+            );
+
+        if (!token) {
+
+            throw new Error(
+                "GitHub token is required."
+            );
 
         }
 
-    });
-
-    if (!response.ok) {
-
-        throw new Error(
-            "Unable to read config.json"
+        localStorage.setItem(
+            "kulzzyGithubToken",
+            token
         );
 
     }
 
-    return await response.json();
+    return token;
 
 }
 
 
-async function updateConfig(newConfig, commitMessage) {
+/* =====================================================
+   UPDATE CONFIG
+   ===================================================== */
 
-    const settings = getSettings();
+async function updateConfig(
+    newConfig
+) {
 
-    if (!settings.token) {
+    const token =
+        getToken();
 
-        showMessage(
-            "Please enter your GitHub Personal Access Token.",
-            true
+
+    status.textContent =
+        "⏳ Updating radio...";
+
+
+    /* Get current config */
+
+    const getResponse =
+        await fetch(
+            "https://api.github.com/repos/" +
+            GITHUB_USERNAME +
+            "/" +
+            REPOSITORY +
+            "/contents/" +
+            CONFIG_FILE,
+            {
+                headers: {
+
+                    Authorization:
+                        "Bearer " +
+                        token,
+
+                    Accept:
+                        "application/vnd.github+json"
+
+                }
+
+            }
         );
 
-        return;
+
+    if (!getResponse.ok) {
+
+        throw new Error(
+            "Could not read config.json"
+        );
 
     }
 
 
-    try {
+    const file =
+        await getResponse.json();
 
-        showMessage(
-            "Publishing changes to GitHub..."
+
+    /* Encode JSON */
+
+    const content =
+        btoa(
+            unescape(
+                encodeURIComponent(
+                    JSON.stringify(
+                        newConfig,
+                        null,
+                        2
+                    )
+                )
+            )
         );
 
 
-        const existing =
-            await getConfig(settings);
+    /* Update */
 
+    const putResponse =
+        await fetch(
+            "https://api.github.com/repos/" +
+            GITHUB_USERNAME +
+            "/" +
+            REPOSITORY +
+            "/contents/" +
+            CONFIG_FILE,
+            {
 
-        const content =
-            btoa(
-                unescape(
-                    encodeURIComponent(
-                        JSON.stringify(
-                            newConfig,
-                            null,
-                            2
-                        )
-                    )
-                )
-            );
-
-
-        const url =
-            `https://api.github.com/repos/${settings.user}/${settings.repo}/contents/${CONFIG_PATH}`;
-
-
-        const response =
-            await fetch(url, {
-
-                method: "PUT",
+                method:
+                    "PUT",
 
                 headers: {
 
-                    "Authorization":
-                        `Bearer ${settings.token}`,
+                    Authorization:
+                        "Bearer " +
+                        token,
 
-                    "Accept":
+                    Accept:
                         "application/vnd.github+json",
 
                     "Content-Type":
@@ -410,287 +640,202 @@ async function updateConfig(newConfig, commitMessage) {
 
                 },
 
-                body: JSON.stringify({
+                body:
+                    JSON.stringify({
 
-                    message: commitMessage,
+                        message:
+                            "Update Kulzzy Radio",
 
-                    content: content,
+                        content:
+                            content,
 
-                    sha: existing.sha,
+                        sha:
+                            file.sha
 
-                    branch: settings.branch
+                    })
 
-                })
+            }
+        );
 
-            });
+
+    if (!putResponse.ok) {
+
+        const error =
+            await putResponse.text();
+
+        throw new Error(
+            error
+        );
+
+    }
 
 
-        if (!response.ok) {
+    return true;
 
-            const error =
-                await response.text();
+}
 
-            throw new Error(error);
+
+/* =====================================================
+   SAVE AUDIO
+   ===================================================== */
+
+saveButton.addEventListener(
+    "click",
+    async function() {
+
+        try {
+
+            const selectedAudio =
+                audioSelect.value;
+
+
+            if (!selectedAudio) {
+
+                alert(
+                    "Please select an audio file."
+                );
+
+                return;
+
+            }
+
+
+            const title =
+                nowPlaying.value.trim();
+
+
+            const config = {
+
+                version: 1,
+
+                currentAudio:
+                    selectedAudio,
+
+                nowPlaying:
+                    title,
+
+                title:
+                    "AUTOMATIC AUDIO",
+
+                status:
+                    "AUDIO",
+
+                background:
+                    "",
+
+                volume:
+                    1,
+
+                playlistMode:
+                    false,
+
+                playMode:
+                    playMode,
+
+                refresh:
+                    1
+
+            };
+
+
+            await updateConfig(
+                config
+            );
+
+
+            status.textContent =
+                playMode === "REPEAT"
+                ? "🔁 REPEAT SONG IS NOW PLAYING"
+                : "▶️ SONG SET TO PLAY ONCE";
 
         }
 
+        catch (error) {
 
-        showMessage(
-            "✅ Successfully published to GitHub."
-        );
-
-        loadCurrentMode();
-
-    }
-
-    catch (error) {
-
-        console.error(error);
-
-        showMessage(
-            "❌ Error: " + error.message,
-            true
-        );
-
-    }
-
-}
-
-
-async function goLive() {
-
-    const settings = getSettings();
-
-    if (!settings.token) {
-
-        showMessage(
-            "Enter your GitHub token first.",
-            true
-        );
-
-        return;
-
-    }
-
-
-    try {
-
-        const existing =
-            await getConfig(settings);
-
-
-        const config =
-            JSON.parse(
-                decodeURIComponent(
-                    escape(
-                        atob(
-                            existing.content
-                                .replace(/\n/g, "")
-                        )
-                    )
-                )
+            console.error(
+                error
             );
 
-
-        config.version = 2;
-
-        config.mode = "LIVE";
-
-        config.status = "LIVE";
-
-        config.title =
-            "KULZZY RADIO NETWORK";
-
-        config.nowPlaying =
-            "LIVE ON AIR";
-
-
-        await updateConfig(
-
-            config,
-
-            "Switch Kulzzy Radio to LIVE"
-
-        );
-
-    }
-
-    catch (error) {
-
-        showMessage(
-            "❌ " + error.message,
-            true
-        );
-
-    }
-
-}
-
-
-async function saveAudio() {
-
-    const settings = getSettings();
-
-    if (!settings.token) {
-
-        showMessage(
-            "Enter your GitHub token first.",
-            true
-        );
-
-        return;
-
-    }
-
-
-    try {
-
-        const existing =
-            await getConfig(settings);
-
-
-        const config =
-            JSON.parse(
-                decodeURIComponent(
-                    escape(
-                        atob(
-                            existing.content
-                                .replace(/\n/g, "")
-                        )
-                    )
-                )
-            );
-
-
-        config.version = 2;
-
-        config.mode = "AUDIO";
-
-        config.status = "AUDIO";
-
-        config.currentAudio =
-            document.getElementById(
-                "audioFile"
-            ).value;
-
-        config.nowPlaying =
-            document.getElementById(
-                "nowPlaying"
-            ).value;
-
-        config.title =
-            document.getElementById(
-                "radioTitle"
-            ).value;
-
-
-        await updateConfig(
-
-            config,
-
-            "Switch Kulzzy Radio to automatic audio"
-
-        );
-
-    }
-
-    catch (error) {
-
-        showMessage(
-            "❌ " + error.message,
-            true
-        );
-
-    }
-
-}
-
-
-function showAudioMode() {
-
-    document.getElementById(
-        "audioSettings"
-    ).scrollIntoView({
-
-        behavior: "smooth"
-
-    });
-
-}
-
-
-function showMessage(text, error = false) {
-
-    const box =
-        document.getElementById("message");
-
-    box.style.display = "block";
-
-    box.className =
-        error ? "error" : "success";
-
-    box.textContent = text;
-
-}
-
-
-async function loadCurrentMode() {
-
-    try {
-
-        const response =
-            await fetch(
-                "config.json?time=" +
-                Date.now()
-            );
-
-        const config =
-            await response.json();
-
-
-        const mode =
-            document.getElementById(
-                "currentMode"
-            );
-
-
-        if (config.mode === "LIVE") {
-
-            mode.className =
-                "liveStatus";
-
-            mode.textContent =
-                "🔴 LIVE ON CASTER.FM";
-
-        }
-
-        else {
-
-            mode.className =
-                "audioStatus";
-
-            mode.textContent =
-                "🎵 AUTOMATIC AUDIO";
+            status.textContent =
+                "❌ " +
+                error.message;
 
         }
 
     }
+);
 
-    catch {
 
-        document.getElementById(
-            "currentMode"
-        ).textContent =
-            "Unable to read configuration.";
+/* =====================================================
+   GO LIVE
+   ===================================================== */
+
+liveButton.addEventListener(
+    "click",
+    async function() {
+
+        try {
+
+            const config = {
+
+                version: 1,
+
+                currentAudio:
+                    "audio/LIVE_ON_AIR_BDS_96KBPS-compressed.mp3",
+
+                nowPlaying:
+                    "",
+
+                title:
+                    "LIVE ON AIR",
+
+                status:
+                    "LIVE",
+
+                background:
+                    "",
+
+                volume:
+                    1,
+
+                playlistMode:
+                    false,
+
+                playMode:
+                    "REPEAT",
+
+                refresh:
+                    1
+
+            };
+
+
+            await updateConfig(
+                config
+            );
+
+
+            status.textContent =
+                "🔴 LIVE ON AIR";
+
+        }
+
+        catch (error) {
+
+            console.error(
+                error
+            );
+
+            status.textContent =
+                "❌ " +
+                error.message;
+
+        }
 
     }
-
-}
-
-
-loadCurrentMode();
+);
 
 </script>
 
 </body>
-</html>
+ </html>
