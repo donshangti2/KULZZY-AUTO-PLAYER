@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -24,10 +25,7 @@ body {
 
     color: white;
 
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
 
 }
 
@@ -45,12 +43,10 @@ body {
 
     border-radius: 15px;
 
-    border:
-        2px solid #ffd000;
+    border: 2px solid #ffd000;
 
     box-shadow:
-        0 0 30px
-        rgba(0,0,0,0.5);
+        0 0 30px rgba(0,0,0,0.5);
 
 }
 
@@ -97,8 +93,7 @@ select {
 
     border-radius: 8px;
 
-    border:
-        1px solid #44576b;
+    border: 1px solid #44576b;
 
     background: #020d1a;
 
@@ -115,6 +110,60 @@ select option {
     color: white;
 
 }
+
+
+/* TOKEN AREA */
+
+.tokenBox {
+
+    margin-top: 15px;
+
+    padding: 15px;
+
+    background: #020d1a;
+
+    border-radius: 10px;
+
+    border: 1px solid #26384a;
+
+}
+
+.tokenStatus {
+
+    color: #55ff88;
+
+    font-size: 13px;
+
+    margin-bottom: 10px;
+
+}
+
+.tokenInput {
+
+    display: none;
+
+}
+
+.changeToken {
+
+    width: 100%;
+
+    padding: 10px;
+
+    border-radius: 8px;
+
+    border: 1px solid #55697c;
+
+    background: #10283d;
+
+    color: white;
+
+    cursor: pointer;
+
+}
+
+
+/* PLAY MODE */
 
 .modeButtons {
 
@@ -133,8 +182,7 @@ select option {
 
     border-radius: 10px;
 
-    border:
-        2px solid #44576b;
+    border: 2px solid #44576b;
 
     background: #020d1a;
 
@@ -158,29 +206,8 @@ select option {
 
 }
 
-.liveButton {
 
-    width: 100%;
-
-    margin-top: 20px;
-
-    padding: 18px;
-
-    border: none;
-
-    border-radius: 10px;
-
-    background: #ff0015;
-
-    color: white;
-
-    font-size: 18px;
-
-    font-weight: bold;
-
-    cursor: pointer;
-
-}
+/* SAVE */
 
 .saveButton {
 
@@ -206,6 +233,36 @@ select option {
 
 }
 
+
+/* LIVE */
+
+.liveButton {
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #ff0015;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+/* STATUS */
+
 .status {
 
     margin-top: 20px;
@@ -223,6 +280,9 @@ select option {
     word-break: break-word;
 
 }
+
+
+/* NOTE */
 
 .note {
 
@@ -242,6 +302,7 @@ select option {
     line-height: 1.5;
 
 }
+
 
 @media (max-width: 500px) {
 
@@ -263,24 +324,65 @@ select option {
 
 </head>
 
+
 <body>
 
+
 <div class="container">
+
 
 <h1>
 🎛️ KULZZY RADIO ADMIN
 </h1>
+
 
 <div class="subtitle">
 Kulzzy Radio Network • Celebrating Lives Everyday
 </div>
 
 
-<!-- SONG -->
+<!-- =================================================
+     GITHUB TOKEN
+     ================================================= -->
+
+<div class="tokenBox">
+
+    <div
+        id="tokenStatus"
+        class="tokenStatus">
+
+        🔐 GitHub authorization not yet saved
+
+    </div>
+
+
+    <input
+        id="tokenInput"
+        class="tokenInput"
+        type="password"
+        placeholder="Paste your new GitHub token here">
+
+
+    <button
+        id="changeToken"
+        class="changeToken"
+        type="button">
+
+        🔑 SET / CHANGE GITHUB TOKEN
+
+    </button>
+
+</div>
+
+
+<!-- =================================================
+     AUDIO
+     ================================================= -->
 
 <label>
 🎵 SELECT AUDIO
 </label>
+
 
 <select id="audioSelect">
 
@@ -303,11 +405,14 @@ Kulzzy Radio Network • Celebrating Lives Everyday
 </select>
 
 
-<!-- NOW PLAYING -->
+<!-- =================================================
+     NOW PLAYING
+     ================================================= -->
 
 <label>
 📻 NOW PLAYING
 </label>
+
 
 <input
     id="nowPlaying"
@@ -315,13 +420,17 @@ Kulzzy Radio Network • Celebrating Lives Everyday
     placeholder="Example: Kulzzy Radio Birthday Show">
 
 
-<!-- PLAY MODE -->
+<!-- =================================================
+     PLAY MODE
+     ================================================= -->
 
 <label>
 🔁 PLAY MODE
 </label>
 
+
 <div class="modeButtons">
+
 
     <button
         id="repeatButton"
@@ -332,6 +441,7 @@ Kulzzy Radio Network • Celebrating Lives Everyday
 
     </button>
 
+
     <button
         id="onceButton"
         class="modeButton"
@@ -341,23 +451,26 @@ Kulzzy Radio Network • Celebrating Lives Everyday
 
     </button>
 
+
 </div>
 
 
 <div class="note">
 
-<strong>Repeat Song:</strong>
-The selected audio will continuously repeat until you change it.
+<strong>🔁 Repeat Song:</strong>
+The selected audio will continuously repeat.
 
 <br><br>
 
-<strong>Play Once:</strong>
-The selected audio will stop when it reaches the end.
+<strong>▶️ Play Once:</strong>
+The selected audio stops when it finishes.
 
 </div>
 
 
-<!-- SAVE AUDIO -->
+<!-- =================================================
+     SAVE AUDIO
+     ================================================= -->
 
 <button
     id="saveButton"
@@ -369,7 +482,9 @@ The selected audio will stop when it reaches the end.
 </button>
 
 
-<!-- LIVE -->
+<!-- =================================================
+     LIVE
+     ================================================= -->
 
 <button
     id="liveButton"
@@ -381,6 +496,10 @@ The selected audio will stop when it reaches the end.
 </button>
 
 
+<!-- =================================================
+     STATUS
+     ================================================= -->
+
 <div
     id="status"
     class="status">
@@ -388,6 +507,7 @@ The selected audio will stop when it reaches the end.
     Ready
 
 </div>
+
 
 </div>
 
@@ -398,23 +518,34 @@ The selected audio will stop when it reaches the end.
    KULZZY RADIO ADMIN
    ===================================================== */
 
+
+/* =====================================================
+   GITHUB SETTINGS
+   ===================================================== */
+
 const GITHUB_USERNAME =
     "donshangti2";
 
+
 const REPOSITORY =
     "KULZZY-AUTO-PLAYER";
+
 
 const CONFIG_FILE =
     "config.json";
 
 
-/*
-   IMPORTANT:
-   Your GitHub Personal Access Token
-   is requested here.
+/* =====================================================
+   LOCAL TOKEN STORAGE
+   ===================================================== */
 
-   It is NOT saved into the website.
-*/
+const TOKEN_STORAGE_KEY =
+    "kulzzyGithubToken";
+
+
+/* =====================================================
+   DEFAULT PLAY MODE
+   ===================================================== */
 
 let playMode =
     "REPEAT";
@@ -429,35 +560,216 @@ const audioSelect =
         "audioSelect"
     );
 
+
 const nowPlaying =
     document.getElementById(
         "nowPlaying"
     );
+
 
 const repeatButton =
     document.getElementById(
         "repeatButton"
     );
 
+
 const onceButton =
     document.getElementById(
         "onceButton"
     );
+
 
 const saveButton =
     document.getElementById(
         "saveButton"
     );
 
+
 const liveButton =
     document.getElementById(
         "liveButton"
     );
 
+
 const status =
     document.getElementById(
         "status"
     );
+
+
+const tokenInput =
+    document.getElementById(
+        "tokenInput"
+    );
+
+
+const tokenStatus =
+    document.getElementById(
+        "tokenStatus"
+    );
+
+
+const changeToken =
+    document.getElementById(
+        "changeToken"
+    );
+
+
+/* =====================================================
+   CHECK TOKEN
+   ===================================================== */
+
+function getStoredToken() {
+
+    return localStorage.getItem(
+        TOKEN_STORAGE_KEY
+    );
+
+}
+
+
+/* =====================================================
+   SHOW TOKEN STATUS
+   ===================================================== */
+
+function updateTokenStatus() {
+
+    const token =
+        getStoredToken();
+
+
+    if (token) {
+
+        tokenStatus.textContent =
+            "🔐 GitHub authorization saved on this device";
+
+        tokenStatus.style.color =
+            "#55ff88";
+
+    }
+
+    else {
+
+        tokenStatus.textContent =
+            "⚠️ GitHub authorization not yet saved";
+
+        tokenStatus.style.color =
+            "#ffcc00";
+
+    }
+
+}
+
+
+/* =====================================================
+   SET / CHANGE TOKEN
+   ===================================================== */
+
+changeToken.addEventListener(
+    "click",
+    function() {
+
+        tokenInput.style.display =
+            "block";
+
+
+        tokenInput.focus();
+
+
+        tokenInput.value = "";
+
+
+        changeToken.textContent =
+            "💾 SAVE NEW TOKEN";
+
+    }
+);
+
+
+/* =====================================================
+   SAVE TOKEN
+   ===================================================== */
+
+tokenInput.addEventListener(
+    "keydown",
+    function(event) {
+
+        if (
+            event.key === "Enter"
+        ) {
+
+            saveToken();
+
+        }
+
+    }
+);
+
+
+changeToken.addEventListener(
+    "click",
+    function() {
+
+        if (
+            tokenInput.style.display ===
+            "block"
+        ) {
+
+            if (
+                tokenInput.value.trim() !== ""
+            ) {
+
+                saveToken();
+
+            }
+
+        }
+
+    }
+);
+
+
+function saveToken() {
+
+    const token =
+        tokenInput.value.trim();
+
+
+    if (!token) {
+
+        alert(
+            "Please enter your GitHub token."
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        TOKEN_STORAGE_KEY,
+        token
+    );
+
+
+    tokenInput.value = "";
+
+
+    tokenInput.style.display =
+        "none";
+
+
+    changeToken.textContent =
+        "🔑 CHANGE GITHUB TOKEN";
+
+
+    updateTokenStatus();
+
+
+    status.textContent =
+        "✅ GitHub authorization saved.";
+
+}
 
 
 /* =====================================================
@@ -471,9 +783,11 @@ repeatButton.addEventListener(
         playMode =
             "REPEAT";
 
+
         repeatButton.classList.add(
             "active"
         );
+
 
         onceButton.classList.remove(
             "active"
@@ -490,9 +804,11 @@ onceButton.addEventListener(
         playMode =
             "ONCE";
 
+
         onceButton.classList.add(
             "active"
         );
+
 
         repeatButton.classList.remove(
             "active"
@@ -503,37 +819,30 @@ onceButton.addEventListener(
 
 
 /* =====================================================
-   GET GITHUB TOKEN
+   GET TOKEN
    ===================================================== */
 
-function getToken() {
+function requireToken() {
 
-    let token =
-        localStorage.getItem(
-            "kulzzyGithubToken"
-        );
+    const token =
+        getStoredToken();
+
 
     if (!token) {
 
-        token =
-            prompt(
-                "Enter your GitHub Personal Access Token:"
-            );
+        tokenInput.style.display =
+            "block";
 
-        if (!token) {
 
-            throw new Error(
-                "GitHub token is required."
-            );
+        tokenInput.focus();
 
-        }
 
-        localStorage.setItem(
-            "kulzzyGithubToken",
-            token
+        throw new Error(
+            "Please enter your GitHub token first."
         );
 
     }
+
 
     return token;
 
@@ -549,24 +858,27 @@ async function updateConfig(
 ) {
 
     const token =
-        getToken();
+        requireToken();
 
 
     status.textContent =
         "⏳ Updating radio...";
 
 
-    /* Get current config */
+    /* GET CURRENT CONFIG */
 
     const getResponse =
         await fetch(
+
             "https://api.github.com/repos/" +
             GITHUB_USERNAME +
             "/" +
             REPOSITORY +
             "/contents/" +
             CONFIG_FILE,
+
             {
+
                 headers: {
 
                     Authorization:
@@ -579,10 +891,31 @@ async function updateConfig(
                 }
 
             }
+
         );
 
 
     if (!getResponse.ok) {
+
+        if (
+            getResponse.status ===
+            401
+        ) {
+
+            localStorage.removeItem(
+                TOKEN_STORAGE_KEY
+            );
+
+
+            updateTokenStatus();
+
+
+            throw new Error(
+                "GitHub token is invalid or expired. Please enter a new one."
+            );
+
+        }
+
 
         throw new Error(
             "Could not read config.json"
@@ -595,32 +928,42 @@ async function updateConfig(
         await getResponse.json();
 
 
-    /* Encode JSON */
+    /* =================================================
+       ENCODE JSON
+       ================================================= */
+
+    const jsonText =
+        JSON.stringify(
+            newConfig,
+            null,
+            2
+        );
+
 
     const content =
         btoa(
             unescape(
                 encodeURIComponent(
-                    JSON.stringify(
-                        newConfig,
-                        null,
-                        2
-                    )
+                    jsonText
                 )
             )
         );
 
 
-    /* Update */
+    /* =================================================
+       SAVE CONFIG
+       ================================================= */
 
     const putResponse =
         await fetch(
+
             "https://api.github.com/repos/" +
             GITHUB_USERNAME +
             "/" +
             REPOSITORY +
             "/contents/" +
             CONFIG_FILE,
+
             {
 
                 method:
@@ -655,6 +998,7 @@ async function updateConfig(
                     })
 
             }
+
         );
 
 
@@ -662,6 +1006,7 @@ async function updateConfig(
 
         const error =
             await putResponse.text();
+
 
         throw new Error(
             error
@@ -743,10 +1088,22 @@ saveButton.addEventListener(
             );
 
 
-            status.textContent =
-                playMode === "REPEAT"
-                ? "🔁 REPEAT SONG IS NOW PLAYING"
-                : "▶️ SONG SET TO PLAY ONCE";
+            if (
+                playMode ===
+                "REPEAT"
+            ) {
+
+                status.textContent =
+                    "🔁 REPEAT SONG SAVED & PLAYING";
+
+            }
+
+            else {
+
+                status.textContent =
+                    "▶️ PLAY ONCE SAVED & PLAYING";
+
+            }
 
         }
 
@@ -755,6 +1112,7 @@ saveButton.addEventListener(
             console.error(
                 error
             );
+
 
             status.textContent =
                 "❌ " +
@@ -826,6 +1184,7 @@ liveButton.addEventListener(
                 error
             );
 
+
             status.textContent =
                 "❌ " +
                 error.message;
@@ -835,7 +1194,16 @@ liveButton.addEventListener(
     }
 );
 
+
+/* =====================================================
+   START
+   ===================================================== */
+
+updateTokenStatus();
+
 </script>
 
+
 </body>
- </html>
+
+      </html>
