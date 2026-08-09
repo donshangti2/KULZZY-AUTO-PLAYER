@@ -12,11 +12,6 @@
 
 <style>
 
-/* =====================================================
-   KULZZY RADIO NETWORK
-   CLEAN RADIO PLAYER
-   ===================================================== */
-
 * {
     box-sizing: border-box;
 }
@@ -40,10 +35,6 @@ body {
 }
 
 
-/* =====================================================
-   MAIN PLAYER
-   ===================================================== */
-
 #radioPlayer {
 
     width: 100%;
@@ -64,10 +55,6 @@ body {
 
 }
 
-
-/* =====================================================
-   HEADER
-   ===================================================== */
 
 .kulzzyHeader {
 
@@ -165,16 +152,8 @@ body {
 
     font-weight: bold;
 
-    box-shadow:
-        0 0 15px
-        rgba(255,0,21,0.55);
-
 }
 
-
-/* =====================================================
-   PLAYER CONTENT
-   ===================================================== */
 
 .playerContent {
 
@@ -190,10 +169,6 @@ body {
 }
 
 
-/* =====================================================
-   STATUS
-   ===================================================== */
-
 .statusText {
 
     color: #ffd000;
@@ -206,10 +181,6 @@ body {
 
 }
 
-
-/* =====================================================
-   HUGE PLAY BUTTON
-   ===================================================== */
 
 #bigPlayButton {
 
@@ -233,8 +204,7 @@ body {
     border-radius: 50%;
 
     border:
-        5px solid
-        #ffd000;
+        5px solid #ffd000;
 
     background:
         radial-gradient(
@@ -262,13 +232,6 @@ body {
         0 5px 15px
         rgba(0,0,0,0.7);
 
-    transition:
-        transform 0.15s ease,
-        box-shadow 0.15s ease;
-
-    -webkit-tap-highlight-color:
-        transparent;
-
 }
 
 
@@ -290,22 +253,8 @@ body {
             #006b28 100%
         );
 
-    border-color:
-        #ffd000;
-
-    box-shadow:
-        0 0 18px
-        rgba(0,255,80,0.8),
-
-        0 0 40px
-        rgba(0,255,80,0.4);
-
 }
 
-
-/* =====================================================
-   BUTTON LABEL
-   ===================================================== */
 
 .buttonLabel {
 
@@ -315,14 +264,8 @@ body {
 
     font-weight: bold;
 
-    margin-top: 5px;
-
 }
 
-
-/* =====================================================
-   NOW PLAYING
-   ===================================================== */
 
 .nowPlaying {
 
@@ -355,20 +298,12 @@ body {
 }
 
 
-/* =====================================================
-   AUDIO
-   ===================================================== */
-
 #audioPlayer {
 
     display: none;
 
 }
 
-
-/* =====================================================
-   CASTER LIVE
-   ===================================================== */
 
 #casterLive {
 
@@ -382,10 +317,6 @@ body {
 
 }
 
-
-/* =====================================================
-   FOOTER
-   ===================================================== */
 
 .footer {
 
@@ -401,10 +332,6 @@ body {
 
     font-size: 10px;
 
-    border-top:
-        1px solid
-        rgba(255,255,255,0.08);
-
 }
 
 
@@ -415,10 +342,6 @@ body {
 }
 
 
-/* =====================================================
-   MOBILE
-   ===================================================== */
-
 @media (max-width: 600px) {
 
     .brandName {
@@ -427,23 +350,18 @@ body {
 
     }
 
-
     .slogan {
 
         font-size: 11px;
 
     }
 
-
     .redDot {
 
         width: 18px;
         height: 18px;
 
-        min-width: 18px;
-
     }
-
 
     .liveBadge {
 
@@ -455,7 +373,6 @@ body {
 
     }
 
-
     #bigPlayButton {
 
         width: 155px;
@@ -463,46 +380,6 @@ body {
         height: 155px;
 
         font-size: 70px;
-
-    }
-
-
-    .buttonLabel {
-
-        font-size: 18px;
-
-    }
-
-}
-
-
-/* =====================================================
-   SMALL PHONES
-   ===================================================== */
-
-@media (max-width: 380px) {
-
-    .brandName {
-
-        font-size: 15px;
-
-    }
-
-
-    .slogan {
-
-        font-size: 10px;
-
-    }
-
-
-    #bigPlayButton {
-
-        width: 145px;
-
-        height: 145px;
-
-        font-size: 65px;
 
     }
 
@@ -518,8 +395,6 @@ body {
 
 <div id="radioPlayer">
 
-
-    <!-- HEADER -->
 
     <div class="kulzzyHeader">
 
@@ -549,8 +424,6 @@ body {
     </div>
 
 
-    <!-- PLAYER -->
-
     <div class="playerContent">
 
 
@@ -563,12 +436,9 @@ body {
         </div>
 
 
-        <!-- BIG PLAY BUTTON -->
-
         <button
             id="bigPlayButton"
-            type="button"
-            aria-label="Play Kulzzy Radio">
+            type="button">
 
             ▶
 
@@ -584,8 +454,6 @@ body {
         </div>
 
 
-        <!-- NOW PLAYING -->
-
         <div
             id="nowPlaying"
             class="nowPlaying">
@@ -597,16 +465,12 @@ body {
         </div>
 
 
-        <!-- AUDIO -->
-
         <audio
             id="audioPlayer"
-            preload="none"
+            preload="auto"
             playsinline>
         </audio>
 
-
-        <!-- CASTER LIVE PLAYER -->
 
         <div
             id="casterLive"
@@ -641,8 +505,6 @@ body {
     </div>
 
 
-    <!-- FOOTER -->
-
     <div class="footer">
 
         KULZZY RADIO NETWORK
@@ -657,8 +519,6 @@ body {
 </div>
 
 
-<!-- CASTER SCRIPT -->
-
 <script
 src="https://cdn.cloud.caster.fm/widgets/embed.js">
 </script>
@@ -670,7 +530,8 @@ src="https://cdn.cloud.caster.fm/widgets/embed.js">
    KULZZY RADIO PLAYER
    ===================================================== */
 
-const CONFIG_URL = "config.json";
+const CONFIG_URL =
+    "config.json";
 
 
 const audio =
@@ -712,6 +573,8 @@ const casterLive =
 let currentAudio = "";
 
 let currentMode = "";
+
+let currentPlayMode = "REPEAT";
 
 
 /* =====================================================
@@ -756,12 +619,23 @@ async function loadConfig() {
             nowPlaying.textContent =
                 config.nowPlaying;
 
-        } else {
+        }
+
+        else {
 
             nowPlaying.textContent =
                 "Kulzzy Radio Network • Celebrating Lives Everyday";
 
         }
+
+
+        /* PLAY MODE */
+
+        currentPlayMode =
+            String(
+                config.playMode ||
+                "REPEAT"
+            ).toUpperCase();
 
 
         /* LIVE */
@@ -775,7 +649,7 @@ async function loadConfig() {
 
         }
 
-        /* AUTOMATIC AUDIO */
+        /* AUDIO */
 
         else {
 
@@ -784,7 +658,6 @@ async function loadConfig() {
             );
 
         }
-
 
     }
 
@@ -795,16 +668,13 @@ async function loadConfig() {
             error
         );
 
-        statusText.textContent =
-            "🎵 AUTOMATIC AUDIO";
-
     }
 
 }
 
 
 /* =====================================================
-   SWITCH TO LIVE
+   LIVE MODE
    ===================================================== */
 
 function switchToLive() {
@@ -821,8 +691,6 @@ function switchToLive() {
     currentMode = "LIVE";
 
 
-    /* Stop automatic audio */
-
     audio.pause();
 
     audio.removeAttribute(
@@ -832,16 +700,13 @@ function switchToLive() {
     audio.load();
 
 
-    /* Show Caster */
-
     casterLive.style.display =
         "block";
 
 
-    /* Hide automatic button */
-
     playButton.style.display =
         "none";
+
 
     buttonLabel.style.display =
         "none";
@@ -854,16 +719,14 @@ function switchToLive() {
 
 
 /* =====================================================
-   SWITCH TO AUTOMATIC AUDIO
+   AUDIO MODE
    ===================================================== */
 
 function switchToAudio(
     audioFile
 ) {
 
-    if (
-        !audioFile
-    ) {
+    if (!audioFile) {
 
         return;
 
@@ -888,8 +751,6 @@ function switchToAudio(
     statusText.textContent =
         "🎵 AUTOMATIC AUDIO";
 
-
-    /* Change audio only when needed */
 
     if (
         currentAudio !== audioFile
@@ -926,13 +787,12 @@ function switchToAudio(
 
 
 /* =====================================================
-   BIG PLAY BUTTON
+   PLAY BUTTON
    ===================================================== */
 
 playButton.addEventListener(
     "click",
     async function() {
-
 
         if (
             currentMode !== "AUDIO"
@@ -945,11 +805,9 @@ playButton.addEventListener(
 
         try {
 
-
             if (
                 audio.paused
             ) {
-
 
                 await audio.play();
 
@@ -966,11 +824,9 @@ playButton.addEventListener(
                 buttonLabel.textContent =
                     "NOW PLAYING";
 
-
             }
 
             else {
-
 
                 audio.pause();
 
@@ -989,21 +845,15 @@ playButton.addEventListener(
 
             }
 
-
         }
 
         catch (error) {
-
 
             console.log(
                 "Audio play error:",
                 error
             );
 
-
-            buttonLabel.textContent =
-                "TAP TO PLAY";
-
         }
 
     }
@@ -1011,40 +861,66 @@ playButton.addEventListener(
 
 
 /* =====================================================
-   AUDIO ERROR
-   ===================================================== */
-
-audio.addEventListener(
-    "error",
-    function() {
-
-        console.log(
-            "Audio file could not be played:",
-            audio.src
-        );
-
-    }
-);
-
-
-/* =====================================================
-   AUDIO ENDED
+   SONG ENDED
    ===================================================== */
 
 audio.addEventListener(
     "ended",
     function() {
 
-        audio.currentTime = 0;
 
-        audio.play().catch(function(error) {
+        /* REPEAT */
 
-            console.log(
-                "Auto replay:",
-                error
-            );
+        if (
+            currentPlayMode ===
+            "REPEAT"
+        ) {
 
-        });
+            audio.currentTime = 0;
+
+
+            audio.play()
+                .then(function() {
+
+                    playButton.classList.add(
+                        "playing"
+                    );
+
+                    playButton.textContent =
+                        "❚❚";
+
+                    buttonLabel.textContent =
+                        "NOW PLAYING";
+
+                })
+                .catch(function(error) {
+
+                    console.log(
+                        "Repeat error:",
+                        error
+                    );
+
+                });
+
+
+            return;
+
+        }
+
+
+        /* PLAY ONCE */
+
+        playButton.classList.remove(
+            "playing"
+        );
+
+
+        playButton.textContent =
+            "▶";
+
+
+        buttonLabel.textContent =
+            "TAP TO PLAY";
 
     }
 );
@@ -1057,7 +933,9 @@ audio.addEventListener(
 loadConfig();
 
 
-/* CHECK CONFIG EVERY 5 SECONDS */
+/* =====================================================
+   FAST CONFIG CHECK
+   ===================================================== */
 
 setInterval(
     loadConfig,
@@ -1069,4 +947,4 @@ setInterval(
 
 </body>
 
-      </html>
+</html>
