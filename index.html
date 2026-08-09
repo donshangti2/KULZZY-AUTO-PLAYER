@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -13,7 +14,7 @@
 
 /* =====================================================
    KULZZY RADIO NETWORK
-   PROFESSIONAL FLOATING PLAYER
+   CLEAN RADIO PLAYER
    ===================================================== */
 
 * {
@@ -65,7 +66,7 @@ body {
 
 
 /* =====================================================
-   KULZZY HEADER
+   HEADER
    ===================================================== */
 
 .kulzzyHeader {
@@ -127,9 +128,6 @@ body {
     font-size: 20px;
 
     font-weight: 800;
-
-    letter-spacing:
-        0.3px;
 
 }
 
@@ -193,44 +191,6 @@ body {
 
 
 /* =====================================================
-   PLAYER + OUR LISTENERS SIDE BY SIDE
-   ===================================================== */
-
-.playerAndListeners {
-
-    width: 100%;
-
-    max-width: 850px;
-
-    margin: 0 auto;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 35px;
-
-}
-
-
-/* =====================================================
-   PLAYER SIDE
-   ===================================================== */
-
-.playerSide {
-
-    flex: 1;
-
-    min-width: 0;
-
-    text-align: center;
-
-}
-
-
-/* =====================================================
    STATUS
    ===================================================== */
 
@@ -243,9 +203,6 @@ body {
     font-weight: bold;
 
     margin-bottom: 12px;
-
-    letter-spacing:
-        0.5px;
 
 }
 
@@ -262,14 +219,16 @@ body {
 
     justify-content: center;
 
-    width: 145px;
+    width: 155px;
 
-    height: 145px;
+    height: 155px;
 
     margin:
         10px
         auto
         14px;
+
+    padding: 0;
 
     border-radius: 50%;
 
@@ -287,7 +246,7 @@ body {
 
     color: white;
 
-    font-size: 65px;
+    font-size: 70px;
 
     line-height: 1;
 
@@ -317,10 +276,6 @@ body {
 
     transform:
         scale(0.93);
-
-    box-shadow:
-        0 0 10px
-        rgba(255,0,0,0.8);
 
 }
 
@@ -356,7 +311,7 @@ body {
 
     color: #ffffff;
 
-    font-size: 17px;
+    font-size: 18px;
 
     font-weight: bold;
 
@@ -401,124 +356,7 @@ body {
 
 
 /* =====================================================
-   OUR LISTENERS
-   ===================================================== */
-
-.listenersSide {
-
-    flex: 1;
-
-    min-width: 0;
-
-    text-align: center;
-
-    background: transparent;
-
-}
-
-
-/* LISTENERS TITLE */
-
-.listenersTitle {
-
-    color: #ffffff;
-
-    font-size: 28px;
-
-    font-weight: bold;
-
-    white-space: nowrap;
-
-}
-
-
-/* RED BLINKING DOT */
-
-#beepDot {
-
-    display: inline-block;
-
-    width: 16px;
-
-    height: 16px;
-
-    background: red;
-
-    border-radius: 50%;
-
-    margin-right: 8px;
-
-    animation:
-        blink 1s infinite;
-
-    vertical-align: middle;
-
-}
-
-
-/* LISTENER NUMBER */
-
-#listenerCount {
-
-    font-size: 70px;
-
-    font-weight: bold;
-
-    color: red;
-
-    margin-top: 12px;
-
-    line-height: 1;
-
-}
-
-
-/* LISTENER LABEL */
-
-.listenersSmallText {
-
-    margin-top: 10px;
-
-    color: #aeb9c5;
-
-    font-size: 12px;
-
-}
-
-
-/* BLINK ANIMATION */
-
-@keyframes blink {
-
-    0%,100% {
-
-        opacity: 1;
-
-        transform:
-            scale(1);
-
-        box-shadow:
-            0 0 6px red;
-
-    }
-
-    50% {
-
-        opacity: .2;
-
-        transform:
-            scale(1.3);
-
-        box-shadow:
-            0 0 20px red;
-
-    }
-
-}
-
-
-/* =====================================================
-   AUDIO ELEMENT
+   AUDIO
    ===================================================== */
 
 #audioPlayer {
@@ -529,7 +367,7 @@ body {
 
 
 /* =====================================================
-   CASTER LIVE PLAYER
+   CASTER LIVE
    ===================================================== */
 
 #casterLive {
@@ -583,15 +421,6 @@ body {
 
 @media (max-width: 600px) {
 
-    .kulzzyHeader {
-
-        padding:
-            13px
-            14px;
-
-    }
-
-
     .brandName {
 
         font-size: 17px;
@@ -627,29 +456,6 @@ body {
     }
 
 
-    .playerContent {
-
-        padding:
-            14px
-            8px
-            18px;
-
-    }
-
-
-    /* KEEP PLAYER AND LISTENERS BESIDE EACH OTHER */
-
-    .playerAndListeners {
-
-        gap: 8px;
-
-        align-items: center;
-
-    }
-
-
-    /* VERY LARGE MOBILE BUTTON */
-
     #bigPlayButton {
 
         width: 155px;
@@ -658,57 +464,12 @@ body {
 
         font-size: 70px;
 
-        border-width: 5px;
-
     }
 
 
     .buttonLabel {
 
         font-size: 18px;
-
-    }
-
-
-    .statusText {
-
-        font-size: 14px;
-
-    }
-
-
-    /* LISTENERS ON MOBILE */
-
-    .listenersTitle {
-
-        font-size: 18px;
-
-    }
-
-
-    #beepDot {
-
-        width: 12px;
-
-        height: 12px;
-
-        margin-right: 5px;
-
-    }
-
-
-    #listenerCount {
-
-        font-size: 48px;
-
-        margin-top: 10px;
-
-    }
-
-
-    .listenersSmallText {
-
-        font-size: 10px;
 
     }
 
@@ -745,27 +506,6 @@ body {
 
     }
 
-
-    .playerAndListeners {
-
-        gap: 4px;
-
-    }
-
-
-    .listenersTitle {
-
-        font-size: 15px;
-
-    }
-
-
-    #listenerCount {
-
-        font-size: 40px;
-
-    }
-
 }
 
 </style>
@@ -779,9 +519,7 @@ body {
 <div id="radioPlayer">
 
 
-    <!-- =================================================
-         KULZZY HEADER
-         ================================================= -->
+    <!-- HEADER -->
 
     <div class="kulzzyHeader">
 
@@ -811,97 +549,50 @@ body {
     </div>
 
 
-    <!-- =================================================
-         PLAYER CONTENT
-         ================================================= -->
+    <!-- PLAYER -->
 
     <div class="playerContent">
 
 
-        <!-- PLAYER + LISTENERS -->
+        <div
+            id="statusText"
+            class="statusText">
 
-        <div class="playerAndListeners">
+            🎵 AUTOMATIC AUDIO
 
-
-            <!-- PLAYER -->
-
-            <div class="playerSide">
-
-
-                <div
-                    id="statusText"
-                    class="statusText">
-
-                    🎵 AUTOMATIC AUDIO
-
-                </div>
+        </div>
 
 
-                <!-- HUGE PLAY BUTTON -->
+        <!-- BIG PLAY BUTTON -->
 
-                <button
-                    id="bigPlayButton"
-                    type="button"
-                    aria-label="Play Kulzzy Radio">
+        <button
+            id="bigPlayButton"
+            type="button"
+            aria-label="Play Kulzzy Radio">
 
-                    ▶
+            ▶
 
-                </button>
-
-
-                <div
-                    id="buttonLabel"
-                    class="buttonLabel">
-
-                    TAP TO PLAY
-
-                </div>
+        </button>
 
 
-                <!-- NOW PLAYING -->
+        <div
+            id="buttonLabel"
+            class="buttonLabel">
 
-                <div
-                    id="nowPlaying"
-                    class="nowPlaying">
+            TAP TO PLAY
 
-                    Kulzzy Radio Network
-                    •
-                    Celebrating Lives Everyday
-
-                </div>
+        </div>
 
 
-            </div>
+        <!-- NOW PLAYING -->
 
+        <div
+            id="nowPlaying"
+            class="nowPlaying">
 
-            <!-- =================================================
-                 OUR LISTENERS
-                 ================================================= -->
-
-            <div class="listenersSide">
-
-
-                <div class="listenersTitle">
-
-                    <span id="beepDot"></span>
-
-                    OUR LISTENERS
-
-                </div>
-
-
-                <div id="listenerCount">
-                    0
-                </div>
-
-
-                <div class="listenersSmallText">
-                    Listening to Kulzzy Radio
-                </div>
-
-
-            </div>
-
+            Kulzzy Radio Network
+            •
+            Celebrating Lives Everyday
 
         </div>
 
@@ -950,16 +641,12 @@ body {
     </div>
 
 
-    <!-- =================================================
-         FOOTER
-         ================================================= -->
+    <!-- FOOTER -->
 
     <div class="footer">
 
         KULZZY RADIO NETWORK
-
         •
-
         <span>
             Celebrating Lives Everyday
         </span>
@@ -970,9 +657,7 @@ body {
 </div>
 
 
-<!-- =====================================================
-     CASTER.FM SCRIPT
-     ===================================================== -->
+<!-- CASTER SCRIPT -->
 
 <script
 src="https://cdn.cloud.caster.fm/widgets/embed.js">
@@ -985,8 +670,7 @@ src="https://cdn.cloud.caster.fm/widgets/embed.js">
    KULZZY RADIO PLAYER
    ===================================================== */
 
-const CONFIG_URL =
-    "config.json";
+const CONFIG_URL = "config.json";
 
 
 const audio =
@@ -1031,79 +715,6 @@ let currentMode = "";
 
 
 /* =====================================================
-   OUR LISTENERS COUNTER
-   ===================================================== */
-
-let listenerCount =
-    Math.floor(
-        Math.random() * 9000
-    ) + 1000;
-
-
-const listenerDisplay =
-    document.getElementById(
-        "listenerCount"
-    );
-
-
-listenerDisplay.textContent =
-    listenerCount.toLocaleString();
-
-
-function updateListeners() {
-
-    const goUp =
-        Math.random() > 0.5;
-
-
-    const change =
-        (Math.floor(
-            Math.random() * 8
-        ) + 1) * 10;
-
-
-    if (goUp) {
-
-        listenerCount += change;
-
-    } else {
-
-        listenerCount -= change;
-
-    }
-
-
-    if (
-        listenerCount < 1000
-    ) {
-
-        listenerCount = 1000;
-
-    }
-
-
-    if (
-        listenerCount > 9999
-    ) {
-
-        listenerCount = 9999;
-
-    }
-
-
-    listenerDisplay.textContent =
-        listenerCount.toLocaleString();
-
-}
-
-
-setInterval(
-    updateListeners,
-    4000
-);
-
-
-/* =====================================================
    LOAD CONFIG
    ===================================================== */
 
@@ -1135,9 +746,7 @@ async function loadConfig() {
             await response.json();
 
 
-        /* ---------------------------------------------
-           UPDATE NOW PLAYING
-           --------------------------------------------- */
+        /* NOW PLAYING */
 
         if (
             config.nowPlaying &&
@@ -1155,23 +764,18 @@ async function loadConfig() {
         }
 
 
-        /* ---------------------------------------------
-           LIVE MODE
-           --------------------------------------------- */
+        /* LIVE */
 
         if (
             String(config.status)
-                .toUpperCase() === "LIVE"
+            .toUpperCase() === "LIVE"
         ) {
 
             switchToLive();
 
         }
 
-
-        /* ---------------------------------------------
-           AUTOMATIC AUDIO MODE
-           --------------------------------------------- */
+        /* AUTOMATIC AUDIO */
 
         else {
 
@@ -1182,7 +786,9 @@ async function loadConfig() {
         }
 
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.log(
             "Kulzzy player:",
@@ -1219,11 +825,9 @@ function switchToLive() {
 
     audio.pause();
 
-
     audio.removeAttribute(
         "src"
     );
-
 
     audio.load();
 
@@ -1234,11 +838,10 @@ function switchToLive() {
         "block";
 
 
-    /* Hide big automatic button */
+    /* Hide automatic button */
 
     playButton.style.display =
         "none";
-
 
     buttonLabel.style.display =
         "none";
@@ -1286,9 +889,7 @@ function switchToAudio(
         "🎵 AUTOMATIC AUDIO";
 
 
-    /* ---------------------------------------------
-       Only change source when necessary
-       --------------------------------------------- */
+    /* Change audio only when needed */
 
     if (
         currentAudio !== audioFile
@@ -1297,22 +898,24 @@ function switchToAudio(
         currentAudio =
             audioFile;
 
+
         audio.src =
             audioFile +
             "?v=" +
             Date.now();
 
+
         audio.load();
 
-
-        /* Reset button */
 
         playButton.classList.remove(
             "playing"
         );
 
+
         playButton.textContent =
             "▶";
+
 
         buttonLabel.textContent =
             "TAP TO PLAY";
@@ -1323,12 +926,13 @@ function switchToAudio(
 
 
 /* =====================================================
-   PLAY BUTTON
+   BIG PLAY BUTTON
    ===================================================== */
 
 playButton.addEventListener(
     "click",
     async function() {
+
 
         if (
             currentMode !== "AUDIO"
@@ -1341,9 +945,11 @@ playButton.addEventListener(
 
         try {
 
+
             if (
                 audio.paused
             ) {
+
 
                 await audio.play();
 
@@ -1361,7 +967,10 @@ playButton.addEventListener(
                     "NOW PLAYING";
 
 
-            } else {
+            }
+
+            else {
+
 
                 audio.pause();
 
@@ -1381,12 +990,16 @@ playButton.addEventListener(
             }
 
 
-        } catch (error) {
+        }
+
+        catch (error) {
+
 
             console.log(
                 "Audio play error:",
                 error
             );
+
 
             buttonLabel.textContent =
                 "TAP TO PLAY";
@@ -1398,7 +1011,24 @@ playButton.addEventListener(
 
 
 /* =====================================================
-   WHEN AUDIO ENDS
+   AUDIO ERROR
+   ===================================================== */
+
+audio.addEventListener(
+    "error",
+    function() {
+
+        console.log(
+            "Audio file could not be played:",
+            audio.src
+        );
+
+    }
+);
+
+
+/* =====================================================
+   AUDIO ENDED
    ===================================================== */
 
 audio.addEventListener(
@@ -1409,8 +1039,10 @@ audio.addEventListener(
             "playing"
         );
 
+
         playButton.textContent =
             "▶";
+
 
         buttonLabel.textContent =
             "TAP TO PLAY";
@@ -1421,4 +1053,21 @@ audio.addEventListener(
 
 /* =====================================================
    START
-   ==============================
+   ===================================================== */
+
+loadConfig();
+
+
+/* CHECK CONFIG EVERY 5 SECONDS */
+
+setInterval(
+    loadConfig,
+    5000
+);
+
+</script>
+
+
+</body>
+
+      </html>
