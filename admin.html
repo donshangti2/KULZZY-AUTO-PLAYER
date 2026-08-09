@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 
 <meta charset="UTF-8">
-
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Kulzzy Radio Admin</title>
 
@@ -17,305 +14,175 @@
 }
 
 body {
-
     margin: 0;
     padding: 20px;
-
     background: #020d1a;
-
     color: white;
-
     font-family: Arial, Helvetica, sans-serif;
-
 }
 
 .container {
-
     width: 100%;
-
     max-width: 650px;
-
     margin: auto;
-
     background: #03182c;
-
     padding: 25px;
-
     border-radius: 15px;
-
     border: 2px solid #ffd000;
-
-    box-shadow:
-        0 0 30px rgba(0,0,0,0.5);
-
+    box-shadow: 0 0 30px rgba(0,0,0,.5);
 }
 
 h1 {
-
     text-align: center;
-
     color: #ffd000;
-
-    margin-top: 0;
-
+    margin: 0 0 8px;
 }
 
 .subtitle {
-
     text-align: center;
-
     color: #aeb9c5;
-
     margin-bottom: 25px;
-
 }
 
 label {
-
     display: block;
-
     margin-top: 18px;
-
     margin-bottom: 8px;
-
     color: #ffd000;
-
     font-weight: bold;
-
 }
 
 input,
 select {
-
     width: 100%;
-
     padding: 14px;
-
     border-radius: 8px;
-
     border: 1px solid #44576b;
-
     background: #020d1a;
-
     color: white;
-
     font-size: 16px;
-
 }
 
 select option {
-
     background: #020d1a;
-
     color: white;
-
 }
 
-
-/* TOKEN AREA */
+/* TOKEN */
 
 .tokenBox {
-
-    margin-top: 15px;
-
+    margin-bottom: 20px;
     padding: 15px;
-
     background: #020d1a;
-
     border-radius: 10px;
-
     border: 1px solid #26384a;
-
 }
 
 .tokenStatus {
-
     color: #55ff88;
-
     font-size: 13px;
-
     margin-bottom: 10px;
-
 }
 
-.tokenInput {
-
+#tokenInput {
     display: none;
-
+    margin-bottom: 10px;
 }
 
-.changeToken {
-
+.tokenButton {
     width: 100%;
-
-    padding: 10px;
-
+    padding: 12px;
     border-radius: 8px;
-
     border: 1px solid #55697c;
-
     background: #10283d;
-
     color: white;
-
     cursor: pointer;
-
+    font-weight: bold;
 }
 
-
-/* PLAY MODE */
+/* MODE */
 
 .modeButtons {
-
     display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
-
 }
 
 .modeButton {
-
     padding: 16px 8px;
-
     border-radius: 10px;
-
     border: 2px solid #44576b;
-
     background: #020d1a;
-
     color: white;
-
     font-size: 15px;
-
     font-weight: bold;
-
     cursor: pointer;
-
 }
 
 .modeButton.active {
-
     border-color: #ffd000;
-
     background: #17344d;
-
     color: #ffd000;
-
 }
 
-
-/* SAVE */
+/* BUTTONS */
 
 .saveButton {
-
     width: 100%;
-
     margin-top: 20px;
-
     padding: 18px;
-
     border: none;
-
     border-radius: 10px;
-
     background: #ffd000;
-
     color: #020d1a;
-
     font-size: 18px;
-
     font-weight: bold;
-
     cursor: pointer;
-
 }
-
-
-/* LIVE */
 
 .liveButton {
-
     width: 100%;
-
     margin-top: 15px;
-
     padding: 18px;
-
     border: none;
-
     border-radius: 10px;
-
     background: #ff0015;
-
     color: white;
-
     font-size: 18px;
-
     font-weight: bold;
-
     cursor: pointer;
-
 }
-
 
 /* STATUS */
 
 .status {
-
     margin-top: 20px;
-
     padding: 15px;
-
     border-radius: 8px;
-
     background: #020d1a;
-
     color: #ffd000;
-
     text-align: center;
-
     word-break: break-word;
-
 }
-
-
-/* NOTE */
 
 .note {
-
     margin-top: 15px;
-
     padding: 12px;
-
     border-radius: 8px;
-
-    background:
-        rgba(255,208,0,0.08);
-
+    background: rgba(255,208,0,.08);
     color: #c7d0d9;
-
     font-size: 13px;
-
     line-height: 1.5;
-
 }
-
 
 @media (max-width: 500px) {
 
     .container {
-
         padding: 18px;
-
     }
 
     .modeButtons {
-
         grid-template-columns: 1fr;
-
     }
 
 }
@@ -324,65 +191,52 @@ select option {
 
 </head>
 
-
 <body>
-
 
 <div class="container">
 
-
-<h1>
-🎛️ KULZZY RADIO ADMIN
-</h1>
-
+<h1>🎛️ KULZZY RADIO ADMIN</h1>
 
 <div class="subtitle">
 Kulzzy Radio Network • Celebrating Lives Everyday
 </div>
 
 
-<!-- =================================================
-     GITHUB TOKEN
-     ================================================= -->
+<!-- =====================================================
+     GITHUB AUTHORIZATION
+     ===================================================== -->
 
 <div class="tokenBox">
 
     <div
         id="tokenStatus"
         class="tokenStatus">
-
-        🔐 GitHub authorization not yet saved
-
+        Checking authorization...
     </div>
-
 
     <input
         id="tokenInput"
-        class="tokenInput"
         type="password"
-        placeholder="Paste your new GitHub token here">
-
+        autocomplete="off"
+        placeholder="Paste your GitHub token">
 
     <button
-        id="changeToken"
-        class="changeToken"
+        id="tokenButton"
+        class="tokenButton"
         type="button">
 
-        🔑 SET / CHANGE GITHUB TOKEN
+        🔑 SET GITHUB TOKEN
 
     </button>
 
 </div>
 
 
-<!-- =================================================
+<!-- =====================================================
      AUDIO
-     ================================================= -->
+     ===================================================== -->
 
-<label>
-🎵 SELECT AUDIO
-</label>
-
+<label>🎵 SELECT AUDIO</label>
 
 <select id="audioSelect">
 
@@ -405,32 +259,25 @@ Kulzzy Radio Network • Celebrating Lives Everyday
 </select>
 
 
-<!-- =================================================
+<!-- =====================================================
      NOW PLAYING
-     ================================================= -->
+     ===================================================== -->
 
-<label>
-📻 NOW PLAYING
-</label>
-
+<label>📻 NOW PLAYING</label>
 
 <input
     id="nowPlaying"
     type="text"
-    placeholder="Example: Kulzzy Radio Birthday Show">
+    placeholder="Example: Birthday Celebration">
 
 
-<!-- =================================================
+<!-- =====================================================
      PLAY MODE
-     ================================================= -->
+     ===================================================== -->
 
-<label>
-🔁 PLAY MODE
-</label>
-
+<label>🔁 PLAY MODE</label>
 
 <div class="modeButtons">
-
 
     <button
         id="repeatButton"
@@ -441,7 +288,6 @@ Kulzzy Radio Network • Celebrating Lives Everyday
 
     </button>
 
-
     <button
         id="onceButton"
         class="modeButton"
@@ -451,26 +297,24 @@ Kulzzy Radio Network • Celebrating Lives Everyday
 
     </button>
 
-
 </div>
-
 
 <div class="note">
 
-<strong>🔁 Repeat Song:</strong>
-The selected audio will continuously repeat.
+<strong>🔁 Repeat Song</strong><br>
+The selected song will automatically start again when it finishes.
 
 <br><br>
 
-<strong>▶️ Play Once:</strong>
-The selected audio stops when it finishes.
+<strong>▶️ Play Once</strong><br>
+The selected song will stop when it finishes.
 
 </div>
 
 
-<!-- =================================================
+<!-- =====================================================
      SAVE AUDIO
-     ================================================= -->
+     ===================================================== -->
 
 <button
     id="saveButton"
@@ -482,9 +326,9 @@ The selected audio stops when it finishes.
 </button>
 
 
-<!-- =================================================
+<!-- =====================================================
      LIVE
-     ================================================= -->
+     ===================================================== -->
 
 <button
     id="liveButton"
@@ -496,9 +340,9 @@ The selected audio stops when it finishes.
 </button>
 
 
-<!-- =================================================
+<!-- =====================================================
      STATUS
-     ================================================= -->
+     ===================================================== -->
 
 <div
     id="status"
@@ -507,7 +351,6 @@ The selected audio stops when it finishes.
     Ready
 
 </div>
-
 
 </div>
 
@@ -523,138 +366,108 @@ The selected audio stops when it finishes.
    GITHUB SETTINGS
    ===================================================== */
 
-const GITHUB_USERNAME =
-    "donshangti2";
+const GITHUB_USERNAME = "donshangti2";
 
+const REPOSITORY = "KULZZY-AUTO-PLAYER";
 
-const REPOSITORY =
-    "KULZZY-AUTO-PLAYER";
-
-
-const CONFIG_FILE =
-    "config.json";
+const CONFIG_FILE = "config.json";
 
 
 /* =====================================================
-   LOCAL TOKEN STORAGE
+   LOCAL TOKEN KEY
    ===================================================== */
 
-const TOKEN_STORAGE_KEY =
-    "kulzzyGithubToken";
+const TOKEN_KEY = "KULZZY_RADIO_GITHUB_TOKEN";
 
 
 /* =====================================================
-   DEFAULT PLAY MODE
+   PLAY MODE
    ===================================================== */
 
-let playMode =
-    "REPEAT";
+let playMode = "REPEAT";
 
 
 /* =====================================================
    ELEMENTS
    ===================================================== */
 
-const audioSelect =
-    document.getElementById(
-        "audioSelect"
-    );
-
-
-const nowPlaying =
-    document.getElementById(
-        "nowPlaying"
-    );
-
-
-const repeatButton =
-    document.getElementById(
-        "repeatButton"
-    );
-
-
-const onceButton =
-    document.getElementById(
-        "onceButton"
-    );
-
-
-const saveButton =
-    document.getElementById(
-        "saveButton"
-    );
-
-
-const liveButton =
-    document.getElementById(
-        "liveButton"
-    );
-
-
-const status =
-    document.getElementById(
-        "status"
-    );
-
+const tokenStatus =
+    document.getElementById("tokenStatus");
 
 const tokenInput =
-    document.getElementById(
-        "tokenInput"
-    );
+    document.getElementById("tokenInput");
 
+const tokenButton =
+    document.getElementById("tokenButton");
 
-const tokenStatus =
-    document.getElementById(
-        "tokenStatus"
-    );
+const audioSelect =
+    document.getElementById("audioSelect");
 
+const nowPlaying =
+    document.getElementById("nowPlaying");
 
-const changeToken =
-    document.getElementById(
-        "changeToken"
-    );
+const repeatButton =
+    document.getElementById("repeatButton");
+
+const onceButton =
+    document.getElementById("onceButton");
+
+const saveButton =
+    document.getElementById("saveButton");
+
+const liveButton =
+    document.getElementById("liveButton");
+
+const status =
+    document.getElementById("status");
 
 
 /* =====================================================
-   CHECK TOKEN
+   GET SAVED TOKEN
    ===================================================== */
 
-function getStoredToken() {
+function getToken() {
 
-    return localStorage.getItem(
-        TOKEN_STORAGE_KEY
-    );
+    return localStorage.getItem(TOKEN_KEY);
 
 }
 
 
 /* =====================================================
-   SHOW TOKEN STATUS
+   UPDATE AUTHORIZATION DISPLAY
    ===================================================== */
 
-function updateTokenStatus() {
+function updateAuthorization() {
 
-    const token =
-        getStoredToken();
+    const token = getToken();
 
-
-    if (token) {
+    if (token && token.length > 10) {
 
         tokenStatus.textContent =
-            "🔐 GitHub authorization saved on this device";
+            "🔐 GitHub authorization saved on this device.";
 
         tokenStatus.style.color =
             "#55ff88";
 
-    }
+        tokenInput.style.display =
+            "none";
 
-    else {
+        tokenButton.textContent =
+            "🔑 CHANGE GITHUB TOKEN";
+
+    } else {
 
         tokenStatus.textContent =
-            "⚠️ GitHub authorization not yet saved";
+            "⚠️ GitHub authorization not yet saved.";
 
         tokenStatus.style.color =
-            "#ffcc00";
+            "#ffd000";
+
+        tokenInput.style.display =
+            "none";
+
+        tokenButton.textContent =
+            "🔑 SET GITHUB TOKEN";
 
     }
 
@@ -662,25 +475,38 @@ function updateTokenStatus() {
 
 
 /* =====================================================
-   SET / CHANGE TOKEN
+   TOKEN BUTTON
    ===================================================== */
 
-changeToken.addEventListener(
+tokenButton.addEventListener(
     "click",
     function() {
+
+        const token = getToken();
+
+        if (token) {
+
+            tokenInput.style.display =
+                "block";
+
+            tokenInput.value = "";
+
+            tokenButton.textContent =
+                "💾 SAVE NEW TOKEN";
+
+            tokenInput.focus();
+
+            return;
+        }
+
 
         tokenInput.style.display =
             "block";
 
+        tokenButton.textContent =
+            "💾 SAVE TOKEN";
 
         tokenInput.focus();
-
-
-        tokenInput.value = "";
-
-
-        changeToken.textContent =
-            "💾 SAVE NEW TOKEN";
 
     }
 );
@@ -694,8 +520,74 @@ tokenInput.addEventListener(
     "keydown",
     function(event) {
 
+        if (event.key === "Enter") {
+
+            saveToken();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   SAVE TOKEN FUNCTION
+   ===================================================== */
+
+function saveToken() {
+
+    const token =
+        tokenInput.value.trim();
+
+
+    if (!token) {
+
+        status.textContent =
+            "❌ Please paste your GitHub token.";
+
+        tokenInput.focus();
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        TOKEN_KEY,
+        token
+    );
+
+
+    tokenInput.value = "";
+
+    tokenInput.style.display =
+        "none";
+
+
+    tokenButton.textContent =
+        "🔑 CHANGE GITHUB TOKEN";
+
+
+    updateAuthorization();
+
+
+    status.textContent =
+        "✅ GitHub authorization saved successfully.";
+
+}
+
+
+/* =====================================================
+   TOKEN SAVE BUTTON
+   ===================================================== */
+
+tokenButton.addEventListener(
+    "click",
+    function() {
+
         if (
-            event.key === "Enter"
+            tokenInput.style.display ===
+            "block"
         ) {
 
             saveToken();
@@ -706,100 +598,6 @@ tokenInput.addEventListener(
 );
 
 
-changeToken.addEventListener("click", function() {
-
-    if (tokenInput.style.display !== "block") {
-
-        tokenInput.style.display = "block";
-
-        changeToken.textContent = "💾 SAVE NEW TOKEN";
-
-        tokenInput.focus();
-
-        return;
-    }
-
-    saveToken();
-
-});
-
-
-function saveToken() {
-
-    const token = tokenInput.value.trim();
-
-    if (!token) {
-
-        alert("Please paste your GitHub token first.");
-
-        tokenInput.focus();
-
-        return;
-    }
-
-    localStorage.setItem(
-        "kulzzyGithubToken",
-        token
-    );
-
-    tokenInput.value = "";
-
-    tokenInput.style.display = "none";
-
-    changeToken.textContent =
-        "🔑 CHANGE GITHUB TOKEN";
-
-    updateTokenStatus();
-
-    status.textContent =
-        "✅ GitHub authorization saved on this device.";
-
-}
-
-
-function saveToken() {
-
-    const token =
-        tokenInput.value.trim();
-
-
-    if (!token) {
-
-        alert(
-            "Please enter your GitHub token."
-        );
-
-        return;
-
-    }
-
-
-    localStorage.setItem(
-        TOKEN_STORAGE_KEY,
-        token
-    );
-
-
-    tokenInput.value = "";
-
-
-    tokenInput.style.display =
-        "none";
-
-
-    changeToken.textContent =
-        "🔑 CHANGE GITHUB TOKEN";
-
-
-    updateTokenStatus();
-
-
-    status.textContent =
-        "✅ GitHub authorization saved.";
-
-}
-
-
 /* =====================================================
    PLAY MODE
    ===================================================== */
@@ -808,14 +606,11 @@ repeatButton.addEventListener(
     "click",
     function() {
 
-        playMode =
-            "REPEAT";
-
+        playMode = "REPEAT";
 
         repeatButton.classList.add(
             "active"
         );
-
 
         onceButton.classList.remove(
             "active"
@@ -829,14 +624,11 @@ onceButton.addEventListener(
     "click",
     function() {
 
-        playMode =
-            "ONCE";
-
+        playMode = "ONCE";
 
         onceButton.classList.add(
             "active"
         );
-
 
         repeatButton.classList.remove(
             "active"
@@ -847,30 +639,28 @@ onceButton.addEventListener(
 
 
 /* =====================================================
-   GET TOKEN
+   REQUIRE TOKEN
    ===================================================== */
 
 function requireToken() {
 
-    const token =
-        getStoredToken();
-
+    const token = getToken();
 
     if (!token) {
 
         tokenInput.style.display =
             "block";
 
+        tokenButton.textContent =
+            "💾 SAVE TOKEN";
 
         tokenInput.focus();
 
-
         throw new Error(
-            "Please enter your GitHub token first."
+            "Please save your GitHub token first."
         );
 
     }
-
 
     return token;
 
@@ -878,75 +668,72 @@ function requireToken() {
 
 
 /* =====================================================
-   UPDATE CONFIG
+   GITHUB API
    ===================================================== */
 
-async function updateConfig(
-    newConfig
-) {
+async function updateConfig(config) {
 
-    const token =
-        requireToken();
+    const token = requireToken();
 
 
     status.textContent =
-        "⏳ Updating radio...";
+        "⏳ Updating Kulzzy Radio...";
 
 
-    /* GET CURRENT CONFIG */
+    const apiURL =
+        "https://api.github.com/repos/" +
+        GITHUB_USERNAME +
+        "/" +
+        REPOSITORY +
+        "/contents/" +
+        CONFIG_FILE;
+
+
+    /* GET CURRENT FILE */
 
     const getResponse =
         await fetch(
-
-            "https://api.github.com/repos/" +
-            GITHUB_USERNAME +
-            "/" +
-            REPOSITORY +
-            "/contents/" +
-            CONFIG_FILE,
-
+            apiURL,
             {
+                method: "GET",
 
                 headers: {
 
-                    Authorization:
-                        "Bearer " +
-                        token,
+                    "Authorization":
+                        "Bearer " + token,
 
-                    Accept:
+                    "Accept":
                         "application/vnd.github+json"
 
-                }
+                },
+
+                cache: "no-store"
 
             }
-
         );
 
 
     if (!getResponse.ok) {
 
         if (
-            getResponse.status ===
-            401
+            getResponse.status === 401 ||
+            getResponse.status === 403
         ) {
 
             localStorage.removeItem(
-                TOKEN_STORAGE_KEY
+                TOKEN_KEY
             );
 
-
-            updateTokenStatus();
-
+            updateAuthorization();
 
             throw new Error(
-                "GitHub token is invalid or expired. Please enter a new one."
+                "GitHub authorization failed. Please set your new token again."
             );
 
         }
 
-
         throw new Error(
-            "Could not read config.json"
+            "Could not read config.json from GitHub."
         );
 
     }
@@ -957,53 +744,41 @@ async function updateConfig(
 
 
     /* =================================================
-       ENCODE JSON
+       ENCODE CONFIG
        ================================================= */
 
-    const jsonText =
+    const json =
         JSON.stringify(
-            newConfig,
+            config,
             null,
             2
         );
 
 
-    const content =
+    const encoded =
         btoa(
             unescape(
-                encodeURIComponent(
-                    jsonText
-                )
+                encodeURIComponent(json)
             )
         );
 
 
     /* =================================================
-       SAVE CONFIG
+       UPDATE FILE
        ================================================= */
 
     const putResponse =
         await fetch(
-
-            "https://api.github.com/repos/" +
-            GITHUB_USERNAME +
-            "/" +
-            REPOSITORY +
-            "/contents/" +
-            CONFIG_FILE,
-
+            apiURL,
             {
-
-                method:
-                    "PUT",
+                method: "PUT",
 
                 headers: {
 
-                    Authorization:
-                        "Bearer " +
-                        token,
+                    "Authorization":
+                        "Bearer " + token,
 
-                    Accept:
+                    "Accept":
                         "application/vnd.github+json",
 
                     "Content-Type":
@@ -1015,10 +790,10 @@ async function updateConfig(
                     JSON.stringify({
 
                         message:
-                            "Update Kulzzy Radio",
+                            "Update Kulzzy Radio config",
 
                         content:
-                            content,
+                            encoded,
 
                         sha:
                             file.sha
@@ -1026,18 +801,17 @@ async function updateConfig(
                     })
 
             }
-
         );
 
 
     if (!putResponse.ok) {
 
-        const error =
+        const errorText =
             await putResponse.text();
 
-
         throw new Error(
-            error
+            "GitHub update failed: " +
+            errorText
         );
 
     }
@@ -1058,15 +832,14 @@ saveButton.addEventListener(
 
         try {
 
-            const selectedAudio =
+            const audioFile =
                 audioSelect.value;
 
 
-            if (!selectedAudio) {
+            if (!audioFile) {
 
-                alert(
-                    "Please select an audio file."
-                );
+                status.textContent =
+                    "❌ Select an audio file first.";
 
                 return;
 
@@ -1082,7 +855,7 @@ saveButton.addEventListener(
                 version: 1,
 
                 currentAudio:
-                    selectedAudio,
+                    audioFile,
 
                 nowPlaying:
                     title,
@@ -1122,14 +895,12 @@ saveButton.addEventListener(
             ) {
 
                 status.textContent =
-                    "🔁 REPEAT SONG SAVED & PLAYING";
+                    "🔁 REPEAT SONG SAVED — RADIO UPDATED";
 
-            }
-
-            else {
+            } else {
 
                 status.textContent =
-                    "▶️ PLAY ONCE SAVED & PLAYING";
+                    "▶️ PLAY ONCE SAVED — RADIO UPDATED";
 
             }
 
@@ -1137,10 +908,7 @@ saveButton.addEventListener(
 
         catch (error) {
 
-            console.error(
-                error
-            );
-
+            console.error(error);
 
             status.textContent =
                 "❌ " +
@@ -1202,16 +970,13 @@ liveButton.addEventListener(
 
 
             status.textContent =
-                "🔴 LIVE ON AIR";
+                "🔴 LIVE MODE ACTIVATED";
 
         }
 
         catch (error) {
 
-            console.error(
-                error
-            );
-
+            console.error(error);
 
             status.textContent =
                 "❌ " +
@@ -1227,11 +992,9 @@ liveButton.addEventListener(
    START
    ===================================================== */
 
-updateTokenStatus();
+updateAuthorization();
 
 </script>
 
-
 </body>
-
-      </html>
+</html>
