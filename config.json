@@ -1,15 +1,12 @@
 {
-  "version": 2,
-  "mode": "AUDIO",
-  "currentAudio": "audio/RADIO_MONTHLY_SONG.mp3",
-  "nowPlaying": "Kulzzy Radio Network",
-  "title": "KULZZY RADIO NETWORK",
+  "version": 1,
+  "currentAudio": "audio/ON_AIR_BIRTHDAY_SONG_BASS_ONLY.mp3",
+  "nowPlaying": "",
+  "title": "AUTOMATIC AUDIO",
   "status": "AUDIO",
   "background": "",
   "volume": 1,
-  "refresh": 5,
-  "caster": {
-    "publicToken": "8c96ae48-5e72-43d8-a87e-e90f623ac080",
-    "channelId": "a272a955-fc0c-4968-8280-2a2cb7e434ec"
-  }
+  "playlistMode": false,
+  "playMode": "REPEAT",
+  "refresh": 1
 }
