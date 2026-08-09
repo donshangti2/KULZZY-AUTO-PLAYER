@@ -706,27 +706,55 @@ tokenInput.addEventListener(
 );
 
 
-changeToken.addEventListener(
-    "click",
-    function() {
+changeToken.addEventListener("click", function() {
 
-        if (
-            tokenInput.style.display ===
-            "block"
-        ) {
+    if (tokenInput.style.display !== "block") {
 
-            if (
-                tokenInput.value.trim() !== ""
-            ) {
+        tokenInput.style.display = "block";
 
-                saveToken();
+        changeToken.textContent = "💾 SAVE NEW TOKEN";
 
-            }
+        tokenInput.focus();
 
-        }
-
+        return;
     }
-);
+
+    saveToken();
+
+});
+
+
+function saveToken() {
+
+    const token = tokenInput.value.trim();
+
+    if (!token) {
+
+        alert("Please paste your GitHub token first.");
+
+        tokenInput.focus();
+
+        return;
+    }
+
+    localStorage.setItem(
+        "kulzzyGithubToken",
+        token
+    );
+
+    tokenInput.value = "";
+
+    tokenInput.style.display = "none";
+
+    changeToken.textContent =
+        "🔑 CHANGE GITHUB TOKEN";
+
+    updateTokenStatus();
+
+    status.textContent =
+        "✅ GitHub authorization saved on this device.";
+
+}
 
 
 function saveToken() {
