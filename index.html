@@ -1035,17 +1035,16 @@ audio.addEventListener(
     "ended",
     function() {
 
-        playButton.classList.remove(
-            "playing"
-        );
+        audio.currentTime = 0;
 
+        audio.play().catch(function(error) {
 
-        playButton.textContent =
-            "▶";
+            console.log(
+                "Auto replay:",
+                error
+            );
 
-
-        buttonLabel.textContent =
-            "TAP TO PLAY";
+        });
 
     }
 );
