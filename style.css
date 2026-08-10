@@ -506,3 +506,173 @@ body {
     }
 
     }
+/* =====================================================
+   MOBILE WEBSITE FIT FIX
+   Keeps everything working but fits perfectly on Blogger
+   ===================================================== */
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+/* Make community chat fit the website */
+.card {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Keep welcome card */
+#welcomeCard {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Messages fit phone screen */
+#messages {
+    width: 100%;
+    max-width: 100%;
+}
+
+/* =====================================================
+   RADIO PLAYER — FIT PHONE SCREEN
+   ===================================================== */
+
+#radioPlayer {
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+/* Smaller, balanced play button */
+#bigPlayButton {
+    width: 110px !important;
+    height: 110px !important;
+    font-size: 50px !important;
+    margin: 10px auto 12px !important;
+}
+
+/* =====================================================
+   OUR LISTENERS
+   ===================================================== */
+
+#ourListenersCounter {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+/* =====================================================
+   PHONE SCREEN
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    .wrapper {
+        padding: 8px;
+    }
+
+    #radioPlayer {
+        width: 100%;
+        border-radius: 0;
+    }
+
+    .kulzzyHeader {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .brandName {
+        font-size: 16px;
+    }
+
+    .slogan {
+        font-size: 10px;
+    }
+
+    .liveBadge {
+        padding: 8px 10px;
+        font-size: 11px;
+    }
+
+    .playerContent {
+        width: 100%;
+        padding: 12px 8px 18px;
+    }
+
+    /* NOT TOO BIG */
+    #bigPlayButton {
+        width: 105px !important;
+        height: 105px !important;
+        font-size: 48px !important;
+        border-width: 4px !important;
+    }
+
+    .buttonLabel {
+        font-size: 16px;
+    }
+
+    .nowPlaying {
+        width: 95%;
+        font-size: 12px;
+    }
+
+    /* Community chat */
+    .chatMessage {
+        width: 100%;
+    }
+
+    .chatBubble {
+        min-width: 0;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Welcome card text */
+    #welcomeCard {
+        gap: 10px;
+        padding: 14px;
+    }
+
+    #avatar {
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+        font-size: 24px;
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL PHONES
+   ===================================================== */
+
+@media (max-width: 380px) {
+
+    #bigPlayButton {
+        width: 95px !important;
+        height: 95px !important;
+        font-size: 42px !important;
+    }
+
+    .brandName {
+        font-size: 14px;
+    }
+
+    .liveBadge {
+        padding: 7px 9px;
+        font-size: 10px;
+    }
+
+}
