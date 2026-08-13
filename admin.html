@@ -241,19 +241,7 @@ Kulzzy Radio Network • Celebrating Lives Everyday
 <select id="audioSelect">
 
     <option value="">
-        Select a song
-    </option>
-
-    <option value="audio/ON_AIR_BIRTHDAY_SONG_BASS_ONLY.mp3">
-        ON AIR BIRTHDAY SONG
-    </option>
-
-    <option value="audio/ON_AIR_BUSINESS_O'CLOCK .mp3">
-        ON AIR BUSINESS O'CLOCK
-    </option>
-
-    <option value="audio/RADIO_MONTHLY_SONG.mp3">
-        RADIO MONTHLY SONG
+        Loading songs...
     </option>
 
 </select>
@@ -372,6 +360,8 @@ const REPOSITORY = "KULZZY-AUTO-PLAYER";
 
 const CONFIG_FILE = "config.json";
 
+const AUDIO_FOLDER = "audio";
+
 
 /* =====================================================
    LOCAL TOKEN KEY
@@ -468,6 +458,186 @@ function updateAuthorization() {
 
         tokenButton.textContent =
             "🔑 SET GITHUB TOKEN";
+
+    }
+
+}
+
+
+/* =====================================================
+   LOAD ALL MP3 FILES FROM GITHUB AUDIO FOLDER
+   ===================================================== */
+
+async function loadAudioFiles() {
+
+    audioSelect.innerHTML =
+        '<option value="">⏳ Loading songs...</option>';
+
+    try {
+
+        const apiURL =
+            "https://api.github.com/repos/" +
+            GITHUB_USERNAME +
+            "/" +
+            REPOSITORY +
+            "/contents/" +
+            AUDIO_FOLDER +
+            "?t=" +
+            Date.now();
+
+
+        const headers = {
+
+            "Accept":
+                "application/vnd.github+json"
+
+        };
+
+
+        const token = getToken();
+
+
+        if (token) {
+
+            headers["Authorization"] =
+                "Bearer " + token;
+
+        }
+
+
+        const response =
+            await fetch(
+                apiURL,
+                {
+                    method: "GET",
+                    headers: headers,
+                    cache: "no-store"
+                }
+            );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "Could not read the GitHub audio folder."
+            );
+
+        }
+
+
+        const files =
+            await response.json();
+
+
+        if (!Array.isArray(files)) {
+
+            throw new Error(
+                "GitHub did not return the audio folder."
+            );
+
+        }
+
+
+        const audioFiles =
+            files
+            .filter(function(file) {
+
+                return (
+                    file.type === "file" &&
+                    /\.mp3$/i.test(file.name)
+                );
+
+            })
+            .sort(function(a, b) {
+
+                return a.name.localeCompare(
+                    b.name,
+                    undefined,
+                    {
+                        numeric: true,
+                        sensitivity: "base"
+                    }
+                );
+
+            });
+
+
+        audioSelect.innerHTML =
+            "";
+
+
+        if (audioFiles.length === 0) {
+
+            audioSelect.innerHTML =
+                '<option value="">No MP3 files found</option>';
+
+            status.textContent =
+                "⚠️ No MP3 files found in the audio folder.";
+
+            return;
+
+        }
+
+
+        const firstOption =
+            document.createElement("option");
+
+        firstOption.value =
+            "";
+
+        firstOption.textContent =
+            "Select a song";
+
+        audioSelect.appendChild(
+            firstOption
+        );
+
+
+        audioFiles.forEach(function(file) {
+
+            const option =
+                document.createElement("option");
+
+            option.value =
+                "audio/" + file.name;
+
+            option.textContent =
+                file.name
+                    .replace(/\.mp3$/i, "")
+                    .replace(/_/g, " ");
+
+            audioSelect.appendChild(
+                option
+            );
+
+        });
+
+
+        status.textContent =
+            "✅ " +
+            audioFiles.length +
+            " audio file" +
+            (audioFiles.length === 1 ? "" : "s") +
+            " loaded from GitHub.";
+
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Audio loading error:",
+            error
+        );
+
+
+        audioSelect.innerHTML =
+            '<option value="">❌ Could not load songs</option>';
+
+
+        status.textContent =
+            "❌ " +
+            error.message;
 
     }
 
@@ -573,6 +743,11 @@ function saveToken() {
 
     status.textContent =
         "✅ GitHub authorization saved successfully.";
+
+
+    /* Reload songs after authorization */
+
+    loadAudioFiles();
 
 }
 
@@ -993,6 +1168,31 @@ liveButton.addEventListener(
    ===================================================== */
 
 updateAuthorization();
+
+/* Automatically load every MP3 from GitHub */
+
+loadAudioFiles();
+
+
+/* =====================================================
+   REFRESH AUDIO LIST WHEN PANEL RETURNS
+   ===================================================== */
+
+document.addEventListener(
+    "visibilitychange",
+    function() {
+
+        if (
+            document.visibilityState ===
+            "visible"
+        ) {
+
+            loadAudioFiles();
+
+        }
+
+    }
+);
 
 </script>
 
