@@ -219,6 +219,7 @@ GitHub MP3 player
                 "div"
             );
 
+
         liveStatus.className =
             "kulzzyStatus live";
 
@@ -299,11 +300,14 @@ GitHub MP3 player
             const link =
                 document.createElement("a");
 
+
             link.href =
                 "https://www.caster.fm";
 
+
             link.textContent =
                 text;
+
 
             caster.appendChild(link);
 
@@ -496,6 +500,69 @@ GitHub MP3 player
 
 
         /*
+        ================================================
+        RANDOM START POSITION
+        ================================================
+
+        Every time the website is refreshed,
+        the same current audio is used, but it
+        starts from a random position.
+
+        Example:
+
+        00:05
+        00:27
+        01:14
+        02:41
+        etc.
+
+        This happens only once when the player
+        is created.
+
+        It does NOT change the selected audio.
+        */
+
+        let randomPositionSet = false;
+
+
+        audioPlayer.addEventListener(
+            "loadedmetadata",
+            function () {
+
+                if (
+                    randomPositionSet
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    audioPlayer.duration &&
+                    isFinite(audioPlayer.duration) &&
+                    audioPlayer.duration > 0
+                ) {
+
+                    const randomPosition =
+                        Math.random() *
+                        audioPlayer.duration;
+
+
+                    audioPlayer.currentTime =
+                        randomPosition;
+
+
+                    randomPositionSet =
+                        true;
+
+                }
+
+            }
+        );
+
+
+        /*
         PLAY / PAUSE
         */
 
@@ -560,11 +627,18 @@ GitHub MP3 player
 
 
         /*
+        ================================================
         CONTINUOUS PLAY
+        ================================================
 
         When one MP3 finishes,
         start it again.
 
+        The random position is ONLY used
+        when the website/player is first loaded.
+
+        After the audio finishes, it continues
+        from the beginning as before.
         */
 
         audioPlayer.addEventListener(
@@ -573,6 +647,7 @@ GitHub MP3 player
 
                 audioPlayer.currentTime =
                     0;
+
 
                 audioPlayer.play()
                     .catch(function () {
