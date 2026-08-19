@@ -145,6 +145,7 @@ GitHub MP3 player
                 "kulzzyPlayerTitle"
             );
 
+
         const nowPlaying =
             document.getElementById(
                 "kulzzyNowPlaying"
@@ -200,7 +201,14 @@ GitHub MP3 player
 
             }
 
-            catch {}
+            catch (error) {
+
+                console.error(
+                    "Kulzzy Player:",
+                    error
+                );
+
+            }
 
             audioPlayer = null;
 
@@ -253,10 +261,17 @@ GitHub MP3 player
         );
 
 
-        caster.setAttribute(
-            "data-publicToken",
+        if (
+            config.caster &&
             config.caster.publicToken
-        );
+        ) {
+
+            caster.setAttribute(
+                "data-publicToken",
+                config.caster.publicToken
+            );
+
+        }
 
 
         caster.setAttribute(
@@ -271,10 +286,17 @@ GitHub MP3 player
         );
 
 
-        caster.setAttribute(
-            "data-channelId",
+        if (
+            config.caster &&
             config.caster.channelId
-        );
+        ) {
+
+            caster.setAttribute(
+                "data-channelId",
+                config.caster.channelId
+            );
+
+        }
 
 
         caster.setAttribute(
@@ -285,20 +307,18 @@ GitHub MP3 player
 
         const links =
             [
-
                 "Shoutcast Hosting",
-
                 "Stream Hosting",
-
                 "Radio Server Hosting"
-
             ];
 
 
         links.forEach(function (text) {
 
             const link =
-                document.createElement("a");
+                document.createElement(
+                    "a"
+                );
 
 
             link.href =
@@ -309,7 +329,9 @@ GitHub MP3 player
                 text;
 
 
-            caster.appendChild(link);
+            caster.appendChild(
+                link
+            );
 
         });
 
@@ -411,6 +433,32 @@ GitHub MP3 player
         }
 
 
+        /*
+        Stop previous audio
+        */
+
+        if (audioPlayer) {
+
+            try {
+
+                audioPlayer.pause();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Kulzzy Player:",
+                    error
+                );
+
+            }
+
+            audioPlayer = null;
+
+        }
+
+
         content.innerHTML = "";
 
 
@@ -504,34 +552,300 @@ GitHub MP3 player
         RANDOM START POSITION
         ================================================
 
-        Every time the website is refreshed,
-        the same current audio is used, but it
-        starts from a random position.
+        IMPORTANT:
 
-        Example:
+        The player waits until the MP3 metadata is
+        completely available.
 
-        00:05
-        00:27
-        01:14
-        02:41
-        etc.
+        Then it calculates the real duration.
 
-        This happens only once when the player
-        is created.
+        Then it selects a random position.
 
-        It does NOT change the selected audio.
+        Then it sets currentTime.
+
+        ONLY AFTER THAT does it try to play.
+
+        This prevents the browser from starting
+        the MP3 at 00:00 before the random position
+        has been applied.
+
+        The random position can be:
+
+        - Near the beginning
+        - Somewhere in the middle
+        - Near the end
+
+        The same audio file remains selected.
+
+        ================================================
         */
 
         let randomPositionSet = false;
 
+        let initialPlaybackStarted = false;
+
+
+        function setRandomStartPosition() {
+
+            if (randomPositionSet) {
+
+                return true;
+
+            }
+
+
+            const duration =
+                audioPlayer.duration;
+
+
+            /*
+            Make sure the browser has a valid
+            duration before calculating a position.
+            */
+
+            if (
+                !isFinite(duration) ||
+                duration <= 0
+            ) {
+
+                return false;
+
+            }
+
+
+            /*
+            Keep a small amount of audio available
+            at the end so we don't randomly land
+            exactly on the final frame.
+            */
+
+            const safeEnd =
+                Math.max(
+                    0,
+                    duration - 0.25
+                );
+
+
+            /*
+            Generate random position.
+
+            Math.random() returns a number between:
+
+            0 and 1
+
+            Therefore this produces a random
+            position anywhere through the song.
+            */
+
+            const randomPosition =
+                Math.random() *
+                safeEnd;
+
+
+            try {
+
+                audioPlayer.currentTime =
+                    randomPosition;
+
+                randomPositionSet =
+                    true;
+
+
+                console.log(
+                    "Kulzzy Player: Random start position:",
+                    randomPosition.toFixed(2),
+                    "seconds of",
+                    duration.toFixed(2),
+                    "seconds"
+                );
+
+
+                return true;
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Kulzzy Player: Unable to set random position.",
+                    error
+                );
+
+                return false;
+
+            }
+
+        }
+
+
+        /*
+        ================================================
+        START AUDIO AFTER RANDOM POSITION IS READY
+        ================================================
+        */
+
+        function startInitialPlayback() {
+
+            if (initialPlaybackStarted) {
+
+                return;
+
+            }
+
+
+            /*
+            Try setting the random position first.
+            */
+
+            const ready =
+                setRandomStartPosition();
+
+
+            if (!ready) {
+
+                /*
+                Metadata may not be ready yet.
+                The loadedmetadata event will
+                try again.
+                */
+
+                return;
+
+            }
+
+
+            initialPlaybackStarted = true;
+
+
+            /*
+            Give the browser a moment to apply
+            currentTime before calling play().
+            */
+
+            const playAudio =
+                function () {
+
+                    if (!audioPlayer) {
+
+                        return;
+
+                    }
+
+
+                    audioPlayer.play()
+
+                        .then(function () {
+
+                            button.innerHTML =
+                                "❚❚";
+
+
+                            console.log(
+                                "Kulzzy Player: Playing from random position."
+                            );
+
+                        })
+
+                        .catch(function (error) {
+
+                            /*
+                            Browser autoplay restriction.
+
+                            The audio is still correctly positioned.
+                            The visitor can press the play button.
+                            */
+
+                            console.log(
+                                "Kulzzy Player: Autoplay blocked.",
+                                error
+                            );
+
+
+                            button.innerHTML =
+                                "▶";
+
+                        });
+
+                };
+
+
+            /*
+            requestAnimationFrame gives the browser
+            time to apply the currentTime change.
+            */
+
+            if (
+                typeof requestAnimationFrame ===
+                "function"
+            ) {
+
+                requestAnimationFrame(
+                    playAudio
+                );
+
+            }
+
+            else {
+
+                setTimeout(
+                    playAudio,
+                    0
+                );
+
+            }
+
+        }
+
+
+        /*
+        ================================================
+        METADATA READY
+        ================================================
+        */
 
         audioPlayer.addEventListener(
             "loadedmetadata",
             function () {
 
-                if (
-                    randomPositionSet
-                ) {
+                console.log(
+                    "Kulzzy Player: Audio metadata loaded."
+                );
+
+
+                startInitialPlayback();
+
+            }
+        );
+
+
+        /*
+        Some browsers may already have metadata
+        available before the event listener is
+        processed.
+
+        Check it as an additional safety measure.
+        */
+
+        if (
+            audioPlayer.readyState >= 1
+        ) {
+
+            startInitialPlayback();
+
+        }
+
+
+        /*
+        ================================================
+        PLAY / PAUSE BUTTON
+        ================================================
+        */
+
+        button.addEventListener(
+            "click",
+            function () {
+
+                if (!audioPlayer) {
 
                     return;
 
@@ -539,51 +853,36 @@ GitHub MP3 player
 
 
                 if (
-                    audioPlayer.duration &&
-                    isFinite(audioPlayer.duration) &&
-                    audioPlayer.duration > 0
-                ) {
-
-                    const randomPosition =
-                        Math.random() *
-                        audioPlayer.duration;
-
-
-                    audioPlayer.currentTime =
-                        randomPosition;
-
-
-                    randomPositionSet =
-                        true;
-
-                }
-
-            }
-        );
-
-
-        /*
-        PLAY / PAUSE
-        */
-
-        button.addEventListener(
-            "click",
-            function () {
-
-                if (
                     audioPlayer.paused
                 ) {
 
+                    /*
+                    If random position somehow hasn't
+                    been set yet, try to set it now.
+                    */
+
+                    if (
+                        !randomPositionSet
+                    ) {
+
+                        setRandomStartPosition();
+
+                    }
+
+
                     audioPlayer.play()
+
                         .then(function () {
 
                             button.innerHTML =
                                 "❚❚";
 
                         })
+
                         .catch(function (error) {
 
                             console.error(
+                                "Kulzzy Player:",
                                 error
                             );
 
@@ -595,6 +894,7 @@ GitHub MP3 player
 
                     audioPlayer.pause();
 
+
                     button.innerHTML =
                         "▶";
 
@@ -603,6 +903,12 @@ GitHub MP3 player
             }
         );
 
+
+        /*
+        ================================================
+        PLAY EVENT
+        ================================================
+        */
 
         audioPlayer.addEventListener(
             "play",
@@ -614,6 +920,12 @@ GitHub MP3 player
             }
         );
 
+
+        /*
+        ================================================
+        PAUSE EVENT
+        ================================================
+        */
 
         audioPlayer.addEventListener(
             "pause",
@@ -628,28 +940,69 @@ GitHub MP3 player
 
         /*
         ================================================
+        AUDIO ERROR
+        ================================================
+        */
+
+        audioPlayer.addEventListener(
+            "error",
+            function () {
+
+                console.error(
+                    "Kulzzy Player: Audio could not be loaded.",
+                    audioPlayer.error
+                );
+
+
+                button.innerHTML =
+                    "▶";
+
+            }
+        );
+
+
+        /*
+        ================================================
         CONTINUOUS PLAY
         ================================================
 
-        When one MP3 finishes,
-        start it again.
+        When the MP3 finishes, start the SAME MP3
+        again from the beginning.
 
-        The random position is ONLY used
-        when the website/player is first loaded.
+        IMPORTANT:
 
-        After the audio finishes, it continues
-        from the beginning as before.
+        Random playback happens only when the
+        website/player is initially created.
+
+        When the song ends, it starts from 00:00.
+
+        ================================================
         */
 
         audioPlayer.addEventListener(
             "ended",
             function () {
 
+                if (!audioPlayer) {
+
+                    return;
+
+                }
+
+
                 audioPlayer.currentTime =
                     0;
 
 
                 audioPlayer.play()
+
+                    .then(function () {
+
+                        button.innerHTML =
+                            "❚❚";
+
+                    })
+
                     .catch(function () {
 
                         button.innerHTML =
@@ -660,6 +1013,12 @@ GitHub MP3 player
             }
         );
 
+
+        /*
+        ================================================
+        BUILD PLAYER
+        ================================================
+        */
 
         player.appendChild(
             button
@@ -677,26 +1036,36 @@ GitHub MP3 player
 
 
         /*
-        Attempt automatic playback.
-
-        Browser may block this until
-        the visitor has interacted
-        with the page.
+        ================================================
+        LOAD AUDIO
+        ================================================
         */
 
-        audioPlayer.play()
-            .then(function () {
+        /*
+        Calling load() ensures the browser starts
+        loading the newly selected MP3.
+        */
 
-                button.innerHTML =
-                    "❚❚";
+        audioPlayer.load();
 
-            })
-            .catch(function () {
 
-                button.innerHTML =
-                    "▶";
+        /*
+        ================================================
+        INITIAL AUTOPLAY
 
-            });
+        We DO NOT call audioPlayer.play() here.
+
+        Instead, playback begins inside
+        startInitialPlayback() AFTER:
+
+        1. Metadata loads
+        2. Duration is known
+        3. Random position is selected
+        4. currentTime is set
+
+        This is the important fix.
+        ================================================
+        */
 
     }
 
