@@ -1,14 +1,37 @@
 /*
 ==================================================
 KULZZY RADIO NETWORK
-PLAYER ENGINE
+AUTOMATIC RANDOM AUDIO PLAYER
 ==================================================
 
-LIVE MODE:
-Caster.fm player
+REPOSITORY:
+https://github.com/donshangti2/KULZZY-AUTO-PLAYER
 
-AUDIO MODE:
-GitHub MP3 player
+AUDIO FOLDER:
+https://github.com/donshangti2/KULZZY-AUTO-PLAYER/tree/main/audio
+
+==================================================
+
+FEATURES:
+
+1. Automatically detects ALL MP3 files inside
+   the GitHub /audio folder.
+
+2. No need to manually update playlist.json.
+
+3. Every fresh website load selects a RANDOM MP3.
+
+4. When an MP3 finishes, another RANDOM MP3
+   is selected automatically.
+
+5. Prevents immediate repetition when possible.
+
+6. Keeps LIVE / Caster.fm mode.
+
+7. Keeps existing player HTML/CSS structure.
+
+8. Falls back to config.json currentAudio
+   if GitHub file discovery fails.
 
 ==================================================
 */
@@ -18,9 +41,57 @@ GitHub MP3 player
     "use strict";
 
 
+    /* ==================================================
+       CONFIGURATION
+    ================================================== */
+
     const CONFIG_URL =
         "config.json";
 
+
+    /*
+    YOUR EXACT GITHUB REPOSITORY
+    */
+
+    const GITHUB_OWNER =
+        "donshangti2";
+
+    const GITHUB_REPO =
+        "KULZZY-AUTO-PLAYER";
+
+    const GITHUB_BRANCH =
+        "main";
+
+
+    /*
+    GitHub API used to automatically discover
+    every file inside /audio
+    */
+
+    const GITHUB_AUDIO_API =
+        "https://api.github.com/repos/" +
+        GITHUB_OWNER +
+        "/" +
+        GITHUB_REPO +
+        "/contents/audio?ref=" +
+        GITHUB_BRANCH;
+
+
+    /*
+    Direct GitHub Pages audio URL
+    */
+
+    const AUDIO_BASE_URL =
+        "https://" +
+        GITHUB_OWNER +
+        ".github.io/" +
+        GITHUB_REPO +
+        "/audio/";
+
+
+    /* ==================================================
+       PLAYER VARIABLES
+    ================================================== */
 
     let audioPlayer = null;
 
@@ -28,12 +99,22 @@ GitHub MP3 player
 
     let currentAudio = null;
 
+    let currentButton = null;
 
-    /*
-    ================================================
-    LOAD CONFIGURATION
-    ================================================
-    */
+    let audioFiles = [];
+
+    let lastAudio = null;
+
+    let playerGeneration = 0;
+
+    let currentConfig = null;
+
+    let isBuildingAudioPlayer = false;
+
+
+    /* ==================================================
+       LOAD CONFIGURATION
+    ================================================== */
 
     async function loadConfig() {
 
@@ -60,6 +141,10 @@ GitHub MP3 player
                 await response.json();
 
 
+            currentConfig =
+                config;
+
+
             applyConfig(config);
 
         }
@@ -67,7 +152,7 @@ GitHub MP3 player
         catch (error) {
 
             console.error(
-                "Kulzzy Player:",
+                "Kulzzy Player: Config error:",
                 error
             );
 
@@ -76,29 +161,39 @@ GitHub MP3 player
     }
 
 
-    /*
-    ================================================
-    APPLY CONFIG
-    ================================================
-    */
+    /* ==================================================
+       APPLY CONFIGURATION
+    ================================================== */
 
     function applyConfig(config) {
 
+        /*
+        Your config currently uses:
+
+        "status": "AUDIO"
+
+        But some older versions used:
+
+        "mode": "AUDIO"
+
+        So we support BOTH.
+        */
+
         const mode =
-            config.mode || "AUDIO";
+            String(
+                config.mode ||
+                config.status ||
+                "AUDIO"
+            ).toUpperCase();
 
 
         /*
-        If nothing changed,
-        don't rebuild the player.
+        If the mode has not changed,
+        DO NOT rebuild the player every 5 seconds.
         */
 
         if (
-            mode === currentMode &&
-            (
-                mode === "LIVE" ||
-                config.currentAudio === currentAudio
-            )
+            mode === currentMode
         ) {
 
             updateText(config);
@@ -108,35 +203,45 @@ GitHub MP3 player
         }
 
 
-        currentMode = mode;
-
-        currentAudio =
-            config.currentAudio || "";
+        currentMode =
+            mode;
 
 
         updateText(config);
 
 
-        if (mode === "LIVE") {
+        /*
+        LIVE MODE
+        */
 
-            showLivePlayer(config);
+        if (
+            mode === "LIVE"
+        ) {
+
+            showLivePlayer(
+                config
+            );
 
         }
 
+        /*
+        AUDIO MODE
+        */
+
         else {
 
-            showAudioPlayer(config);
+            showAudioPlayer(
+                config
+            );
 
         }
 
     }
 
 
-    /*
-    ================================================
-    UPDATE BRANDING / TEXT
-    ================================================
-    */
+    /* ==================================================
+       UPDATE PLAYER TEXT
+    ================================================== */
 
     function updateText(config) {
 
@@ -161,7 +266,18 @@ GitHub MP3 player
         }
 
 
-        if (nowPlaying) {
+        /*
+        Don't constantly overwrite the
+        randomly selected song name.
+
+        Only use config.nowPlaying when
+        the player has no selected audio.
+        */
+
+        if (
+            nowPlaying &&
+            !currentAudio
+        ) {
 
             nowPlaying.textContent =
                 config.nowPlaying ||
@@ -172,11 +288,60 @@ GitHub MP3 player
     }
 
 
-    /*
-    ================================================
-    CASTER LIVE PLAYER
-    ================================================
-    */
+    /* ==================================================
+       STOP CURRENT AUDIO
+    ================================================== */
+
+    function stopCurrentAudio() {
+
+        /*
+        Increase generation number.
+
+        This invalidates any old playback
+        callbacks.
+        */
+
+        playerGeneration++;
+
+
+        if (audioPlayer) {
+
+            try {
+
+                audioPlayer.pause();
+
+                audioPlayer.removeAttribute(
+                    "src"
+                );
+
+                audioPlayer.load();
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Kulzzy Player: Stop error:",
+                    error
+                );
+
+            }
+
+        }
+
+
+        audioPlayer = null;
+
+        currentButton = null;
+
+        currentAudio = null;
+
+    }
+
+
+    /* ==================================================
+       LIVE / CASTER.FM PLAYER
+    ================================================== */
 
     function showLivePlayer(config) {
 
@@ -186,31 +351,33 @@ GitHub MP3 player
             );
 
 
-        if (!content) return;
+        if (!content) {
+
+            return;
+
+        }
 
 
         /*
-        Destroy previous audio
+        Stop automatic MP3 player.
         */
 
-        if (audioPlayer) {
+        stopCurrentAudio();
 
-            try {
 
-                audioPlayer.pause();
+        /*
+        Remove old Caster script.
+        */
 
-            }
+        const oldScript =
+            document.getElementById(
+                "casterScript"
+            );
 
-            catch (error) {
 
-                console.error(
-                    "Kulzzy Player:",
-                    error
-                );
+        if (oldScript) {
 
-            }
-
-            audioPlayer = null;
+            oldScript.remove();
 
         }
 
@@ -305,35 +472,40 @@ GitHub MP3 player
         );
 
 
-        const links =
-            [
-                "Shoutcast Hosting",
-                "Stream Hosting",
-                "Radio Server Hosting"
-            ];
+        /*
+        Caster fallback links.
+        */
+
+        const links = [
+            "Shoutcast Hosting",
+            "Stream Hosting",
+            "Radio Server Hosting"
+        ];
 
 
-        links.forEach(function (text) {
+        links.forEach(
+            function (text) {
 
-            const link =
-                document.createElement(
-                    "a"
+                const link =
+                    document.createElement(
+                        "a"
+                    );
+
+
+                link.href =
+                    "https://www.caster.fm";
+
+
+                link.textContent =
+                    text;
+
+
+                caster.appendChild(
+                    link
                 );
 
-
-            link.href =
-                "https://www.caster.fm";
-
-
-            link.textContent =
-                text;
-
-
-            caster.appendChild(
-                link
-            );
-
-        });
+            }
+        );
 
 
         content.appendChild(
@@ -341,36 +513,26 @@ GitHub MP3 player
         );
 
 
-        /*
-        Load Caster script
-        */
-
         loadCasterScript();
 
     }
 
 
-    /*
-    ================================================
-    CASTER SCRIPT
-    ================================================
-    */
+    /* ==================================================
+       LOAD CASTER SCRIPT
+    ================================================== */
 
     function loadCasterScript() {
 
-        /*
-        Remove old Caster script
-        */
-
-        const old =
+        const oldScript =
             document.getElementById(
                 "casterScript"
             );
 
 
-        if (old) {
+        if (oldScript) {
 
-            old.remove();
+            oldScript.remove();
 
         }
 
@@ -399,13 +561,348 @@ GitHub MP3 player
     }
 
 
-    /*
-    ================================================
-    AUTOMATIC AUDIO PLAYER
-    ================================================
-    */
+    /* ==================================================
+       FIND ALL AUDIO FILES FROM GITHUB
+    ================================================== */
 
-    function showAudioPlayer(config) {
+    async function loadAllGitHubAudioFiles() {
+
+        try {
+
+            console.log(
+                "Kulzzy Player: Checking GitHub audio folder..."
+            );
+
+
+            const response =
+                await fetch(
+                    GITHUB_AUDIO_API +
+                    "&t=" +
+                    Date.now()
+                );
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "GitHub API returned HTTP " +
+                    response.status
+                );
+
+            }
+
+
+            const files =
+                await response.json();
+
+
+            if (
+                !Array.isArray(files)
+            ) {
+
+                throw new Error(
+                    "GitHub audio folder response is not an array."
+                );
+
+            }
+
+
+            /*
+            Only accept MP3 files.
+
+            This means files such as:
+            .jpg
+            .png
+            .txt
+            .json
+
+            will be ignored.
+            */
+
+            const mp3Files =
+                files
+                    .filter(
+                        function (file) {
+
+                            if (
+                                !file ||
+                                file.type !== "file"
+                            ) {
+
+                                return false;
+
+                            }
+
+
+                            const name =
+                                String(
+                                    file.name ||
+                                    ""
+                                ).toLowerCase();
+
+
+                            return name.endsWith(
+                                ".mp3"
+                            );
+
+                        }
+                    )
+                    .map(
+                        function (file) {
+
+                            return {
+                                name:
+                                    file.name,
+
+                                file:
+                                    AUDIO_BASE_URL +
+                                    encodeURIComponent(
+                                        file.name
+                                    )
+                            };
+
+                        }
+                    );
+
+
+            /*
+            Remove duplicates.
+            */
+
+            const uniqueFiles = [];
+
+
+            const seen =
+                new Set();
+
+
+            mp3Files.forEach(
+                function (item) {
+
+                    if (
+                        !seen.has(
+                            item.file
+                        )
+                    ) {
+
+                        seen.add(
+                            item.file
+                        );
+
+                        uniqueFiles.push(
+                            item
+                        );
+
+                    }
+
+                }
+            );
+
+
+            audioFiles =
+                uniqueFiles;
+
+
+            console.log(
+                "Kulzzy Player: Found " +
+                audioFiles.length +
+                " MP3 file(s):",
+                audioFiles
+            );
+
+
+            return audioFiles;
+
+        }
+
+        catch (error) {
+
+            console.error(
+                "Kulzzy Player: Could not automatically read GitHub audio folder:",
+                error
+            );
+
+
+            audioFiles = [];
+
+
+            return [];
+
+        }
+
+    }
+
+
+    /* ==================================================
+       RANDOM AUDIO SELECTION
+    ================================================== */
+
+    function getRandomAudio() {
+
+        if (
+            audioFiles.length === 0
+        ) {
+
+            return null;
+
+        }
+
+
+        /*
+        If there is only one MP3,
+        use it.
+        */
+
+        if (
+            audioFiles.length === 1
+        ) {
+
+            lastAudio =
+                audioFiles[0].file;
+
+            return audioFiles[0];
+
+        }
+
+
+        let selected = null;
+
+        let attempts = 0;
+
+
+        /*
+        Select a random file.
+
+        Don't immediately select the same
+        file that just finished.
+        */
+
+        while (
+            attempts < 50
+        ) {
+
+            const randomIndex =
+                Math.floor(
+                    Math.random() *
+                    audioFiles.length
+                );
+
+
+            selected =
+                audioFiles[
+                    randomIndex
+                ];
+
+
+            if (
+                selected.file !==
+                lastAudio
+            ) {
+
+                break;
+
+            }
+
+
+            attempts++;
+
+        }
+
+
+        /*
+        Remember this audio.
+        */
+
+        lastAudio =
+            selected.file;
+
+
+        return selected;
+
+    }
+
+
+    /* ==================================================
+       UPDATE NOW PLAYING
+    ================================================== */
+
+    function updateNowPlaying(
+        audioItem
+    ) {
+
+        const nowPlaying =
+            document.getElementById(
+                "kulzzyNowPlaying"
+            );
+
+
+        if (!nowPlaying) {
+
+            return;
+
+        }
+
+
+        if (
+            audioItem &&
+            audioItem.name
+        ) {
+
+            /*
+            Remove .mp3 from display.
+            */
+
+            const cleanName =
+                audioItem.name
+                    .replace(
+                        /\.mp3$/i,
+                        ""
+                    )
+                    .replace(
+                        /[_-]+/g,
+                        " "
+                    );
+
+
+            nowPlaying.textContent =
+                cleanName;
+
+        }
+
+        else {
+
+            nowPlaying.textContent =
+                "Kulzzy Radio Network";
+
+        }
+
+    }
+
+
+    /* ==================================================
+       CREATE AUDIO PLAYER
+    ================================================== */
+
+    async function showAudioPlayer(
+        config
+    ) {
+
+        /*
+        Prevent duplicate builds.
+        */
+
+        if (
+            isBuildingAudioPlayer
+        ) {
+
+            return;
+
+        }
+
+
+        isBuildingAudioPlayer =
+            true;
+
 
         const content =
             document.getElementById(
@@ -413,11 +910,18 @@ GitHub MP3 player
             );
 
 
-        if (!content) return;
+        if (!content) {
+
+            isBuildingAudioPlayer =
+                false;
+
+            return;
+
+        }
 
 
         /*
-        Remove Caster
+        Remove Caster script.
         */
 
         const casterScript =
@@ -434,30 +938,15 @@ GitHub MP3 player
 
 
         /*
-        Stop previous audio
+        Stop old player.
         */
 
-        if (audioPlayer) {
+        stopCurrentAudio();
 
-            try {
 
-                audioPlayer.pause();
-
-            }
-
-            catch (error) {
-
-                console.error(
-                    "Kulzzy Player:",
-                    error
-                );
-
-            }
-
-            audioPlayer = null;
-
-        }
-
+        /*
+        Clear player.
+        */
 
         content.innerHTML = "";
 
@@ -517,6 +1006,10 @@ GitHub MP3 player
             "▶";
 
 
+        currentButton =
+            button;
+
+
         /*
         AUDIO ELEMENT
         */
@@ -527,18 +1020,8 @@ GitHub MP3 player
             );
 
 
-        audioPlayer.src =
-            config.currentAudio;
-
-
         audioPlayer.preload =
             "auto";
-
-
-        audioPlayer.volume =
-            typeof config.volume === "number"
-                ? config.volume
-                : 1;
 
 
         audioPlayer.setAttribute(
@@ -547,292 +1030,104 @@ GitHub MP3 player
         );
 
 
-        /*
-        ================================================
-        RANDOM START POSITION
-        ================================================
-
-        IMPORTANT:
-
-        The player waits until the MP3 metadata is
-        completely available.
-
-        Then it calculates the real duration.
-
-        Then it selects a random position.
-
-        Then it sets currentTime.
-
-        ONLY AFTER THAT does it try to play.
-
-        This prevents the browser from starting
-        the MP3 at 00:00 before the random position
-        has been applied.
-
-        The random position can be:
-
-        - Near the beginning
-        - Somewhere in the middle
-        - Near the end
-
-        The same audio file remains selected.
-
-        ================================================
-        */
-
-        let randomPositionSet = false;
-
-        let initialPlaybackStarted = false;
-
-
-        function setRandomStartPosition() {
-
-            if (randomPositionSet) {
-
-                return true;
-
-            }
-
-
-            const duration =
-                audioPlayer.duration;
-
-
-            /*
-            Make sure the browser has a valid
-            duration before calculating a position.
-            */
-
-            if (
-                !isFinite(duration) ||
-                duration <= 0
-            ) {
-
-                return false;
-
-            }
-
-
-            /*
-            Keep a small amount of audio available
-            at the end so we don't randomly land
-            exactly on the final frame.
-            */
-
-            const safeEnd =
-                Math.max(
-                    0,
-                    duration - 0.25
-                );
-
-
-            /*
-            Generate random position.
-
-            Math.random() returns a number between:
-
-            0 and 1
-
-            Therefore this produces a random
-            position anywhere through the song.
-            */
-
-            const randomPosition =
-                Math.random() *
-                safeEnd;
-
-
-            try {
-
-                audioPlayer.currentTime =
-                    randomPosition;
-
-                randomPositionSet =
-                    true;
-
-
-                console.log(
-                    "Kulzzy Player: Random start position:",
-                    randomPosition.toFixed(2),
-                    "seconds of",
-                    duration.toFixed(2),
-                    "seconds"
-                );
-
-
-                return true;
-
-            }
-
-            catch (error) {
-
-                console.error(
-                    "Kulzzy Player: Unable to set random position.",
-                    error
-                );
-
-                return false;
-
-            }
-
-        }
+        audioPlayer.volume =
+            typeof config.volume === "number"
+                ? config.volume
+                : 1;
 
 
         /*
-        ================================================
-        START AUDIO AFTER RANDOM POSITION IS READY
-        ================================================
+        Add elements.
         */
 
-        function startInitialPlayback() {
-
-            if (initialPlaybackStarted) {
-
-                return;
-
-            }
+        player.appendChild(
+            button
+        );
 
 
-            /*
-            Try setting the random position first.
-            */
-
-            const ready =
-                setRandomStartPosition();
+        player.appendChild(
+            audioPlayer
+        );
 
 
-            if (!ready) {
-
-                /*
-                Metadata may not be ready yet.
-                The loadedmetadata event will
-                try again.
-                */
-
-                return;
-
-            }
-
-
-            initialPlaybackStarted = true;
-
-
-            /*
-            Give the browser a moment to apply
-            currentTime before calling play().
-            */
-
-            const playAudio =
-                function () {
-
-                    if (!audioPlayer) {
-
-                        return;
-
-                    }
-
-
-                    audioPlayer.play()
-
-                        .then(function () {
-
-                            button.innerHTML =
-                                "❚❚";
-
-
-                            console.log(
-                                "Kulzzy Player: Playing from random position."
-                            );
-
-                        })
-
-                        .catch(function (error) {
-
-                            /*
-                            Browser autoplay restriction.
-
-                            The audio is still correctly positioned.
-                            The visitor can press the play button.
-                            */
-
-                            console.log(
-                                "Kulzzy Player: Autoplay blocked.",
-                                error
-                            );
-
-
-                            button.innerHTML =
-                                "▶";
-
-                        });
-
-                };
-
-
-            /*
-            requestAnimationFrame gives the browser
-            time to apply the currentTime change.
-            */
-
-            if (
-                typeof requestAnimationFrame ===
-                "function"
-            ) {
-
-                requestAnimationFrame(
-                    playAudio
-                );
-
-            }
-
-            else {
-
-                setTimeout(
-                    playAudio,
-                    0
-                );
-
-            }
-
-        }
-
-
-        /*
-        ================================================
-        METADATA READY
-        ================================================
-        */
-
-        audioPlayer.addEventListener(
-            "loadedmetadata",
-            function () {
-
-                console.log(
-                    "Kulzzy Player: Audio metadata loaded."
-                );
-
-
-                startInitialPlayback();
-
-            }
+        content.appendChild(
+            player
         );
 
 
         /*
-        Some browsers may already have metadata
-        available before the event listener is
-        processed.
+        ================================================
+        FIND ALL YOUR MP3 FILES
+        ================================================
+        */
 
-        Check it as an additional safety measure.
+        await loadAllGitHubAudioFiles();
+
+
+        /*
+        If GitHub API finds nothing,
+        use config.currentAudio as fallback.
         */
 
         if (
-            audioPlayer.readyState >= 1
+            audioFiles.length === 0 &&
+            config.currentAudio
         ) {
 
-            startInitialPlayback();
+            audioFiles = [
+                {
+                    name:
+                        String(
+                            config.currentAudio
+                        )
+                        .split("/")
+                        .pop(),
+
+                    file:
+                        config.currentAudio
+                }
+            ];
+
+
+            console.log(
+                "Kulzzy Player: Using config.currentAudio fallback:",
+                config.currentAudio
+            );
 
         }
+
+
+        /*
+        Select a RANDOM audio immediately.
+        */
+
+        const selected =
+            getRandomAudio();
+
+
+        if (!selected) {
+
+            console.error(
+                "Kulzzy Player: No MP3 files were found."
+            );
+
+
+            isBuildingAudioPlayer =
+                false;
+
+            return;
+
+        }
+
+
+        /*
+        Play selected random audio.
+        */
+
+        playAudio(
+            selected,
+            config
+        );
 
 
         /*
@@ -845,7 +1140,9 @@ GitHub MP3 player
             "click",
             function () {
 
-                if (!audioPlayer) {
+                if (
+                    !audioPlayer
+                ) {
 
                     return;
 
@@ -856,37 +1153,27 @@ GitHub MP3 player
                     audioPlayer.paused
                 ) {
 
-                    /*
-                    If random position somehow hasn't
-                    been set yet, try to set it now.
-                    */
-
-                    if (
-                        !randomPositionSet
-                    ) {
-
-                        setRandomStartPosition();
-
-                    }
-
-
                     audioPlayer.play()
 
-                        .then(function () {
+                        .then(
+                            function () {
 
-                            button.innerHTML =
-                                "❚❚";
+                                button.innerHTML =
+                                    "❚❚";
 
-                        })
+                            }
+                        )
 
-                        .catch(function (error) {
+                        .catch(
+                            function (error) {
 
-                            console.error(
-                                "Kulzzy Player:",
-                                error
-                            );
+                                console.error(
+                                    "Kulzzy Player: Play error:",
+                                    error
+                                );
 
-                        });
+                            }
+                        );
 
                 }
 
@@ -914,8 +1201,14 @@ GitHub MP3 player
             "play",
             function () {
 
-                button.innerHTML =
-                    "❚❚";
+                if (
+                    button
+                ) {
+
+                    button.innerHTML =
+                        "❚❚";
+
+                }
 
             }
         );
@@ -931,8 +1224,14 @@ GitHub MP3 player
             "pause",
             function () {
 
-                button.innerHTML =
-                    "▶";
+                if (
+                    button
+                ) {
+
+                    button.innerHTML =
+                        "▶";
+
+                }
 
             }
         );
@@ -949,13 +1248,33 @@ GitHub MP3 player
             function () {
 
                 console.error(
-                    "Kulzzy Player: Audio could not be loaded.",
+                    "Kulzzy Player: Audio error:",
                     audioPlayer.error
                 );
 
 
-                button.innerHTML =
-                    "▶";
+                /*
+                If one MP3 fails,
+                automatically try another one.
+                */
+
+                setTimeout(
+                    function () {
+
+                        if (
+                            currentMode ===
+                            "AUDIO"
+                        ) {
+
+                            playNextRandomAudio(
+                                config
+                            );
+
+                        }
+
+                    },
+                    1000
+                );
 
             }
         );
@@ -963,19 +1282,18 @@ GitHub MP3 player
 
         /*
         ================================================
-        CONTINUOUS PLAY
+        AUDIO FINISHED
         ================================================
 
-        When the MP3 finishes, start the SAME MP3
-        again from the beginning.
+        THIS IS THE MAIN RANDOM PLAYBACK FUNCTION.
 
-        IMPORTANT:
+        When an MP3 finishes:
 
-        Random playback happens only when the
-        website/player is initially created.
+        OLD:
+        Same MP3 starts again.
 
-        When the song ends, it starts from 00:00.
-
+        NEW:
+        Another random MP3 is selected.
         ================================================
         */
 
@@ -983,105 +1301,303 @@ GitHub MP3 player
             "ended",
             function () {
 
-                if (!audioPlayer) {
+                console.log(
+                    "Kulzzy Player: Audio finished."
+                );
+
+
+                if (
+                    currentMode !==
+                    "AUDIO"
+                ) {
 
                     return;
 
                 }
 
 
-                audioPlayer.currentTime =
-                    0;
-
-
-                audioPlayer.play()
-
-                    .then(function () {
-
-                        button.innerHTML =
-                            "❚❚";
-
-                    })
-
-                    .catch(function () {
-
-                        button.innerHTML =
-                            "▶";
-
-                    });
+                playNextRandomAudio(
+                    config
+                );
 
             }
         );
 
 
+        isBuildingAudioPlayer =
+            false;
+
+    }
+
+
+    /* ==================================================
+       PLAY AN AUDIO FILE
+    ================================================== */
+
+    function playAudio(
+        audioItem,
+        config
+    ) {
+
+        if (
+            !audioPlayer ||
+            !audioItem
+        ) {
+
+            return;
+
+        }
+
+
         /*
-        ================================================
-        BUILD PLAYER
-        ================================================
+        Create a new generation ID.
         */
 
-        player.appendChild(
-            button
+        playerGeneration++;
+
+
+        const generation =
+            playerGeneration;
+
+
+        currentAudio =
+            audioItem.file;
+
+
+        /*
+        Update display.
+        */
+
+        updateNowPlaying(
+            audioItem
         );
 
 
-        player.appendChild(
-            audioPlayer
+        console.log(
+            "Kulzzy Player: RANDOM AUDIO SELECTED:",
+            audioItem.name
         );
 
 
-        content.appendChild(
-            player
+        console.log(
+            "Kulzzy Player: URL:",
+            audioItem.file
         );
 
 
         /*
-        ================================================
-        LOAD AUDIO
-        ================================================
+        Set audio source.
         */
 
-        /*
-        Calling load() ensures the browser starts
-        loading the newly selected MP3.
-        */
+        audioPlayer.src =
+            audioItem.file;
+
+
+        audioPlayer.currentTime =
+            0;
+
 
         audioPlayer.load();
 
 
         /*
-        ================================================
-        INITIAL AUTOPLAY
-
-        We DO NOT call audioPlayer.play() here.
-
-        Instead, playback begins inside
-        startInitialPlayback() AFTER:
-
-        1. Metadata loads
-        2. Duration is known
-        3. Random position is selected
-        4. currentTime is set
-
-        This is the important fix.
-        ================================================
+        Wait until browser has enough
+        information to begin playback.
         */
+
+        const attemptPlay =
+            function () {
+
+                if (
+                    !audioPlayer
+                ) {
+
+                    return;
+
+                }
+
+
+                if (
+                    generation !==
+                    playerGeneration
+                ) {
+
+                    return;
+
+                }
+
+
+                audioPlayer.play()
+
+                    .then(
+                        function () {
+
+                            if (
+                                currentButton
+                            ) {
+
+                                currentButton.innerHTML =
+                                    "❚❚";
+
+                            }
+
+
+                            console.log(
+                                "Kulzzy Player: Playing:",
+                                audioItem.name
+                            );
+
+                        }
+                    )
+
+                    .catch(
+                        function (error) {
+
+                            /*
+                            Browser autoplay may be blocked.
+
+                            The random audio has still been
+                            selected correctly.
+
+                            Visitor can press PLAY.
+                            */
+
+                            console.log(
+                                "Kulzzy Player: Browser blocked autoplay. Press PLAY.",
+                                error
+                            );
+
+
+                            if (
+                                currentButton
+                            ) {
+
+                                currentButton.innerHTML =
+                                    "▶";
+
+                            }
+
+                        }
+                    );
+
+            };
+
+
+        /*
+        Try once audio can play.
+        */
+
+        audioPlayer.addEventListener(
+            "canplay",
+            attemptPlay,
+            {
+                once: true
+            }
+        );
+
+
+        /*
+        Safety check for cached files.
+        */
+
+        if (
+            audioPlayer.readyState >= 3
+        ) {
+
+            setTimeout(
+                attemptPlay,
+                100
+            );
+
+        }
 
     }
 
 
-    /*
-    ================================================
-    START
-    ================================================
-    */
+    /* ==================================================
+       PLAY NEXT RANDOM AUDIO
+    ================================================== */
+
+    function playNextRandomAudio(
+        config
+    ) {
+
+        if (
+            currentMode !==
+            "AUDIO"
+        ) {
+
+            return;
+
+        }
+
+
+        if (
+            !audioPlayer
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+        Get another random MP3.
+        */
+
+        const nextAudio =
+            getRandomAudio();
+
+
+        if (!nextAudio) {
+
+            console.error(
+                "Kulzzy Player: No next audio available."
+            );
+
+
+            return;
+
+        }
+
+
+        console.log(
+            "Kulzzy Player: NEXT RANDOM AUDIO:",
+            nextAudio.name
+        );
+
+
+        /*
+        Play it.
+        */
+
+        playAudio(
+            nextAudio,
+            config
+        );
+
+    }
+
+
+    /* ==================================================
+       START PLAYER
+    ================================================== */
 
     loadConfig();
 
 
-    /*
-    Check GitHub configuration
+    /* ==================================================
+       CHECK CONFIG EVERY 5 SECONDS
+    ==================================================
+
+    This checks for LIVE/AUDIO changes.
+
+    IMPORTANT:
+
+    It does NOT restart the current random song
     every 5 seconds.
+
+    The random song continues playing normally.
     */
 
     setInterval(
