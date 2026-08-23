@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "currentAudio": "audio/LIVE_ON_AIR_BDS_96KBPS-compressed.mp3",
+  "currentAudio": "audio/ON_AIR_BIRTHDAY_SONG_BASS_ONLY.mp3",
   "nowPlaying": "",
-  "title": "LIVE ON AIR",
-  "status": "LIVE",
+  "title": "AUTOMATIC AUDIO",
+  "status": "AUDIO",
   "background": "",
   "volume": 1,
   "playlistMode": false,
