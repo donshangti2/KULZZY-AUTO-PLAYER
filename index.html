@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kulzzy Radio Network</title>
+
+<style>
+*{box-sizing:border-box}
+html,body{
+    margin:0;padding:0;width:100%;min-height:100%;
+    background:#020d1a;
+    font-family:Arial,Helvetica,sans-serif;
+}
+#radioPlayer{
+    width:100%;
+    background:linear-gradient(180deg,#03182c 0%,#020d1a 100%);
+    color:white;
+    border-top:4px solid #ffd000;
+    overflow:hidden;
+}
+.kulzzyHeader{
+    display:flex;align-items:center;justify-content:space-between;
+    width:100%;padding:14px 18px;
+    background:#03182c;
+    border-bottom:1px solid rgba(255,255,255,.12);
+}
+.brand{display:flex;align-items:center;gap:12px}
+.redDot{
+    width:20px;height:20px;min-width:20px;
+    background:#ff0015;border-radius:50%;
+    box-shadow:0 0 10px #ff0015,0 0 22px rgba(255,0,21,.7);
+}
+.brandName{color:#ffd000;font-size:20px;font-weight:800}
+.slogan{margin-top:4px;color:#b7c3ce;font-size:13px}
+.liveBadge{
+    display:flex;align-items:center;gap:5px;
+    background:#ff0015;color:white;padding:10px 15px;
+    border-radius:25px;font-size:13px;font-weight:bold;
+}
+.playerContent{
+    width:100%;text-align:center;padding:18px 15px 22px;
+}
+.statusText{
+    color:#ffd000;font-size:15px;font-weight:bold;margin-bottom:12px;
+}
+#bigPlayButton{
+    display:flex;align-items:center;justify-content:center;
+    width:75px;height:75px;margin:10px auto 14px;padding:0;
+    border-radius:50%;border:5px solid #ffd000;
+    background:radial-gradient(circle at 35% 30%,#ff5050,#ed0015 45%,#b90010 100%);
+    color:white;font-size:35px;line-height:1;cursor:pointer;
+    box-shadow:0 0 15px rgba(255,0,0,.8),0 0 35px rgba(255,0,0,.45),0 5px 15px rgba(0,0,0,.7);
+}
+#bigPlayButton:active{transform:scale(.93)}
+#bigPlayButton.playing{
+    background:radial-gradient(circle at 35% 30%,#36ff75,#00a83b 45%,#006b28 100%);
+}
+.buttonLabel{color:#fff;font-size:18px;font-weight:bold}
+.nowPlaying{
+    width:95%;max-width:600px;margin:15px auto 0;padding:10px 12px;
+    color:#c7d0d9;background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,208,0,.3);border-radius:10px;font-size:13px;
+}
+#audioPlayer{display:none}
+#casterLive{width:100%;max-width:700px;margin:10px auto}
+.footer{
+    width:100%;padding:8px 10px;text-align:center;
+    color:#687989;font-size:10px;
+}
+.footer span{color:#ffd000}
+@media(max-width:600px){
+    .brandName{font-size:17px}
+    .slogan{font-size:11px}
+    .redDot{width:18px;height:18px}
+    .liveBadge{padding:9px 12px;font-size:12px}
+    #bigPlayButton{width:75px;height:75px;font-size:35px}
+}
+</style>
+</head>
+
+<body>
+<div id="radioPlayer">
+
+    <div class="kulzzyHeader">
+        <div class="brand">
+            <div class="redDot"></div>
+            <div>
+                <div class="brandName">KULZZY RADIO NETWORK</div>
+                <div class="slogan">Celebrating Lives Everyday</div>
+            </div>
+        </div>
+        <div class="liveBadge">● LIVE</div>
+    </div>
+
+    <div class="playerContent">
+
+        <div id="statusText" class="statusText" style="display:none;"></div>
+
+        <button id="bigPlayButton" type="button">▶</button>
+
+        <div id="buttonLabel" class="buttonLabel" style="display:none;"></div>
+
+        <div id="nowPlaying" class="nowPlaying">
+            Kulzzy Radio Network • Celebrating Lives Everyday
+        </div>
+
+        <audio id="audioPlayer" preload="auto" playsinline></audio>
+
+        <div id="casterLive" style="display:none;">
+            <div
+                data-type="newStreamPlayer"
+                data-publicToken="8c96ae48-5e72-43d8-a87e-e90f623ac080"
+                data-theme="dark"
+                data-color="e81e4d"
+                data-channelId="a272a955-fc0c-4968-8280-2a2cb7e434ec"
+                data-rendered="false"
+                class="cstrEmbed">
+                <a href="https://www.caster.fm">Shoutcast Hosting</a>
+                <a href="https://www.caster.fm">Stream Hosting</a>
+                <a href="https://www.caster.fm">Radio Server Hosting</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        KULZZY RADIO NETWORK • <span>Celebrating Lives Everyday</span>
+    </div>
+
+</div>
+
+<script src="https://cdn.cloud.caster.fm/widgets/embed.js"></script>
+
+<script>
+/* =====================================================
+   KULZZY RADIO PLAYER
+   SAME AUDIO FILE + RANDOM START POSITION
+   ===================================================== */
+
+const CONFIG_URL = "config.json";
+
+const audio = document.getElementById("audioPlayer");
+const playButton = document.getElementById("bigPlayButton");
+const buttonLabel = document.getElementById("buttonLabel");
+const statusText = document.getElementById("statusText");
+const nowPlaying = document.getElementById("nowPlaying");
+const casterLive = document.getElementById("casterLive");
+
+let currentAudio = "";
+let currentMode = "";
+let currentPlayMode = "REPEAT";
+let userHasStartedAudio = false;
+let randomizing = false;
+
+/* =====================================================
+   LOAD CONFIG
+   ===================================================== */
+
+async function loadConfig() {
+    try {
+        const response = await fetch(
+            CONFIG_URL + "?t=" + Date.now(),
+            {cache:"no-store"}
+        );
+
+        if (!response.ok) {
+            throw new Error("Config could not be loaded");
+        }
+
+        const config = await response.json();
+
+        if (config.nowPlaying && config.nowPlaying.trim() !== "") {
+            nowPlaying.textContent = config.nowPlaying;
+        } else {
+            nowPlaying.textContent =
+                "Kulzzy Radio Network • Celebrating Lives Everyday";
+        }
+
+        currentPlayMode =
+            String(config.playMode || "REPEAT").toUpperCase();
+
+        if (String(config.status).toUpperCase() === "LIVE") {
+            switchToLive();
+        } else {
+            switchToAudio(config.currentAudio);
+        }
+
+    } catch (error) {
+        console.log("Kulzzy player:", error);
+    }
+}
+
+/* =====================================================
+   LIVE MODE
+   ===================================================== */
+
+function switchToLive() {
+    if (currentMode === "LIVE") return;
+
+    currentMode = "LIVE";
+
+    audio.pause();
+    audio.removeAttribute("src");
+    audio.load();
+
+    casterLive.style.display = "block";
+    playButton.style.display = "none";
+    buttonLabel.style.display = "none";
+    statusText.textContent = "🔴 LIVE ON AIR";
+}
+
+/* =====================================================
+   AUDIO MODE
+   ===================================================== */
+
+function switchToAudio(audioFile) {
+    if (!audioFile) return;
+
+    currentMode = "AUDIO";
+
+    casterLive.style.display = "none";
+    playButton.style.display = "flex";
+    buttonLabel.style.display = "block";
+    statusText.textContent = "🎵 AUTOMATIC AUDIO";
+
+    if (currentAudio !== audioFile) {
+
+        const wasPlaying = !audio.paused && !audio.ended;
+
+        currentAudio = audioFile;
+
+        audio.pause();
+
+        audio.src =
+            audioFile +
+            "?v=" +
+            Date.now();
+
+        audio.load();
+
+        playButton.classList.remove("playing");
+        playButton.textContent = "▶";
+        buttonLabel.textContent = "TAP TO PLAY";
+
+        /*
+           Do not start automatically.
+           Browser autoplay restrictions require a user gesture.
+        */
+
+        if (wasPlaying) {
+            userHasStartedAudio = true;
+        }
+    }
+}
+
+/* =====================================================
+   RANDOM START POSITION
+   ===================================================== */
+
+function getRandomStartPosition() {
+
+    const duration = audio.duration;
+
+    if (!Number.isFinite(duration) || duration <= 0) {
+        return 0;
+    }
+
+    /*
+       Never choose the exact end of the file.
+       Keep 0.5 second away from the end.
+    */
+
+    const safeEnd = Math.max(0, duration - 0.5);
+
+    if (safeEnd <= 0) {
+        return 0;
+    }
+
+    return Math.random() * safeEnd;
+}
+
+/* =====================================================
+   SET RANDOM POSITION SAFELY
+   ===================================================== */
+
+function setRandomPosition() {
+
+    if (
+        !Number.isFinite(audio.duration) ||
+        audio.duration <= 0
+    ) {
+        return false;
+    }
+
+    const randomPosition =
+        getRandomStartPosition();
+
+    try {
+        audio.currentTime = randomPosition;
+        return true;
+    } catch (error) {
+        console.log("Random position error:", error);
+        return false;
+    }
+}
+
+/* =====================================================
+   RANDOM RESTART + PLAY
+   ===================================================== */
+
+async function randomRestartAndPlay() {
+
+    if (randomizing) return;
+
+    randomizing = true;
+
+    try {
+
+        /*
+           Wait for metadata if the browser has not
+           calculated the duration yet.
+        */
+
+        if (
+            !Number.isFinite(audio.duration) ||
+            audio.duration <= 0
+        ) {
+
+            await new Promise(function(resolve) {
+
+                let finished = false;
+
+                function done() {
+                    if (finished) return;
+                    finished = true;
+                    clearTimeout(timer);
+                    audio.removeEventListener(
+                        "loadedmetadata",
+                        done
+                    );
+                    resolve();
+                }
+
+                const timer =
+                    setTimeout(done, 5000);
+
+                audio.addEventListener(
+                    "loadedmetadata",
+                    done,
+                    {once:true}
+                );
+
+            });
+        }
+
+        /*
+           If metadata still isn't available, start normally.
+        */
+
+        if (
+            !Number.isFinite(audio.duration) ||
+            audio.duration <= 0
+        ) {
+            await audio.play();
+        } else {
+
+            setRandomPosition();
+
+            /*
+               Force the browser to process the new seek
+               before starting playback.
+            */
+
+            await new Promise(function(resolve) {
+                requestAnimationFrame(resolve);
+            });
+
+            await audio.play();
+        }
+
+        userHasStartedAudio = true;
+
+        playButton.classList.add("playing");
+        playButton.textContent = "❚❚";
+        buttonLabel.textContent = "NOW PLAYING";
+
+    } catch (error) {
+
+        console.log(
+            "Random repeat error:",
+            error
+        );
+
+    } finally {
+
+        randomizing = false;
+
+    }
+}
+
+/* =====================================================
+   PLAY BUTTON
+   ===================================================== */
+
+playButton.addEventListener(
+    "click",
+    async function() {
+
+        if (currentMode !== "AUDIO") {
+            return;
+        }
+
+        try {
+
+            if (audio.paused) {
+
+                /*
+                   FIRST PLAY:
+                   Start from a random position too.
+                */
+
+                if (!userHasStartedAudio) {
+
+                    await randomRestartAndPlay();
+
+                } else {
+
+                    await audio.play();
+
+                    playButton.classList.add("playing");
+                    playButton.textContent = "❚❚";
+                    buttonLabel.textContent = "NOW PLAYING";
+                }
+
+            } else {
+
+                audio.pause();
+
+                playButton.classList.remove("playing");
+                playButton.textContent = "▶";
+                buttonLabel.textContent = "TAP TO PLAY";
+            }
+
+        } catch (error) {
+
+            console.log(
+                "Audio play error:",
+                error
+            );
+
+        }
+    }
+);
+
+/* =====================================================
+   SONG ENDED
+   ===================================================== */
+
+audio.addEventListener(
+    "ended",
+    function() {
+
+        /*
+           SAME SONG:
+           When REPEAT is enabled, choose a NEW RANDOM
+           STARTING POSITION in the SAME audio file.
+        */
+
+        if (currentPlayMode === "REPEAT") {
+
+            randomRestartAndPlay();
+
+            return;
+        }
+
+        /* PLAY ONCE */
+
+        userHasStartedAudio = false;
+
+        playButton.classList.remove("playing");
+        playButton.textContent = "▶";
+        buttonLabel.textContent = "TAP TO PLAY";
+    }
+);
+
+/* =====================================================
+   ERROR HANDLING
+   ===================================================== */
+
+audio.addEventListener(
+    "error",
+    function() {
+
+        console.log(
+            "Audio element error:",
+            audio.error
+        );
+
+    }
+);
+
+/* =====================================================
+   START
+   ===================================================== */
+
+loadConfig();
+
+/* =====================================================
+   FAST CONFIG CHECK
+   ===================================================== */
+
+setInterval(
+    loadConfig,
+    1000
+);
+
+buttonLabel.style.display = "none";
+</script>
+
+</body>
+</html>
