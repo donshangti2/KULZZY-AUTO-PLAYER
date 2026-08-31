@@ -1,0 +1,2208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Kulzzy Radio Admin</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+}
+
+html,
+body{
+    margin:0;
+    padding:0;
+    min-height:100%;
+}
+
+body{
+    background:#020d1a;
+    color:#fff;
+    font-family:Arial,Helvetica,sans-serif;
+    padding:15px;
+}
+
+.container{
+    width:100%;
+    max-width:700px;
+    margin:0 auto;
+    background:#03182c;
+    border:2px solid #ffd000;
+    border-radius:18px;
+    padding:20px;
+    box-shadow:0 0 30px rgba(0,0,0,.5);
+}
+
+h1{
+    text-align:center;
+    color:#ffd000;
+    margin:0;
+    font-size:27px;
+    font-weight:900;
+}
+
+.subtitle{
+    text-align:center;
+    color:#aeb9c5;
+    margin-top:7px;
+    margin-bottom:22px;
+    font-size:14px;
+}
+
+.section{
+    background:#020d1a;
+    border:1px solid #26384a;
+    border-radius:12px;
+    padding:16px;
+    margin-top:15px;
+}
+
+.sectionTitle{
+    color:#ffd000;
+    font-size:17px;
+    font-weight:900;
+    margin-bottom:13px;
+}
+
+label{
+    display:block;
+    margin-top:14px;
+    margin-bottom:7px;
+    color:#ffd000;
+    font-weight:bold;
+}
+
+input,
+select{
+    width:100%;
+    padding:14px;
+    border-radius:9px;
+    border:1px solid #44576b;
+    background:#020d1a;
+    color:#fff;
+    font-size:16px;
+    outline:none;
+}
+
+input:focus,
+select:focus{
+    border-color:#ffd000;
+}
+
+select option{
+    background:#020d1a;
+    color:#fff;
+}
+
+/* TOKEN */
+
+.tokenStatus{
+    color:#ffd000;
+    font-size:13px;
+    line-height:1.5;
+    margin-bottom:10px;
+}
+
+.tokenInput{
+    display:none;
+}
+
+.smallButton{
+    width:100%;
+    padding:13px;
+    margin-top:8px;
+    border-radius:9px;
+    border:1px solid #55697c;
+    background:#10283d;
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.smallButton:active{
+    transform:scale(.99);
+}
+
+/* CLOUDINARY */
+
+.cloudStatus{
+    padding:12px;
+    border-radius:9px;
+    background:#10283d;
+    border:1px solid #26384a;
+    color:#55ff88;
+    font-size:13px;
+    line-height:1.5;
+    margin-bottom:13px;
+}
+
+/* UPLOAD */
+
+.uploadBox{
+    border:2px dashed #465a70;
+    border-radius:12px;
+    padding:18px;
+    text-align:center;
+    transition:.2s;
+}
+
+.uploadBox:hover{
+    border-color:#ffd000;
+}
+
+.fileInput{
+    width:100%;
+    padding:10px;
+    border:none;
+    background:transparent;
+}
+
+.fileName{
+    margin-top:10px;
+    color:#c7d0d9;
+    font-size:13px;
+    word-break:break-word;
+}
+
+.uploadButton{
+    width:100%;
+    padding:16px;
+    margin-top:13px;
+    border:0;
+    border-radius:10px;
+    background:#ffd000;
+    color:#020d1a;
+    font-size:17px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+.uploadButton:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+.progressOuter{
+    display:none;
+    width:100%;
+    height:12px;
+    background:#172a3d;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:14px;
+}
+
+.progressInner{
+    width:0%;
+    height:100%;
+    background:#ffd000;
+    transition:width .2s;
+}
+
+/* CLOUD AUDIO */
+
+.cloudAudioBox{
+    display:none;
+    margin-top:14px;
+    padding:13px;
+    border-radius:9px;
+    background:#071d31;
+    border:1px solid #2c4358;
+}
+
+.cloudAudioTitle{
+    color:#55ff88;
+    font-weight:bold;
+    margin-bottom:8px;
+}
+
+.cloudAudioUrl{
+    color:#9fcfff;
+    font-size:11px;
+    line-height:1.5;
+    word-break:break-all;
+}
+
+/* PLAY MODE */
+
+.modeButtons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.modeButton{
+    padding:15px 8px;
+    border-radius:10px;
+    border:2px solid #44576b;
+    background:#020d1a;
+    color:#fff;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.modeButton.active{
+    border-color:#ffd000;
+    background:#17344d;
+    color:#ffd000;
+}
+
+/* MAIN BUTTON */
+
+.saveButton{
+    width:100%;
+    margin-top:16px;
+    padding:18px;
+    border:0;
+    border-radius:10px;
+    background:#ffd000;
+    color:#020d1a;
+    font-size:18px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+.saveButton:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+/* LIVE */
+
+.liveButton{
+    width:100%;
+    margin-top:12px;
+    padding:18px;
+    border:0;
+    border-radius:10px;
+    background:#e60012;
+    color:#fff;
+    font-size:18px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+.liveButton:disabled{
+    opacity:.5;
+    cursor:not-allowed;
+}
+
+/* REFRESH */
+
+.refreshButton{
+    width:100%;
+    margin-top:10px;
+    padding:13px;
+    border:1px solid #44576b;
+    border-radius:9px;
+    background:#10283d;
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* STATUS */
+
+.status{
+    margin-top:18px;
+    padding:14px;
+    border-radius:9px;
+    background:#020d1a;
+    border:1px solid #26384a;
+    color:#ffd000;
+    text-align:center;
+    font-size:14px;
+    line-height:1.5;
+    word-break:break-word;
+}
+
+.note{
+    margin-top:12px;
+    padding:12px;
+    border-radius:8px;
+    background:rgba(255,208,0,.07);
+    color:#c7d0d9;
+    font-size:12px;
+    line-height:1.55;
+}
+
+.success{
+    color:#55ff88;
+}
+
+.warning{
+    color:#ffd000;
+}
+
+.error{
+    color:#ff5964;
+}
+
+/* MOBILE */
+
+@media(max-width:520px){
+
+    body{
+        padding:8px;
+    }
+
+    .container{
+        padding:15px;
+        border-radius:14px;
+    }
+
+    h1{
+        font-size:23px;
+    }
+
+    .modeButtons{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎛️ KULZZY RADIO ADMIN</h1>
+
+    <div class="subtitle">
+        Kulzzy Radio Network • Celebrating Lives Everyday
+    </div>
+
+
+    <!-- =====================================================
+         GITHUB AUTHORIZATION
+         ===================================================== -->
+
+    <div class="section">
+
+        <div class="sectionTitle">
+            🔐 GITHUB AUTHORIZATION
+        </div>
+
+        <div id="tokenStatus"
+             class="tokenStatus">
+
+            Checking authorization...
+
+        </div>
+
+        <input
+            id="tokenInput"
+            class="tokenInput"
+            type="password"
+            autocomplete="off"
+            placeholder="Paste your GitHub token">
+
+        <button
+            id="tokenButton"
+            class="smallButton"
+            type="button">
+
+            🔑 SET GITHUB TOKEN
+
+        </button>
+
+        <div class="note">
+
+            Your GitHub token is stored only in this
+            browser's local storage.
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         CLOUDINARY AUDIO UPLOAD
+         ===================================================== -->
+
+    <div class="section">
+
+        <div class="sectionTitle">
+            ☁️ CLOUDINARY AUDIO UPLOAD
+        </div>
+
+        <div class="cloudStatus">
+
+            ✅ Cloudinary Connected<br>
+
+            Cloud Name:
+            <strong>s4j0x7dk</strong><br>
+
+            Upload Preset:
+            <strong>AUDIO PLAYER</strong><br>
+
+            Upload Mode:
+            <strong>Unsigned</strong>
+
+        </div>
+
+        <div class="uploadBox">
+
+            <input
+                id="audioUpload"
+                class="fileInput"
+                type="file"
+                accept=".mp3,audio/mpeg">
+
+            <div id="fileName"
+                 class="fileName">
+
+                No MP3 selected
+
+            </div>
+
+            <button
+                id="uploadButton"
+                class="uploadButton"
+                type="button">
+
+                ☁️ UPLOAD LONG AUDIO TO CLOUDINARY
+
+            </button>
+
+            <div id="progressOuter"
+                 class="progressOuter">
+
+                <div id="progressInner"
+                     class="progressInner">
+                </div>
+
+            </div>
+
+        </div>
+
+        <div id="cloudAudioBox"
+             class="cloudAudioBox">
+
+            <div class="cloudAudioTitle">
+                ✅ AUDIO UPLOADED TO CLOUDINARY
+            </div>
+
+            <div id="cloudAudioUrl"
+                 class="cloudAudioUrl">
+            </div>
+
+        </div>
+
+        <div class="note">
+
+            Your long MP3 is uploaded directly to Cloudinary.
+            It is <strong>NOT uploaded into GitHub</strong>.
+
+            <br><br>
+
+            After the upload finishes, click
+            <strong>SAVE & PLAY CLOUD AUDIO</strong>
+            below to make it the current audio.
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         AUDIO CONTROL
+         ===================================================== -->
+
+    <div class="section">
+
+        <div class="sectionTitle">
+            🎵 AUDIO CONTROL
+        </div>
+
+        <label>
+            CLOUDINARY AUDIO
+        </label>
+
+        <input
+            id="cloudAudioInput"
+            type="text"
+            readonly
+            placeholder="Upload an audio file first">
+
+        <label>
+            📻 NOW PLAYING
+        </label>
+
+        <input
+            id="nowPlaying"
+            type="text"
+            placeholder="Example: Birthday Celebration">
+
+
+        <label>
+            🔁 PLAY MODE
+        </label>
+
+        <div class="modeButtons">
+
+            <button
+                id="repeatButton"
+                class="modeButton active"
+                type="button">
+
+                🔁 REPEAT SONG
+
+            </button>
+
+            <button
+                id="onceButton"
+                class="modeButton"
+                type="button">
+
+                ▶️ PLAY ONCE
+
+            </button>
+
+        </div>
+
+        <div class="note">
+
+            <strong>🔁 REPEAT SONG</strong>
+
+            <br>
+
+            The same Cloudinary audio will automatically
+            start again when it finishes.
+
+            <br><br>
+
+            <strong>▶️ PLAY ONCE</strong>
+
+            <br>
+
+            The audio will stop when it finishes.
+
+        </div>
+
+
+        <button
+            id="saveButton"
+            class="saveButton"
+            type="button"
+            disabled>
+
+            💾 SAVE & PLAY CLOUD AUDIO
+
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         GITHUB AUDIO FALLBACK
+         ===================================================== -->
+
+    <div class="section">
+
+        <div class="sectionTitle">
+            📁 EXISTING GITHUB AUDIO
+        </div>
+
+        <label>
+            SELECT EXISTING AUDIO
+        </label>
+
+        <select id="audioSelect">
+
+            <option value="">
+                Loading songs...
+            </option>
+
+        </select>
+
+        <button
+            id="refreshButton"
+            class="refreshButton"
+            type="button">
+
+            🔄 REFRESH AUDIO LIST
+
+        </button>
+
+        <button
+            id="saveGithubButton"
+            class="saveButton"
+            type="button"
+            style="display:none;">
+
+            💾 SAVE GITHUB AUDIO
+
+        </button>
+
+        <div class="note">
+
+            Existing MP3 files already inside the GitHub
+            <strong>audio</strong> folder remain available
+            as a fallback.
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         LIVE
+         ===================================================== -->
+
+    <div class="section">
+
+        <div class="sectionTitle">
+            🔴 LIVE CONTROL
+        </div>
+
+        <button
+            id="liveButton"
+            class="liveButton"
+            type="button">
+
+            🔴 GO LIVE ON AIR
+
+        </button>
+
+        <div class="note">
+
+            This returns the player to your existing
+            LIVE ON AIR system.
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         STATUS
+         ===================================================== -->
+
+    <div id="status"
+         class="status">
+
+        Ready
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   KULZZY RADIO ADMIN
+   CLOUDINARY LONG AUDIO SYSTEM
+   ========================================================= */
+
+
+/* =========================================================
+   GITHUB
+   ========================================================= */
+
+const GITHUB_USERNAME =
+    "kulzzy";
+
+const REPOSITORY =
+    "KULZZY-AUTO-PLAYER";
+
+const AUDIO_FOLDER =
+    "audio";
+
+const CONFIG_FILE =
+    "config.json";
+
+const TOKEN_KEY =
+    "KULZZY_RADIO_GITHUB_TOKEN";
+
+
+/* =========================================================
+   CLOUDINARY
+   ========================================================= */
+
+const CLOUDINARY_CLOUD_NAME =
+    "s4j0x7dk";
+
+const CLOUDINARY_UPLOAD_PRESET =
+    "AUDIO PLAYER";
+
+const CLOUDINARY_UPLOAD_URL =
+    "https://api.cloudinary.com/v1_1/" +
+    CLOUDINARY_CLOUD_NAME +
+    "/video/upload";
+
+
+/* =========================================================
+   PLAY MODE
+   ========================================================= */
+
+let playMode =
+    "REPEAT";
+
+
+/* =========================================================
+   CLOUDINARY CURRENT URL
+   ========================================================= */
+
+let cloudinaryAudioURL =
+    "";
+
+
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
+
+const tokenStatus =
+    document.getElementById(
+        "tokenStatus"
+    );
+
+const tokenInput =
+    document.getElementById(
+        "tokenInput"
+    );
+
+const tokenButton =
+    document.getElementById(
+        "tokenButton"
+    );
+
+const audioUpload =
+    document.getElementById(
+        "audioUpload"
+    );
+
+const fileName =
+    document.getElementById(
+        "fileName"
+    );
+
+const uploadButton =
+    document.getElementById(
+        "uploadButton"
+    );
+
+const progressOuter =
+    document.getElementById(
+        "progressOuter"
+    );
+
+const progressInner =
+    document.getElementById(
+        "progressInner"
+    );
+
+const cloudAudioBox =
+    document.getElementById(
+        "cloudAudioBox"
+    );
+
+const cloudAudioUrl =
+    document.getElementById(
+        "cloudAudioUrl"
+    );
+
+const cloudAudioInput =
+    document.getElementById(
+        "cloudAudioInput"
+    );
+
+const audioSelect =
+    document.getElementById(
+        "audioSelect"
+    );
+
+const refreshButton =
+    document.getElementById(
+        "refreshButton"
+    );
+
+const nowPlaying =
+    document.getElementById(
+        "nowPlaying"
+    );
+
+const repeatButton =
+    document.getElementById(
+        "repeatButton"
+    );
+
+const onceButton =
+    document.getElementById(
+        "onceButton"
+    );
+
+const saveButton =
+    document.getElementById(
+        "saveButton"
+    );
+
+const liveButton =
+    document.getElementById(
+        "liveButton"
+    );
+
+const status =
+    document.getElementById(
+        "status"
+    );
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+function setStatus(
+    message,
+    type = ""
+){
+
+    status.textContent =
+        message;
+
+    status.className =
+        "status";
+
+    if(type){
+
+        status.classList.add(
+            type
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   TOKEN
+   ========================================================= */
+
+function getToken(){
+
+    return localStorage.getItem(
+        TOKEN_KEY
+    );
+
+}
+
+
+/* =========================================================
+   AUTHORIZATION DISPLAY
+   ========================================================= */
+
+function updateAuthorization(){
+
+    const token =
+        getToken();
+
+    if(
+        token &&
+        token.length > 10
+    ){
+
+        tokenStatus.textContent =
+            "🔐 GitHub authorization is saved on this device.";
+
+        tokenStatus.className =
+            "tokenStatus success";
+
+        tokenInput.style.display =
+            "none";
+
+        tokenButton.textContent =
+            "🔑 CHANGE GITHUB TOKEN";
+
+    }else{
+
+        tokenStatus.textContent =
+            "⚠️ GitHub authorization is not saved.";
+
+        tokenStatus.className =
+            "tokenStatus warning";
+
+        tokenInput.style.display =
+            "none";
+
+        tokenButton.textContent =
+            "🔑 SET GITHUB TOKEN";
+
+    }
+
+}
+
+
+/* =========================================================
+   TOKEN BUTTON
+   ========================================================= */
+
+tokenButton.addEventListener(
+    "click",
+    function(){
+
+        if(
+            tokenInput.style.display ===
+            "block"
+        ){
+
+            saveToken();
+
+            return;
+
+        }
+
+        tokenInput.style.display =
+            "block";
+
+        tokenInput.value =
+            "";
+
+        tokenButton.textContent =
+            "💾 SAVE TOKEN";
+
+        tokenInput.focus();
+
+    }
+);
+
+
+/* =========================================================
+   SAVE TOKEN
+   ========================================================= */
+
+function saveToken(){
+
+    const token =
+        tokenInput.value.trim();
+
+    if(!token){
+
+        setStatus(
+            "❌ Please paste your GitHub token.",
+            "error"
+        );
+
+        return;
+
+    }
+
+    localStorage.setItem(
+        TOKEN_KEY,
+        token
+    );
+
+    tokenInput.value =
+        "";
+
+    tokenInput.style.display =
+        "none";
+
+    updateAuthorization();
+
+    setStatus(
+        "✅ GitHub token saved successfully.",
+        "success"
+    );
+
+    loadAudioFiles();
+
+}
+
+
+/* =========================================================
+   ENTER TOKEN
+   ========================================================= */
+
+tokenInput.addEventListener(
+    "keydown",
+    function(event){
+
+        if(
+            event.key ===
+            "Enter"
+        ){
+
+            saveToken();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   REQUIRE TOKEN
+   ========================================================= */
+
+function requireToken(){
+
+    const token =
+        getToken();
+
+    if(!token){
+
+        tokenInput.style.display =
+            "block";
+
+        tokenButton.textContent =
+            "💾 SAVE TOKEN";
+
+        tokenInput.focus();
+
+        throw new Error(
+            "Please save your GitHub token first."
+        );
+
+    }
+
+    return token;
+
+}
+
+
+/* =========================================================
+   LOAD EXISTING GITHUB AUDIO
+   ========================================================= */
+
+async function loadAudioFiles(){
+
+    audioSelect.innerHTML =
+        '<option value="">⏳ Loading songs...</option>';
+
+    try{
+
+        const url =
+            "https://api.github.com/repos/" +
+            GITHUB_USERNAME +
+            "/" +
+            REPOSITORY +
+            "/contents/" +
+            AUDIO_FOLDER +
+            "?t=" +
+            Date.now();
+
+
+        const headers = {
+
+            "Accept":
+                "application/vnd.github+json"
+
+        };
+
+
+        const token =
+            getToken();
+
+
+        if(token){
+
+            headers[
+                "Authorization"
+            ] =
+                "Bearer " + token;
+
+        }
+
+
+        const response =
+            await fetch(
+                url,
+                {
+                    method:"GET",
+                    headers:headers,
+                    cache:"no-store"
+                }
+            );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "Could not read the GitHub audio folder."
+            );
+
+        }
+
+
+        const files =
+            await response.json();
+
+
+        if(!Array.isArray(files)){
+
+            throw new Error(
+                "GitHub did not return the audio folder."
+            );
+
+        }
+
+
+        const audioFiles =
+            files
+            .filter(
+                function(file){
+
+                    return(
+                        file.type === "file" &&
+                        /\.(mp3|mpeg)$/i.test(
+                            file.name
+                        )
+                    );
+
+                }
+            )
+            .sort(
+                function(a,b){
+
+                    return a.name.localeCompare(
+                        b.name,
+                        undefined,
+                        {
+                            numeric:true,
+                            sensitivity:"base"
+                        }
+                    );
+
+                }
+            );
+
+
+        audioSelect.innerHTML =
+            "";
+
+
+        const firstOption =
+            document.createElement(
+                "option"
+            );
+
+        firstOption.value =
+            "";
+
+        firstOption.textContent =
+            audioFiles.length
+            ? "Select existing GitHub song"
+            : "No GitHub MP3 files found";
+
+
+        audioSelect.appendChild(
+            firstOption
+        );
+
+
+        audioFiles.forEach(
+            function(file){
+
+                const option =
+                    document.createElement(
+                        "option"
+                    );
+
+                option.value =
+                    "audio/" +
+                    file.name;
+
+                option.textContent =
+                    file.name
+                    .replace(
+                        /\.mp3$/i,
+                        ""
+                    )
+                    .replace(
+                        /_/g,
+                        " "
+                    );
+
+
+                audioSelect.appendChild(
+                    option
+                );
+
+            }
+        );
+
+
+        if(audioFiles.length){
+
+            setStatus(
+                "✅ " +
+                audioFiles.length +
+                " existing GitHub audio file" +
+                (
+                    audioFiles.length === 1
+                    ? ""
+                    : "s"
+                ) +
+                " found.",
+                "success"
+            );
+
+        }else{
+
+            setStatus(
+                "☁️ Cloudinary audio system is ready.",
+                "success"
+            );
+
+        }
+
+    }
+    catch(error){
+
+        console.error(
+            error
+        );
+
+        audioSelect.innerHTML =
+            '<option value="">❌ GitHub audio unavailable</option>';
+
+        setStatus(
+            "☁️ Cloudinary is ready. GitHub audio list unavailable.",
+            "warning"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   SELECT MP3
+   ========================================================= */
+
+audioUpload.addEventListener(
+    "change",
+    function(){
+
+        const file =
+            audioUpload.files[0];
+
+        if(!file){
+
+            fileName.textContent =
+                "No MP3 selected";
+
+            return;
+
+        }
+
+
+        if(
+            !/\.mp3$/i.test(
+                file.name
+            )
+        ){
+
+            fileName.textContent =
+                "❌ Please select an MP3 file.";
+
+            audioUpload.value =
+                "";
+
+            return;
+
+        }
+
+
+        fileName.textContent =
+            "🎵 " +
+            file.name +
+            " • " +
+            formatBytes(
+                file.size
+            );
+
+
+        cloudinaryAudioURL =
+            "";
+
+        cloudAudioInput.value =
+            "";
+
+        cloudAudioBox.style.display =
+            "none";
+
+        saveButton.disabled =
+            true;
+
+    }
+);
+
+
+/* =========================================================
+   FORMAT BYTES
+   ========================================================= */
+
+function formatBytes(
+    bytes
+){
+
+    if(bytes === 0)
+        return "0 Bytes";
+
+    const units = [
+        "Bytes",
+        "KB",
+        "MB",
+        "GB"
+    ];
+
+    const i =
+        Math.floor(
+            Math.log(bytes) /
+            Math.log(1024)
+        );
+
+    return(
+        parseFloat(
+            (
+                bytes /
+                Math.pow(
+                    1024,
+                    i
+                )
+            ).toFixed(2)
+        ) +
+        " " +
+        units[i]
+    );
+
+}
+
+
+/* =========================================================
+   UPLOAD AUDIO TO CLOUDINARY
+   ========================================================= */
+
+uploadButton.addEventListener(
+    "click",
+    function(){
+
+        const file =
+            audioUpload.files[0];
+
+
+        if(!file){
+
+            setStatus(
+                "❌ Please select an MP3 file first.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if(
+            !/\.mp3$/i.test(
+                file.name
+            )
+        ){
+
+            setStatus(
+                "❌ Only MP3 files are allowed.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        uploadButton.disabled =
+            true;
+
+        progressOuter.style.display =
+            "block";
+
+        progressInner.style.width =
+            "0%";
+
+
+        setStatus(
+            "☁️ Starting Cloudinary upload..."
+        );
+
+
+        const formData =
+            new FormData();
+
+
+        formData.append(
+            "file",
+            file
+        );
+
+
+        formData.append(
+            "upload_preset",
+            CLOUDINARY_UPLOAD_PRESET
+        );
+
+
+        const xhr =
+            new XMLHttpRequest();
+
+
+        xhr.open(
+            "POST",
+            CLOUDINARY_UPLOAD_URL
+        );
+
+
+        xhr.upload.addEventListener(
+            "progress",
+            function(event){
+
+                if(
+                    event.lengthComputable
+                ){
+
+                    const percent =
+                        (
+                            event.loaded /
+                            event.total
+                        ) *
+                        100;
+
+
+                    progressInner.style.width =
+                        percent.toFixed(1) +
+                        "%";
+
+
+                    setStatus(
+                        "☁️ Uploading to Cloudinary... " +
+                        percent.toFixed(0) +
+                        "%"
+                    );
+
+                }
+
+            }
+        );
+
+
+        xhr.onload =
+            function(){
+
+                uploadButton.disabled =
+                    false;
+
+
+                if(
+                    xhr.status < 200 ||
+                    xhr.status >= 300
+                ){
+
+                    let message =
+                        "Cloudinary upload failed.";
+
+                    try{
+
+                        const errorJSON =
+                            JSON.parse(
+                                xhr.responseText
+                            );
+
+                        if(
+                            errorJSON.error &&
+                            errorJSON.error.message
+                        ){
+
+                            message =
+                                errorJSON.error.message;
+
+                        }
+
+                    }
+                    catch(error){}
+
+
+                    progressOuter.style.display =
+                        "none";
+
+                    setStatus(
+                        "❌ " +
+                        message,
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                try{
+
+                    const result =
+                        JSON.parse(
+                            xhr.responseText
+                        );
+
+
+                    if(
+                        !result.secure_url
+                    ){
+
+                        throw new Error(
+                            "Cloudinary did not return an audio URL."
+                        );
+
+                    }
+
+
+                    cloudinaryAudioURL =
+                        result.secure_url;
+
+
+                    cloudAudioInput.value =
+                        cloudinaryAudioURL;
+
+
+                    cloudAudioUrl.textContent =
+                        cloudinaryAudioURL;
+
+
+                    cloudAudioBox.style.display =
+                        "block";
+
+
+                    progressInner.style.width =
+                        "100%";
+
+
+                    saveButton.disabled =
+                        false;
+
+
+                    setStatus(
+                        "✅ Audio uploaded successfully. Click SAVE & PLAY CLOUD AUDIO.",
+                        "success"
+                    );
+
+
+                    setTimeout(
+                        function(){
+
+                            progressOuter.style.display =
+                                "none";
+
+                        },
+                        1200
+                    );
+
+                }
+                catch(error){
+
+                    progressOuter.style.display =
+                        "none";
+
+                    setStatus(
+                        "❌ " +
+                        error.message,
+                        "error"
+                    );
+
+                }
+
+            };
+
+
+        xhr.onerror =
+            function(){
+
+                uploadButton.disabled =
+                    false;
+
+                progressOuter.style.display =
+                    "none";
+
+                setStatus(
+                    "❌ Network error while uploading to Cloudinary.",
+                    "error"
+                );
+
+            };
+
+
+        xhr.onabort =
+            function(){
+
+                uploadButton.disabled =
+                    false;
+
+                progressOuter.style.display =
+                    "none";
+
+                setStatus(
+                    "⚠️ Cloudinary upload cancelled.",
+                    "warning"
+                );
+
+            };
+
+
+        xhr.send(
+            formData
+        );
+
+    }
+);
+
+
+/* =========================================================
+   PLAY MODE - REPEAT
+   ========================================================= */
+
+repeatButton.addEventListener(
+    "click",
+    function(){
+
+        playMode =
+            "REPEAT";
+
+        repeatButton.classList.add(
+            "active"
+        );
+
+        onceButton.classList.remove(
+            "active"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   PLAY MODE - ONCE
+   ========================================================= */
+
+onceButton.addEventListener(
+    "click",
+    function(){
+
+        playMode =
+            "ONCE";
+
+        onceButton.classList.add(
+            "active"
+        );
+
+        repeatButton.classList.remove(
+            "active"
+        );
+
+    }
+);
+
+
+/* =========================================================
+   UPDATE CONFIG.JSON
+   ========================================================= */
+
+async function updateConfig(
+    config
+){
+
+    const token =
+        requireToken();
+
+
+    setStatus(
+        "⏳ Updating radio configuration..."
+    );
+
+
+    const apiURL =
+        "https://api.github.com/repos/" +
+        GITHUB_USERNAME +
+        "/" +
+        REPOSITORY +
+        "/contents/" +
+        CONFIG_FILE;
+
+
+    const getResponse =
+        await fetch(
+            apiURL,
+            {
+                method:"GET",
+
+                headers:{
+                    "Authorization":
+                        "Bearer " +
+                        token,
+
+                    "Accept":
+                        "application/vnd.github+json"
+                },
+
+                cache:"no-store"
+            }
+        );
+
+
+    if(
+        !getResponse.ok
+    ){
+
+        if(
+            getResponse.status === 401 ||
+            getResponse.status === 403
+        ){
+
+            localStorage.removeItem(
+                TOKEN_KEY
+            );
+
+            updateAuthorization();
+
+            throw new Error(
+                "GitHub authorization failed. Please enter a new token."
+            );
+
+        }
+
+
+        throw new Error(
+            "Could not read config.json."
+        );
+
+    }
+
+
+    const file =
+        await getResponse.json();
+
+
+    const json =
+        JSON.stringify(
+            config,
+            null,
+            2
+        );
+
+
+    const encoded =
+        btoa(
+            unescape(
+                encodeURIComponent(
+                    json
+                )
+            )
+        );
+
+
+    const putResponse =
+        await fetch(
+            apiURL,
+            {
+                method:"PUT",
+
+                headers:{
+                    "Authorization":
+                        "Bearer " +
+                        token,
+
+                    "Accept":
+                        "application/vnd.github+json",
+
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body:
+                    JSON.stringify({
+
+                        message:
+                            "Update Kulzzy Radio config",
+
+                        content:
+                            encoded,
+
+                        sha:
+                            file.sha
+
+                    })
+            }
+        );
+
+
+    if(
+        !putResponse.ok
+    ){
+
+        const errorText =
+            await putResponse.text();
+
+        throw new Error(
+            "GitHub config update failed: " +
+            errorText
+        );
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =========================================================
+   SAVE CLOUDINARY AUDIO
+   ========================================================= */
+
+saveButton.addEventListener(
+    "click",
+    async function(){
+
+        try{
+
+            if(!cloudinaryAudioURL){
+
+                setStatus(
+                    "❌ Upload an audio file to Cloudinary first.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            const title =
+                nowPlaying.value.trim();
+
+
+            const config = {
+
+                version:
+                    1,
+
+                currentAudio:
+                    cloudinaryAudioURL,
+
+                nowPlaying:
+                    title,
+
+                title:
+                    "AUTOMATIC AUDIO",
+
+                status:
+                    "AUDIO",
+
+                background:
+                    "",
+
+                volume:
+                    1,
+
+                playlistMode:
+                    false,
+
+                playMode:
+                    playMode,
+
+                refresh:
+                    1
+
+            };
+
+
+            saveButton.disabled =
+                true;
+
+
+            await updateConfig(
+                config
+            );
+
+
+            if(
+                playMode ===
+                "REPEAT"
+            ){
+
+                setStatus(
+                    "🔁 CLOUDINARY AUDIO SAVED — REPEAT SONG ACTIVE",
+                    "success"
+                );
+
+            }else{
+
+                setStatus(
+                    "▶️ CLOUDINARY AUDIO SAVED — PLAY ONCE ACTIVE",
+                    "success"
+                );
+
+            }
+
+        }
+        catch(error){
+
+            console.error(
+                error
+            );
+
+            setStatus(
+                "❌ " +
+                error.message,
+                "error"
+            );
+
+        }
+        finally{
+
+            saveButton.disabled =
+                false;
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   SAVE EXISTING GITHUB AUDIO
+   ========================================================= */
+
+audioSelect.addEventListener(
+    "change",
+    function(){
+
+        const selected =
+            audioSelect.value;
+
+        if(!selected){
+
+            return;
+
+        }
+
+
+        saveGithubAudio(
+            selected
+        );
+
+    }
+);
+
+
+/* =========================================================
+   SAVE GITHUB AUDIO
+   ========================================================= */
+
+async function saveGithubAudio(
+    audioFile
+){
+
+    try{
+
+        const title =
+            nowPlaying.value.trim();
+
+
+        const config = {
+
+            version:
+                1,
+
+            currentAudio:
+                audioFile,
+
+            nowPlaying:
+                title,
+
+            title:
+                "AUTOMATIC AUDIO",
+
+            status:
+                "AUDIO",
+
+            background:
+                "",
+
+            volume:
+                1,
+
+            playlistMode:
+                false,
+
+            playMode:
+                playMode,
+
+            refresh:
+                1
+
+        };
+
+
+        await updateConfig(
+            config
+        );
+
+
+        setStatus(
+            "✅ Existing GitHub audio is now playing.",
+            "success"
+        );
+
+    }
+    catch(error){
+
+        setStatus(
+            "❌ " +
+            error.message,
+            "error"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   REFRESH
+   ========================================================= */
+
+refreshButton.addEventListener(
+    "click",
+    function(){
+
+        loadAudioFiles();
+
+    }
+);
+
+
+/* =========================================================
+   LIVE ON AIR
+   ========================================================= */
+
+liveButton.addEventListener(
+    "click",
+    async function(){
+
+        try{
+
+            const config = {
+
+                version:
+                    1,
+
+                currentAudio:
+                    "audio/LIVE_ON_AIR_BDS_96KBPS-compressed.mp3",
+
+                nowPlaying:
+                    "",
+
+                title:
+                    "LIVE ON AIR",
+
+                status:
+                    "LIVE",
+
+                background:
+                    "",
+
+                volume:
+                    1,
+
+                playlistMode:
+                    false,
+
+                playMode:
+                    "REPEAT",
+
+                refresh:
+                    1
+
+            };
+
+
+            liveButton.disabled =
+                true;
+
+
+            await updateConfig(
+                config
+            );
+
+
+            setStatus(
+                "🔴 LIVE ON AIR MODE ACTIVATED",
+                "success"
+            );
+
+        }
+        catch(error){
+
+            console.error(
+                error
+            );
+
+            setStatus(
+                "❌ " +
+                error.message,
+                "error"
+            );
+
+        }
+        finally{
+
+            liveButton.disabled =
+                false;
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   START
+   ========================================================= */
+
+updateAuthorization();
+
+loadAudioFiles();
+
+
+/* =========================================================
+   REFRESH WHEN PANEL RETURNS
+   ========================================================= */
+
+document.addEventListener(
+    "visibilitychange",
+    function(){
+
+        if(
+            document.visibilityState ===
+            "visible"
+        ){
+
+            loadAudioFiles();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>
